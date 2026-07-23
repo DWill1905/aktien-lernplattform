@@ -95,7 +95,7 @@ export function renderQuiz(moduleId, lessonId) {
                 showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
             }
         }
-        evaluateAchievements({ progress: loadProgress(), modules: MODULES });
+        evaluateAchievements({ progress: loadProgress(), modules: MODULES }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
         evaluateBtn.setAttribute("disabled", "true");
         const index = mod.lessons.findIndex((l) => l.id === lesson.id);
         const next = mod.lessons[index + 1];

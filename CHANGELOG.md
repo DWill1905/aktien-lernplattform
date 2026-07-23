@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.38.0] - 2026-07-23
+- Gamification: Achievement-Unlock-Toast – sofortige Benachrichtigung, sobald ein neuer Erfolg freigeschaltet wird
+
 ## [1.37.0] - 2026-07-23
 - Gamification: Level-Up-Toast – beim Erreichen eines neuen Levels erscheint eine kurze Feier-Benachrichtigung
 

@@ -21,7 +21,9 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
       showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
     }
   }
-  evaluateAchievements({ progress: loadProgress(), modules: MODULES });
+  evaluateAchievements({ progress: loadProgress(), modules: MODULES }).forEach((a) =>
+    showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement")
+  );
 
   const paragraphs = lesson.content.map((p) => html(`<p>${p}</p>`));
   const index = mod.lessons.findIndex((l) => l.id === lesson.id);
