@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.37.0] - 2026-07-23
+- Gamification: Level-Up-Toast – beim Erreichen eines neuen Levels erscheint eine kurze Feier-Benachrichtigung
+
 ## [1.36.0] - 2026-07-23
 - Gamification: Neue Seite „Erfolge" (#/erfolge) mit allen Achievements, gesperrt/freigeschaltet; Navigationseintrag und Verlinkung vom Dashboard
 

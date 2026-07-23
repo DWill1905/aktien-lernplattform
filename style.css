@@ -586,3 +586,38 @@ canvas.chart {
 .breadcrumb a { color: var(--md-on-surface-variant); }
 
 .empty-state { text-align: center; color: var(--md-on-surface-variant); padding: 2rem 1rem; }
+
+/* ==========================================================================
+   Toasts (Level-up / Erfolge)
+   ========================================================================== */
+#toast-container {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  width: min(90vw, 420px);
+}
+.toast {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--md-shape-md);
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: var(--md-surface-container-highest);
+  color: var(--md-on-surface);
+  box-shadow: var(--md-elevation-3);
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast-level { background: var(--md-tertiary-container); color: var(--md-on-tertiary-container); }
+.toast-achievement { background: var(--md-primary-container); color: var(--md-on-primary-container); }

@@ -1,8 +1,9 @@
 import { el, html } from "../dom.js";
 import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, markLessonRead } from "../state.js";
-import { awardXp, XP_LESSON } from "../gamification.js";
+import { awardXp, XP_LESSON, levelForXp } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
+import { showToast } from "../toast.js";
 
 export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -13,7 +14,13 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
 
   const alreadyCompleted = loadProgress().lessons[lesson.id]?.completed ?? false;
   markLessonRead(lesson.id);
-  if (!alreadyCompleted) awardXp(XP_LESSON);
+  if (!alreadyCompleted) {
+    const result = awardXp(XP_LESSON);
+    if (result.leveledUp) {
+      const info = levelForXp(result.state.xp);
+      showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+    }
+  }
   evaluateAchievements({ progress: loadProgress(), modules: MODULES });
 
   const paragraphs = lesson.content.map((p) => html(`<p>${p}</p>`));
