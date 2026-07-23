@@ -1,7 +1,7 @@
 import { el, html } from "../dom.js";
 import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, markLessonRead } from "../state.js";
-import { awardXp, XP_LESSON, levelForXp, loadGamification } from "../gamification.js";
+import { awardXp, XP_LESSON, levelForXp, loadGamification, registerDailyGoalProgress, XP_DAILY_GOAL_BONUS } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 
@@ -19,6 +19,15 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
     if (result.leveledUp) {
       const info = levelForXp(result.state.xp);
       showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+    }
+    const goal = registerDailyGoalProgress();
+    if (goal.justCompleted) {
+      const bonusResult = awardXp(XP_DAILY_GOAL_BONUS);
+      showToast(`✅ Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level");
+      if (bonusResult.leveledUp) {
+        const info = levelForXp(bonusResult.state.xp);
+        showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+      }
     }
   }
   evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) =>

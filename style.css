@@ -308,6 +308,11 @@ main#app {
 .streak-day-label { font-size: 0.7rem; color: var(--md-on-surface-variant); text-transform: uppercase; }
 .streak-day-dot { font-size: 1rem; min-height: 1.2rem; }
 
+.daily-goal { margin-top: 0.9rem; font-size: 0.875rem; }
+.daily-goal.met { color: var(--md-success); font-weight: 500; }
+.daily-goal-bar { height: 6px; }
+.daily-goal.met .daily-goal-bar > span { background: var(--md-success); }
+
 .achievements-row { display: block; margin-top: 0.9rem; color: inherit; }
 .achievements-row:hover { text-decoration: none; }
 .achievements-row:hover .muted { color: var(--md-primary); }

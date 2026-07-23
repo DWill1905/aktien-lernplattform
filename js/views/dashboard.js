@@ -4,7 +4,7 @@ import { loadProgress, resetProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
-import { loadGamification, levelProgress, weekActivity, weekdayLabel } from "../gamification.js";
+import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus } from "../gamification.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
 export function renderDashboard() {
     const progress = loadProgress();
@@ -21,6 +21,13 @@ export function renderDashboard() {
         el("span", { class: "streak-day-label" }, [weekdayLabel(day.date)]),
         el("span", { class: "streak-day-dot" }, [day.active ? "🔥" : ""]),
     ])));
+    const goal = dailyGoalStatus(gamification);
+    const goalRow = el("div", { class: `daily-goal${goal.goalMet ? " met" : ""}` }, [
+        el("span", {}, [goal.goalMet ? "✅ Tagesziel erreicht" : `🎯 Tagesziel: ${goal.count} / ${goal.goal} Aktionen heute`]),
+        el("div", { class: "progress-bar daily-goal-bar" }, [
+            el("span", { style: `width:${Math.min(100, Math.round((goal.count / goal.goal) * 100))}%` }, []),
+        ]),
+    ]);
     const unlockedIds = new Set(loadUnlockedAchievements());
     const achievementIcons = ACHIEVEMENTS.map((a) => el("span", { class: `achievement-icon${unlockedIds.has(a.id) ? " unlocked" : ""}`, title: unlockedIds.has(a.id) ? `${a.title}: ${a.description}` : "Noch nicht freigeschaltet" }, [a.icon]));
     const totalLessons = totalLessonCount();
@@ -63,6 +70,7 @@ export function renderDashboard() {
             el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
             el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
             weekRow,
+            goalRow,
             el("a", { class: "achievements-row", href: "#/erfolge" }, [
                 el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),
                 el("div", { class: "achievement-icons" }, achievementIcons),

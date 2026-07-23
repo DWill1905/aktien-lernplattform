@@ -1,7 +1,7 @@
 import { el } from "../dom.js";
 import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, recordQuizResult } from "../state.js";
-import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp, loadGamification, registerQuizAttempt } from "../gamification.js";
+import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp, loadGamification, registerQuizAttempt, registerDailyGoalProgress, XP_DAILY_GOAL_BONUS, } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 export function renderQuiz(moduleId, lessonId) {
@@ -100,6 +100,15 @@ export function renderQuiz(moduleId, lessonId) {
                 showToast(`🔥 ${streakResult.streak} perfekte Quizzes in Folge! +${streakResult.bonusXp} Bonus-XP`, "level");
                 if (bonusResult.leveledUp) {
                     const info = levelForXp(bonusResult.state.xp);
+                    showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                }
+            }
+            const goal = registerDailyGoalProgress();
+            if (goal.justCompleted) {
+                const goalBonusResult = awardXp(XP_DAILY_GOAL_BONUS);
+                showToast(`✅ Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level");
+                if (goalBonusResult.leveledUp) {
+                    const info = levelForXp(goalBonusResult.state.xp);
                     showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
                 }
             }

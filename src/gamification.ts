@@ -4,6 +4,8 @@ export interface GamificationState {
   longestStreak: number;
   lastActiveDate: string | null;
   perfectQuizStreak: number;
+  dailyGoalDate: string | null;
+  dailyGoalCount: number;
 }
 
 const KEY = "boersenschule:gamification";
@@ -27,6 +29,8 @@ export const XP_QUIZ_CORRECT = 5;
 export const XP_QUIZ_PERFECT_BONUS = 10;
 export const XP_PERFECT_STREAK_BONUS = 25;
 export const PERFECT_STREAK_MILESTONE = 3;
+export const XP_DAILY_GOAL_BONUS = 15;
+export const DAILY_GOAL = 3;
 
 function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
@@ -45,7 +49,7 @@ function addDays(date: string, delta: number): string {
 }
 
 function emptyState(): GamificationState {
-  return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0 };
+  return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0, dailyGoalDate: null, dailyGoalCount: 0 };
 }
 
 export function loadGamification(): GamificationState {
@@ -59,6 +63,8 @@ export function loadGamification(): GamificationState {
       longestStreak: parsed.longestStreak ?? 0,
       lastActiveDate: parsed.lastActiveDate ?? null,
       perfectQuizStreak: parsed.perfectQuizStreak ?? 0,
+      dailyGoalDate: parsed.dailyGoalDate ?? null,
+      dailyGoalCount: parsed.dailyGoalCount ?? 0,
     };
   } catch {
     return emptyState();
@@ -87,6 +93,37 @@ export function registerQuizAttempt(perfect: boolean): QuizStreakResult {
   saveGamification(state);
   const bonusXp = perfect && state.perfectQuizStreak % PERFECT_STREAK_MILESTONE === 0 ? XP_PERFECT_STREAK_BONUS : 0;
   return { streak: state.perfectQuizStreak, bonusXp };
+}
+
+export interface DailyGoalStatus {
+  count: number;
+  goal: number;
+  goalMet: boolean;
+}
+
+/** Fortschritt zum Tagesziel für die aktuelle Anzeige (ohne Änderung des Zählers). */
+export function dailyGoalStatus(state: GamificationState): DailyGoalStatus {
+  const count = state.dailyGoalDate === todayStr() ? state.dailyGoalCount : 0;
+  return { count, goal: DAILY_GOAL, goalMet: count >= DAILY_GOAL };
+}
+
+export interface DailyGoalResult extends DailyGoalStatus {
+  justCompleted: boolean;
+}
+
+/** Zählt eine abgeschlossene Lern-Aktion für das Tagesziel; meldet, ob das Ziel gerade erstmals erreicht wurde. */
+export function registerDailyGoalProgress(): DailyGoalResult {
+  const state = loadGamification();
+  const today = todayStr();
+  if (state.dailyGoalDate !== today) {
+    state.dailyGoalDate = today;
+    state.dailyGoalCount = 0;
+  }
+  const wasMet = state.dailyGoalCount >= DAILY_GOAL;
+  state.dailyGoalCount += 1;
+  saveGamification(state);
+  const goalMet = state.dailyGoalCount >= DAILY_GOAL;
+  return { count: state.dailyGoalCount, goal: DAILY_GOAL, goalMet, justCompleted: goalMet && !wasMet };
 }
 
 /** Aktualisiert die Tagesserie anhand des heutigen Datums (Lücke von genau 1 Tag verlängert die Serie). */

@@ -20,6 +20,8 @@ export const XP_QUIZ_CORRECT = 5;
 export const XP_QUIZ_PERFECT_BONUS = 10;
 export const XP_PERFECT_STREAK_BONUS = 25;
 export const PERFECT_STREAK_MILESTONE = 3;
+export const XP_DAILY_GOAL_BONUS = 15;
+export const DAILY_GOAL = 3;
 function todayStr() {
     return new Date().toISOString().slice(0, 10);
 }
@@ -34,7 +36,7 @@ function addDays(date, delta) {
     return d.toISOString().slice(0, 10);
 }
 function emptyState() {
-    return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0 };
+    return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0, dailyGoalDate: null, dailyGoalCount: 0 };
 }
 export function loadGamification() {
     const raw = localStorage.getItem(KEY);
@@ -48,6 +50,8 @@ export function loadGamification() {
             longestStreak: parsed.longestStreak ?? 0,
             lastActiveDate: parsed.lastActiveDate ?? null,
             perfectQuizStreak: parsed.perfectQuizStreak ?? 0,
+            dailyGoalDate: parsed.dailyGoalDate ?? null,
+            dailyGoalCount: parsed.dailyGoalCount ?? 0,
         };
     }
     catch {
@@ -69,6 +73,25 @@ export function registerQuizAttempt(perfect) {
     saveGamification(state);
     const bonusXp = perfect && state.perfectQuizStreak % PERFECT_STREAK_MILESTONE === 0 ? XP_PERFECT_STREAK_BONUS : 0;
     return { streak: state.perfectQuizStreak, bonusXp };
+}
+/** Fortschritt zum Tagesziel für die aktuelle Anzeige (ohne Änderung des Zählers). */
+export function dailyGoalStatus(state) {
+    const count = state.dailyGoalDate === todayStr() ? state.dailyGoalCount : 0;
+    return { count, goal: DAILY_GOAL, goalMet: count >= DAILY_GOAL };
+}
+/** Zählt eine abgeschlossene Lern-Aktion für das Tagesziel; meldet, ob das Ziel gerade erstmals erreicht wurde. */
+export function registerDailyGoalProgress() {
+    const state = loadGamification();
+    const today = todayStr();
+    if (state.dailyGoalDate !== today) {
+        state.dailyGoalDate = today;
+        state.dailyGoalCount = 0;
+    }
+    const wasMet = state.dailyGoalCount >= DAILY_GOAL;
+    state.dailyGoalCount += 1;
+    saveGamification(state);
+    const goalMet = state.dailyGoalCount >= DAILY_GOAL;
+    return { count: state.dailyGoalCount, goal: DAILY_GOAL, goalMet, justCompleted: goalMet && !wasMet };
 }
 /** Aktualisiert die Tagesserie anhand des heutigen Datums (Lücke von genau 1 Tag verlängert die Serie). */
 function touchStreak(state) {

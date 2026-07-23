@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.41.0] - 2026-07-23
+- Gamification: Tägliches Lernziel (3 Lektionen/Quizzes pro Tag) mit Fortschrittsanzeige im Dashboard und +15 Bonus-XP bei Zielerreichung
+
 ## [1.40.0] - 2026-07-23
 - Gamification: Perfekte-Quiz-Serie – ab 3 perfekten Quizzes in Folge gibt es +25 Bonus-XP (alle weiteren 3er-Meilensteine ebenfalls) sowie das neue Erfolg „Auf Serie"
 
