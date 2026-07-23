@@ -226,5 +226,50 @@ export const technischeAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "handelsvolumen-liquiditaet",
+      moduleId: "technische-analyse",
+      title: "Handelsvolumen und Liquidität",
+      summary: "Wie viele Stücke gehandelt werden, verrät, wie ernst eine Kursbewegung zu nehmen ist.",
+      content: [
+        "Das <strong>Handelsvolumen</strong> gibt an, wie viele Aktien in einem Zeitraum gehandelt wurden. In den meisten Charts wird es als Balken unter dem Kursverlauf dargestellt. Volumen misst die Beteiligung – also wie viele Marktteilnehmer an einer Bewegung mitwirken.",
+        "Eine zentrale Regel der technischen Analyse lautet: <strong>Volumen bestätigt den Preis</strong>. Ein Kursausbruch oder Trend, der von hohem Volumen begleitet wird, gilt als glaubwürdiger als eine Bewegung bei dünnem Handel. Steigt ein Kurs dagegen bei stetig fallendem Volumen, kann das auf nachlassende Dynamik und eine mögliche Erschöpfung des Trends hindeuten (eine sogenannte Divergenz).",
+        "Auffällige <strong>Volumenspitzen</strong> treten häufig an Wendepunkten und bei wichtigen Nachrichten auf – etwa Quartalszahlen oder Übernahmegerüchten. Sie zeigen, dass viele Anleger gleichzeitig ihre Einschätzung überdenken und handeln.",
+        "Eng mit dem Volumen verbunden ist die <strong>Liquidität</strong>: Ein liquider, viel gehandelter Wert hat eine enge Geld-Brief-Spanne (Spread) und lässt sich kaufen oder verkaufen, ohne den Kurs stark zu bewegen. Bei wenig gehandelten Nebenwerten mit geringem Volumen ist der Spread größer, und schon eine mittelgroße Order kann den Kurs spürbar verschieben (Slippage).",
+        "Für die Praxis heißt das: Volumen ist selten ein eigenständiges Kauf- oder Verkaufssignal, aber ein wertvoller <strong>Bestätigungsindikator</strong>. Ein Kurssignal, das durch hohes Volumen gestützt wird, ist verlässlicher als eines im Handel bei dünner Beteiligung.",
+      ],
+      quiz: [
+        {
+          question: "Was misst das Handelsvolumen?",
+          options: [
+            { text: "Die Anzahl der in einem Zeitraum gehandelten Aktien", correct: true },
+            { text: "Den Höchstkurs des Tages", correct: false },
+            { text: "Die Dividende je Aktie", correct: false },
+            { text: "Die Anzahl der Aktionäre eines Unternehmens", correct: false },
+          ],
+          explanation: "Das Volumen zählt die gehandelten Stücke und zeigt so, wie viele Marktteilnehmer an einer Bewegung beteiligt sind.",
+        },
+        {
+          question: "Was bedeutet die Regel \"Volumen bestätigt den Preis\"?",
+          options: [
+            { text: "Ein Kurs darf sich nur bei hohem Volumen bewegen", correct: false },
+            { text: "Eine Kursbewegung mit hohem Volumen gilt als glaubwürdiger als eine bei dünnem Handel", correct: true },
+            { text: "Das Volumen legt den Schlusskurs fest", correct: false },
+            { text: "Hohes Volumen garantiert steigende Kurse", correct: false },
+          ],
+          explanation: "Hohes Volumen zeigt breite Beteiligung und macht Ausbrüche oder Trends verlässlicher; dünnes Volumen macht Bewegungen anfälliger für schnelle Umkehrungen.",
+        },
+        {
+          question: "Welche Folge hat geringe Liquidität eines Wertes?",
+          options: [
+            { text: "Ein engerer Spread und stabilere Kurse", correct: false },
+            { text: "Ein größerer Geld-Brief-Spread, und schon mittlere Orders können den Kurs spürbar bewegen (Slippage)", correct: true },
+            { text: "Garantiert höhere Dividenden", correct: false },
+            { text: "Steuerfreiheit auf Kursgewinne", correct: false },
+          ],
+          explanation: "Bei geringer Liquidität ist die Geld-Brief-Spanne breiter und der Kurs reagiert empfindlicher auf einzelne Orders – der Handel wird teurer und schwankungsanfälliger.",
+        },
+      ],
+    },
   ],
 };
