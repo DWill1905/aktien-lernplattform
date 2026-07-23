@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.50.0] - 2026-07-23
+- Gamification: Level-Kurve neu balanciert (Level 20 jetzt bei vollständigem, perfektem Durchlauf aller Lektionen/Quizzes inkl. Boni erreichbar statt erst bei ~4x so viel XP); README um Gamification-Abschnitt und korrigierte Modul-/Lektionszahlen ergänzt
+
 ## [1.49.0] - 2026-07-23
 - Gamification: Neue Dashboard-Karte „Deine Rekorde" mit persönlichen Bestwerten (längste Streak, meiste XP an einem Tag)
 

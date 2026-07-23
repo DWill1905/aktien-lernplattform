@@ -186,27 +186,29 @@ export interface LevelInfo {
   xpRequired: number;
 }
 
+// Kurve so gestuft, dass Level 20 bei vollständigem, perfektem Durchlauf aller
+// Lektionen/Quizzes samt Serien-/Tagesziel-Boni (~1845 XP) erreichbar ist.
 const LEVELS: { title: string; xpRequired: number }[] = [
   { title: "Anfänger", xpRequired: 0 },
-  { title: "Sparfuchs", xpRequired: 50 },
-  { title: "Marktbeobachter", xpRequired: 120 },
-  { title: "Analyst", xpRequired: 220 },
-  { title: "Strategie-Kenner", xpRequired: 350 },
-  { title: "Chart-Leser", xpRequired: 520 },
-  { title: "Trader", xpRequired: 720 },
-  { title: "Risikomanager", xpRequired: 960 },
-  { title: "Portfolio-Profi", xpRequired: 1250 },
-  { title: "Value-Investor", xpRequired: 1600 },
-  { title: "Fundamental-Experte", xpRequired: 2000 },
-  { title: "Technik-Experte", xpRequired: 2450 },
-  { title: "Markt-Kenner", xpRequired: 2950 },
-  { title: "Vollprofi", xpRequired: 3500 },
-  { title: "Börsen-Meister", xpRequired: 4100 },
-  { title: "Investment-Guru", xpRequired: 4750 },
-  { title: "Kapitalmarkt-Experte", xpRequired: 5450 },
-  { title: "Wall-Street-Niveau", xpRequired: 6200 },
-  { title: "Börsenlegende", xpRequired: 7000 },
-  { title: "Aktien-Champion", xpRequired: 7850 },
+  { title: "Sparfuchs", xpRequired: 20 },
+  { title: "Marktbeobachter", xpRequired: 50 },
+  { title: "Analyst", xpRequired: 90 },
+  { title: "Strategie-Kenner", xpRequired: 150 },
+  { title: "Chart-Leser", xpRequired: 210 },
+  { title: "Trader", xpRequired: 290 },
+  { title: "Risikomanager", xpRequired: 360 },
+  { title: "Portfolio-Profi", xpRequired: 450 },
+  { title: "Value-Investor", xpRequired: 550 },
+  { title: "Fundamental-Experte", xpRequired: 650 },
+  { title: "Technik-Experte", xpRequired: 750 },
+  { title: "Markt-Kenner", xpRequired: 860 },
+  { title: "Vollprofi", xpRequired: 980 },
+  { title: "Börsen-Meister", xpRequired: 1100 },
+  { title: "Investment-Guru", xpRequired: 1230 },
+  { title: "Kapitalmarkt-Experte", xpRequired: 1370 },
+  { title: "Wall-Street-Niveau", xpRequired: 1510 },
+  { title: "Börsenlegende", xpRequired: 1650 },
+  { title: "Aktien-Champion", xpRequired: 1800 },
 ];
 
 export function levelForXp(xp: number): LevelInfo {
