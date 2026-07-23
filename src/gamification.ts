@@ -6,6 +6,9 @@ export interface GamificationState {
   perfectQuizStreak: number;
   dailyGoalDate: string | null;
   dailyGoalCount: number;
+  xpTodayDate: string | null;
+  xpToday: number;
+  bestDayXp: number;
 }
 
 const KEY = "boersenschule:gamification";
@@ -49,7 +52,18 @@ function addDays(date: string, delta: number): string {
 }
 
 function emptyState(): GamificationState {
-  return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0, dailyGoalDate: null, dailyGoalCount: 0 };
+  return {
+    xp: 0,
+    streak: 0,
+    longestStreak: 0,
+    lastActiveDate: null,
+    perfectQuizStreak: 0,
+    dailyGoalDate: null,
+    dailyGoalCount: 0,
+    xpTodayDate: null,
+    xpToday: 0,
+    bestDayXp: 0,
+  };
 }
 
 export function loadGamification(): GamificationState {
@@ -65,6 +79,9 @@ export function loadGamification(): GamificationState {
       perfectQuizStreak: parsed.perfectQuizStreak ?? 0,
       dailyGoalDate: parsed.dailyGoalDate ?? null,
       dailyGoalCount: parsed.dailyGoalCount ?? 0,
+      xpTodayDate: parsed.xpTodayDate ?? null,
+      xpToday: parsed.xpToday ?? 0,
+      bestDayXp: parsed.bestDayXp ?? 0,
     };
   } catch {
     return emptyState();
@@ -152,6 +169,13 @@ export function awardXp(amount: number): XpResult {
   const previousLevel = levelForXp(state.xp).level;
   touchStreak(state);
   state.xp += amount;
+  const today = todayStr();
+  if (state.xpTodayDate !== today) {
+    state.xpTodayDate = today;
+    state.xpToday = 0;
+  }
+  state.xpToday += amount;
+  state.bestDayXp = Math.max(state.bestDayXp, state.xpToday);
   saveGamification(state);
   return { state, gained: amount, leveledUp: levelForXp(state.xp).level > previousLevel, previousLevel };
 }

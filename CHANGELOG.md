@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.49.0] - 2026-07-23
+- Gamification: Neue Dashboard-Karte „Deine Rekorde" mit persönlichen Bestwerten (längste Streak, meiste XP an einem Tag)
+
 ## [1.48.0] - 2026-07-23
 - Gamification: 4 neue Erfolge – Frühaufsteher, Nachteule, Comeback (Streak nach Pause neu gestartet) und Wissensdurst (5 Aktionen an einem Tag)
 

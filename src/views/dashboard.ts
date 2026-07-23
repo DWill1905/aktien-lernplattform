@@ -68,6 +68,20 @@ export function renderDashboard(): HTMLElement {
     ]);
   });
 
+  const recordsCard =
+    gamification.longestStreak > 0 || gamification.bestDayXp > 0
+      ? el("div", { class: "card stat-row records-card" }, [
+          el("div", { class: "stat" }, [
+            el("div", { class: "label" }, ["Längste Streak"]),
+            el("div", { class: "value" }, [`🔥 ${gamification.longestStreak} Tag${gamification.longestStreak === 1 ? "" : "e"}`]),
+          ]),
+          el("div", { class: "stat" }, [
+            el("div", { class: "label" }, ["Meiste XP an einem Tag"]),
+            el("div", { class: "value" }, [`⚡ ${gamification.bestDayXp} XP`]),
+          ]),
+        ])
+      : null;
+
   const resetProgressBtn = el("button", { class: "btn secondary" }, ["Lernfortschritt zurücksetzen"]) as HTMLButtonElement;
   resetProgressBtn.addEventListener("click", () => {
     if (confirm("Gesamten Lernfortschritt zurücksetzen? Alle als gelesen markierten Lektionen und Quiz-Ergebnisse gehen verloren.")) {
@@ -104,6 +118,8 @@ export function renderDashboard(): HTMLElement {
       el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
       completedLessons > 0 ? resetProgressBtn : null,
     ]),
+    recordsCard ? el("h2", {}, ["Deine Rekorde"]) : null,
+    recordsCard,
     el("div", { class: "grid" }, moduleCards),
     el("h2", {}, ["Portfolio-Simulator"]),
     el("a", { class: "card module-card", href: "#/portfolio" }, [
