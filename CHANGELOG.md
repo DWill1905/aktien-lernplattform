@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.10.0] - 2026-07-23
+- Dashboard: Gesamt-Lernfortschritt über alle Module (abgeschlossene Lektionen, Prozentbalken)
+
 ## [1.9.0] - 2026-07-23
 - Barrierefreiheit: Quiz-Optionen sind jetzt echte Buttons (Tastaturbedienung, Fokus-Ring, aria-pressed, Radiogroup-Semantik)
 

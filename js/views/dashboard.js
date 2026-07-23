@@ -1,5 +1,5 @@
 import { el } from "../dom.js";
-import { MODULES } from "../content/index.js";
+import { MODULES, totalLessonCount } from "../content/index.js";
 import { loadProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
@@ -9,6 +9,9 @@ export function renderDashboard() {
     const portfolio = loadPortfolio();
     const value = portfolioValue(portfolio);
     const totalReturn = (value - STARTKAPITAL) / STARTKAPITAL;
+    const totalLessons = totalLessonCount();
+    const completedLessons = MODULES.reduce((sum, m) => sum + m.lessons.filter((l) => progress.lessons[l.id]?.completed).length, 0);
+    const overallPct = totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0;
     const moduleCards = MODULES.map((mod) => {
         const done = mod.lessons.filter((l) => progress.lessons[l.id]?.completed).length;
         const pct = mod.lessons.length ? Math.round((done / mod.lessons.length) * 100) : 0;
@@ -24,6 +27,10 @@ export function renderDashboard() {
         el("h1", {}, ["Willkommen in der Börsenschule"]),
         el("p", { class: "muted" }, [
             "Lerne die Grundlagen des Aktien-Investments, Fundamentalanalyse und technische Analyse — und probiere dein Wissen risikofrei im Portfolio-Simulator aus.",
+        ]),
+        el("div", { class: "card overall-progress" }, [
+            el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
+            el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
         ]),
         el("div", { class: "grid" }, moduleCards),
         el("h2", {}, ["Portfolio-Simulator"]),
