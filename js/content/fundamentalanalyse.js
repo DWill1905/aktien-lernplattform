@@ -56,7 +56,7 @@ export const fundamentalanalyse = {
             content: [
                 "Die Gewinn- und Verlustrechnung (GuV) zeigt, anders als die Bilanz, die Entwicklung über einen <strong>Zeitraum</strong> (z. B. ein Geschäftsjahr): Wie viel Umsatz wurde erzielt, welche Kosten sind angefallen, was bleibt am Ende übrig.",
                 "Der <strong>Umsatz</strong> (Revenue) steht ganz oben. Danach folgen die Kosten in Stufen: Materialkosten, Personalkosten, Abschreibungen, Zinsen, Steuern. Jede Stufe liefert eine eigene aussagekräftige Zwischengröße.",
-                "Das <strong>EBIT</strong> (Gewinn vor Zinsen und Steuern) zeigt die operative Ertragskraft, unabhängig von Finanzierung und Steuersituation – nützlich, um Unternehmen unterschiedlicher Länder oder Kapitalstrukturen zu vergleichen. Das <strong>EBITDA</strong> rechnet zusätzlich Abschreibungen heraus und zeigt die reine Cash-Ertragskraft vor solchen buchhalterischen Effekten.",
+                "Das <strong>EBIT</strong> (Gewinn vor Zinsen und Steuern) zeigt die operative Ertragskraft, unabhängig von Finanzierung und Steuersituation – nützlich, um Unternehmen unterschiedlicher Länder oder Kapitalstrukturen zu vergleichen. Das <strong>EBITDA</strong> rechnet zusätzlich Abschreibungen heraus und dient als grobe Näherung der operativen Ertragskraft vor buchhalterischen Abschreibungseffekten – es ist allerdings kein echter Cashflow, wie die Lektion zur Kapitalflussrechnung zeigt.",
                 "Der <strong>Nettogewinn</strong> (Jahresüberschuss) ganz unten ist das, was nach allen Kosten, Zinsen und Steuern übrig bleibt – die Basis für die Kennzahl <strong>Gewinn je Aktie</strong> (Earnings per Share, EPS), die den Gewinn durch die Anzahl der Aktien teilt.",
                 "Wichtig: Ein hoher Umsatz allein sagt wenig aus. Entscheidend sind die <strong>Margen</strong> – wie viel vom Umsatz tatsächlich als Gewinn hängen bleibt. Ein Unternehmen mit kleinerem Umsatz, aber hoher Marge, kann profitabler sein als ein Umsatzriese mit dünner Marge.",
             ],
@@ -90,6 +90,51 @@ export const fundamentalanalyse = {
                         { text: "Weil der Umsatz gesetzlich gedeckelt ist", correct: false },
                     ],
                     explanation: "Zwei Unternehmen mit gleichem Umsatz können sehr unterschiedlich profitabel sein – die Marge zeigt, wie effizient aus Umsatz Gewinn wird.",
+                },
+            ],
+        },
+        {
+            id: "cashflow-free-cashflow",
+            moduleId: "fundamentalanalyse",
+            title: "Cashflow und Free Cashflow",
+            summary: "Gewinn ist eine Meinung, Cash ist ein Fakt – warum der Geldfluss oft mehr verrät als der Gewinn.",
+            content: [
+                "Der bilanzielle Gewinn enthält buchhalterische Spielräume: Abschreibungen, Rückstellungen und der Zeitpunkt der Umsatzbuchung lassen sich in Grenzen gestalten. Der tatsächliche Geldfluss ist deutlich schwerer zu \"schönen\". Deshalb gilt an der Börse: \"Cash is king\" – Gewinn ist eine Meinung, Cash ist ein Fakt.",
+                "Die <strong>Kapitalflussrechnung</strong> (Cashflow Statement) zeigt, woher das Geld eines Unternehmens im Betrachtungszeitraum kam und wohin es floss. Sie gliedert sich in drei Bereiche: <strong>operativer Cashflow</strong> (aus dem laufenden Kerngeschäft), <strong>Investitions-Cashflow</strong> (Käufe/Verkäufe von Anlagen und Beteiligungen) und <strong>Finanzierungs-Cashflow</strong> (Aufnahme oder Tilgung von Kapital, Dividenden).",
+                "Der <strong>operative Cashflow</strong> ist besonders aussagekräftig: Er zeigt, ob das Kerngeschäft real Geld einbringt. Ein Unternehmen kann in der GuV Gewinne ausweisen und trotzdem einen schwachen oder negativen operativen Cashflow haben – ein Warnsignal, das im reinen Gewinn oft verborgen bleibt.",
+                "Der <strong>Free Cashflow</strong> (freier Cashflow) ist der operative Cashflow abzüglich der nötigen Investitionen (Capex). Er ist das Geld, das dem Unternehmen frei zur Verfügung steht – für Dividenden, Schuldenabbau oder Aktienrückkäufe. Nachhaltige Dividenden sollten aus dem Free Cashflow bezahlbar sein.",
+                "Wichtig zur Abgrenzung: Das oft zitierte <strong>EBITDA</strong> ist nicht dasselbe wie Cashflow. Es blendet Abschreibungen aus, ignoriert aber Investitionen, Veränderungen im Umlaufvermögen, Zinsen und Steuern – die alle echtes Geld kosten. Der Free Cashflow ist daher das ehrlichere Maß für die tatsächliche Finanzkraft.",
+            ],
+            quiz: [
+                {
+                    question: "Warum ist der operative Cashflow oft aussagekräftiger als der ausgewiesene Gewinn?",
+                    options: [
+                        { text: "Weil er gesetzlich immer höher sein muss als der Gewinn", correct: false },
+                        { text: "Weil der tatsächliche Geldfluss schwerer buchhalterisch zu gestalten ist als der Gewinn", correct: true },
+                        { text: "Weil er die Steuerlast eines Unternehmens angibt", correct: false },
+                        { text: "Weil er die Dividende exakt vorschreibt", correct: false },
+                    ],
+                    explanation: "Gewinne lassen sich über Abschreibungen, Rückstellungen und Buchungszeitpunkte beeinflussen; der reale Geldzufluss aus dem Kerngeschäft ist robuster.",
+                },
+                {
+                    question: "Wie ist der Free Cashflow definiert?",
+                    options: [
+                        { text: "Umsatz abzüglich aller Steuern", correct: false },
+                        { text: "Operativer Cashflow abzüglich der nötigen Investitionen (Capex)", correct: true },
+                        { text: "Gewinn zuzüglich der Dividende", correct: false },
+                        { text: "Eigenkapital geteilt durch die Bilanzsumme", correct: false },
+                    ],
+                    explanation: "Der Free Cashflow ist das nach Investitionen frei verfügbare Geld – die Basis für Dividenden, Schuldenabbau oder Rückkäufe.",
+                },
+                {
+                    question: "Warum ist EBITDA nicht mit dem tatsächlichen Cashflow gleichzusetzen?",
+                    options: [
+                        { text: "Weil EBITDA Investitionen, Working Capital, Zinsen und Steuern ausblendet, die echtes Geld kosten", correct: true },
+                        { text: "Weil EBITDA immer negativ ist", correct: false },
+                        { text: "Weil EBITDA nur bei Banken berechnet wird", correct: false },
+                        { text: "Weil EBITDA die Dividende bereits enthält", correct: false },
+                    ],
+                    explanation: "EBITDA rechnet zwar Abschreibungen heraus, lässt aber wesentliche Zahlungsströme außen vor – der Free Cashflow bildet die reale Finanzkraft ehrlicher ab.",
                 },
             ],
         },

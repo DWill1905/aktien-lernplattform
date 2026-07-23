@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.5.0] - 2026-07-23
+- Neue Fundamentalanalyse-Lektion „Cashflow und Free Cashflow" (Kapitalflussrechnung, operativer Cashflow, Free Cashflow, EBITDA-Abgrenzung) mit Quiz
+- GuV-Lektion: EBITDA-Formulierung präzisiert (EBITDA ist kein echter Cashflow)
+
 ## [1.4.0] - 2026-07-23
 - Neue Grundlagen-Lektion „Inflation und Realrendite" (Kaufkraft, Nominal- vs. Realrendite, Aktien als partieller Inflationsschutz) mit Quiz
 
