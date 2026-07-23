@@ -94,5 +94,50 @@ export const risikomanagement = {
                 },
             ],
         },
+        {
+            id: "stop-loss-trailing-stop",
+            moduleId: "risikomanagement",
+            title: "Stop-Loss und Trailing Stop",
+            summary: "Der Stop ist die Lebensversicherung des Traders – richtig gesetzt begrenzt er Verluste und sichert Gewinne.",
+            content: [
+                "Ein <strong>Stop-Loss</strong> ist der vorab definierte Punkt, an dem ein Trade mit Verlust geschlossen wird. Sein eigentlicher Zweck ist Disziplin: Die Ausstiegsentscheidung wird getroffen, bevor Emotionen wie Hoffnung oder Angst im Verlust die Kontrolle übernehmen.",
+                "Für die <strong>Platzierung</strong> gibt es mehrere professionelle Ansätze: unterhalb einer markttechnischen Unterstützung oder des letzten Swing-Tiefs, anhand der Volatilität (z. B. ein Vielfaches der durchschnittlichen Schwankungsbreite, ATR) oder als fester Prozentsatz. Der Stop sollte dort liegen, wo die ursprüngliche Trade-Idee als widerlegt gilt – nicht an einer willkürlichen Zahl.",
+                "Dabei gilt ein Spannungsfeld: Ein <strong>zu enger Stop</strong> wird oft schon vom normalen Kursrauschen ausgelöst, ein <strong>zu weiter Stop</strong> vergrößert das Risiko und zwingt zu einer kleineren Position. Beide Extreme kosten Rendite – die Kunst liegt in der Balance.",
+                "Ein <strong>Trailing Stop</strong> (nachziehender Stop) wandert mit steigendem Kurs nach oben mit, niemals aber zurück nach unten. Steigt die Aktie, wird der Stop nachgezogen und sichert einen wachsenden Teil des Gewinns; fällt sie, greift der Stop auf dem zuletzt erreichten Niveau. So setzt er die Regel \"Gewinne laufen lassen, Verluste begrenzen\" mechanisch um.",
+                "Wichtig: Ein im Markt platzierter Stop schützt auch dann, wenn du nicht am Bildschirm bist. Ein rein \"mentaler\" Stop funktioniert nur, wenn er im entscheidenden Moment tatsächlich diszipliniert ausgeführt wird – erfahrungsgemäß die größere Schwäche.",
+            ],
+            quiz: [
+                {
+                    question: "Was ist der eigentliche Zweck eines Stop-Loss?",
+                    options: [
+                        { text: "Den maximalen Gewinn zu garantieren", correct: false },
+                        { text: "Verluste zu begrenzen und die Ausstiegsentscheidung diszipliniert vor dem Emotionsmoment festzulegen", correct: true },
+                        { text: "Die Steuer auf Kursgewinne zu senken", correct: false },
+                        { text: "Die Dividende zu erhöhen", correct: false },
+                    ],
+                    explanation: "Der Stop legt den Ausstieg fest, bevor Hoffnung oder Angst im Verlust die Entscheidung verzerren – Verlustbegrenzung durch Disziplin.",
+                },
+                {
+                    question: "Was kennzeichnet einen Trailing Stop?",
+                    options: [
+                        { text: "Er wird täglich neu zufällig gesetzt", correct: false },
+                        { text: "Er zieht mit steigendem Kurs nach oben mit, fällt aber nie zurück", correct: true },
+                        { text: "Er verkauft automatisch bei jedem kleinen Kursrücksetzer", correct: false },
+                        { text: "Er gilt nur für Anleihen", correct: false },
+                    ],
+                    explanation: "Der Trailing Stop sichert bei steigenden Kursen zunehmend Gewinn, bleibt bei fallenden Kursen aber auf dem zuletzt erreichten Niveau stehen.",
+                },
+                {
+                    question: "Warum ist ein zu eng gesetzter Stop problematisch?",
+                    options: [
+                        { text: "Weil er häufig schon vom normalen Kursrauschen ausgelöst wird und man gute Trades vorzeitig verlässt", correct: true },
+                        { text: "Weil enge Stops gesetzlich verboten sind", correct: false },
+                        { text: "Weil er die Positionsgröße automatisch verkleinert", correct: false },
+                        { text: "Weil er die Dividende gefährdet", correct: false },
+                    ],
+                    explanation: "Zu enge Stops reagieren auf zufällige Schwankungen und stoppen aus, bevor sich die Trade-Idee entfalten kann – zu weite Stops erhöhen dagegen das Risiko.",
+                },
+            ],
+        },
     ],
 };

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.18.0] - 2026-07-23
+- Risiko & Trading: Lektion „Stop-Loss und Trailing Stop" (Stop-Platzierung nach Markttechnik/Volatilität, Trailing Stops, enge vs. weite Stops) mit Quiz
+
 ## [1.17.0] - 2026-07-23
 - Risiko & Trading: Lektion „Chancen-Risiko-Verhältnis und Erwartungswert" (CRV, R-Multiple, Erwartungswert, Trefferquote vs. CRV) mit Quiz
 
