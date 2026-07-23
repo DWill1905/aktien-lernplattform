@@ -177,16 +177,17 @@ export function renderPortfolio(): HTMLElement {
     const sharesInput = el("input", { type: "number", min: "1", step: "1", value: "1", id: "trade-shares" }) as HTMLInputElement;
     const message = el("div", { class: "trade-message" }, []);
 
+    // valueAsNumber liefert bei leerer oder nicht-numerischer Eingabe NaN und bei
+    // Dezimalzahlen den echten Wert – so lehnt die Ganzzahl-Prüfung in buy()/sell()
+    // ungültige Eingaben ab, statt sie stillschweigend abzuschneiden (parseInt-Fallstrick).
     const buyBtn = makeButton("Kaufen", "", () => {
-      const shares = parseInt(sharesInput.value, 10);
-      const result = buy(stockSelect.value, shares);
+      const result = buy(stockSelect.value, sharesInput.valueAsNumber);
       message.textContent = result.message;
       message.className = `trade-message ${result.ok ? "ok" : "error"}`;
       if (result.ok) refresh();
     });
     const sellBtn = makeButton("Verkaufen", "secondary", () => {
-      const shares = parseInt(sharesInput.value, 10);
-      const result = sell(stockSelect.value, shares);
+      const result = sell(stockSelect.value, sharesInput.valueAsNumber);
       message.textContent = result.message;
       message.className = `trade-message ${result.ok ? "ok" : "error"}`;
       if (result.ok) refresh();

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.2] - 2026-07-23
+- Handel: Stückzahl-Eingabe nutzt valueAsNumber – Dezimal- oder leere Eingaben werden nun sauber abgelehnt statt stillschweigend abgeschnitten
+
 ## [1.11.1] - 2026-07-23
 - Navigation: aktueller Bereich wird hervorgehoben (aktive Klasse + aria-current) – auch auf Lektions- und Quiz-Seiten des jeweiligen Moduls
 
