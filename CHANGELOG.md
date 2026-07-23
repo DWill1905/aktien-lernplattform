@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.25.0] - 2026-07-23
+- Profi-Analyse: Lektion „Divergenzen und Konfluenz" (RSI/MACD-Divergenzen, Konfluenz mehrerer Signale, Multi-Timeframe-Analyse) mit Quiz
+
 ## [1.24.0] - 2026-07-23
 - Profi-Analyse: Lektion „Chartmuster: Kopf-Schulter, Dreiecke, Flaggen" (Umkehr- und Fortsetzungsmuster, Ausbruch, Fehlausbrüche) mit Quiz
 

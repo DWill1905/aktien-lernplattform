@@ -186,5 +186,50 @@ export const fortgeschritteneAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "divergenzen-konfluenz",
+      moduleId: "fortgeschrittene-analyse",
+      title: "Divergenzen und Konfluenz",
+      summary: "Zwei Profi-Werkzeuge: früh nachlassende Dynamik erkennen und nur dort handeln, wo mehrere Signale zusammentreffen.",
+      content: [
+        "Eine <strong>Divergenz</strong> liegt vor, wenn Kurs und Indikator (etwa RSI oder MACD) in unterschiedliche Richtungen zeigen. Bei einer <strong>bullischen Divergenz</strong> markiert der Kurs ein tieferes Tief, der Indikator aber ein höheres Tief – der Abwärtsdruck lässt nach, eine Wende nach oben wird wahrscheinlicher. Die <strong>bearische Divergenz</strong> ist das Spiegelbild: neues Kurshoch, aber ein niedrigeres Indikatorhoch, was auf nachlassende Aufwärtsdynamik hindeutet.",
+        "Divergenzen sind wertvolle <strong>Frühwarnungen</strong>, aber kein präzises Timing-Werkzeug: Sie können über längere Zeit bestehen, bevor die Wende tatsächlich eintritt. Als alleiniges Einstiegssignal sind sie deshalb riskant.",
+        "Genau hier setzt das Prinzip der <strong>Konfluenz</strong> an: Ein Setup gilt als umso hochwertiger, je mehr unabhängige Faktoren an derselben Stelle zusammentreffen – zum Beispiel eine bekannte Unterstützungszone, ein gleitender Durchschnitt, ein Fibonacci-Niveau und gleichzeitig ein überverkaufter RSI. Je mehr Argumente sich bündeln, desto höher die Wahrscheinlichkeit des Trades.",
+        "Ein weiteres Profi-Werkzeug ist die <strong>Multi-Timeframe-Analyse</strong>: Den übergeordneten Trend bestimmt man im größeren Zeitrahmen (z. B. Wochenchart), den genauen Einstieg sucht man im kleineren (z. B. Tageschart). So handelt man mit dem großen Trend statt gegen ihn.",
+        "Der rote Faden: Profis handeln keine Einzelsignale, sondern <strong>Konfluenz</strong>. Ein einzelner Indikator liefert Rauschen; erst das Zusammenspiel mehrerer voneinander unabhängiger Hinweise – plus striktem Risikomanagement – ergibt einen belastbaren Handelsansatz.",
+      ],
+      quiz: [
+        {
+          question: "Was kennzeichnet eine bullische Divergenz?",
+          options: [
+            { text: "Der Kurs macht ein tieferes Tief, der Indikator (z. B. RSI) jedoch ein höheres Tief", correct: true },
+            { text: "Kurs und Indikator machen beide neue Hochs", correct: false },
+            { text: "Der Kurs steigt, während die Dividende sinkt", correct: false },
+            { text: "Das Handelsvolumen fällt auf null", correct: false },
+          ],
+          explanation: "Bei einer bullischen Divergenz signalisiert der höhere Indikator-Tiefpunkt trotz neuem Kurstief nachlassenden Abwärtsdruck – ein Hinweis auf eine mögliche Aufwärtswende.",
+        },
+        {
+          question: "Was bedeutet Konfluenz im Trading?",
+          options: [
+            { text: "Mehrere unabhängige Signale treffen an derselben Stelle zusammen und erhöhen die Qualität des Setups", correct: true },
+            { text: "Der Zusammenschluss zweier Unternehmen", correct: false },
+            { text: "Ein garantiertes Kaufsignal", correct: false },
+            { text: "Das gleichzeitige Handeln vieler Anleger", correct: false },
+          ],
+          explanation: "Konfluenz beschreibt das Zusammentreffen mehrerer voneinander unabhängiger Faktoren – je mehr, desto höher die Wahrscheinlichkeit des Trades.",
+        },
+        {
+          question: "Warum sind Divergenzen allein ein riskantes Einstiegssignal?",
+          options: [
+            { text: "Weil sie lange bestehen können, bevor die Wende eintritt – sie sind Frühwarnung, kein präzises Timing", correct: true },
+            { text: "Weil sie nur bei Anleihen auftreten", correct: false },
+            { text: "Weil sie den Kurs exakt vorhersagen", correct: false },
+            { text: "Weil sie gesetzlich verboten sind", correct: false },
+          ],
+          explanation: "Eine Divergenz kann sich über längere Zeit hinziehen; deshalb wird sie mit weiteren Faktoren (Konfluenz) und einem Stop kombiniert, statt allein gehandelt zu werden.",
+        },
+      ],
+    },
   ],
 };
