@@ -16,20 +16,22 @@ export function renderQuiz(moduleId, lessonId) {
         const optionEls = [];
         const explanation = el("div", { class: "quiz-explanation" }, [q.explanation]);
         const options = q.options.map((opt, oi) => {
-            const optEl = el("div", { class: "quiz-option" }, [`${String.fromCharCode(65 + oi)}. ${opt.text}`]);
+            const optEl = el("button", { type: "button", class: "quiz-option", "aria-pressed": "false" }, [`${String.fromCharCode(65 + oi)}. ${opt.text}`]);
             optEl.addEventListener("click", () => {
                 if (evaluated)
                     return;
                 selected[qi] = oi;
-                optionRefs[qi].forEach((node, i) => node.classList.toggle("selected", i === oi));
-                optionRefs[qi].forEach((node) => (node.style.borderColor = ""));
-                optEl.style.borderColor = "var(--accent)";
+                optionRefs[qi].forEach((node, i) => {
+                    node.classList.toggle("selected", i === oi);
+                    node.setAttribute("aria-pressed", String(i === oi));
+                    node.style.borderColor = i === oi ? "var(--accent)" : "";
+                });
             });
             optionEls.push(optEl);
             return optEl;
         });
         optionRefs.push(optionEls);
-        return el("div", { class: "quiz-question" }, [
+        return el("div", { class: "quiz-question", role: "group", "aria-label": q.question }, [
             el("div", { class: "question-text" }, [`${qi + 1}. ${q.question}`]),
             ...options,
             explanation,
@@ -43,6 +45,8 @@ export function renderQuiz(moduleId, lessonId) {
         optionRefs.forEach((nodes) => nodes.forEach((node) => {
             node.style.borderColor = "";
             node.classList.remove("selected", "correct", "incorrect");
+            node.setAttribute("aria-pressed", "false");
+            node.removeAttribute("aria-disabled");
         }));
         questionBlocks.forEach((block) => block.querySelector(".quiz-explanation")?.classList.remove("show"));
         hint.textContent = "";
@@ -69,6 +73,7 @@ export function renderQuiz(moduleId, lessonId) {
                 score++;
             optionRefs[qi].forEach((node, oi) => {
                 node.style.borderColor = "";
+                node.setAttribute("aria-disabled", "true");
                 if (oi === correctIndex)
                     node.classList.add("correct");
                 else if (oi === chosenIndex)

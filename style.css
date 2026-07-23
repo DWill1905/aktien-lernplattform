@@ -352,6 +352,11 @@ main#app {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  appearance: none;
+  background: transparent;
   padding: 0.6rem 0.85rem;
   border: 1px solid var(--md-outline-variant);
   border-radius: var(--md-shape-sm);
@@ -359,6 +364,10 @@ main#app {
   color: var(--md-on-surface);
   cursor: pointer;
   transition: border-color 0.15s ease;
+}
+.quiz-option:focus-visible {
+  outline: 2px solid var(--md-primary);
+  outline-offset: 2px;
 }
 .quiz-option::after {
   content: "";

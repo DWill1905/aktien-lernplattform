@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.9.0] - 2026-07-23
+- Barrierefreiheit: Quiz-Optionen sind jetzt echte Buttons (Tastaturbedienung, Fokus-Ring, aria-pressed, Radiogroup-Semantik)
+
 ## [1.8.0] - 2026-07-23
 - Quiz: Auswertung erst nach Beantwortung aller Fragen (mit Hinweis auf offene Frage); neuer Button „Erneut versuchen"
 
