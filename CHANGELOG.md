@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.48.0] - 2026-07-23
+- Gamification: 4 neue Erfolge – Frühaufsteher, Nachteule, Comeback (Streak nach Pause neu gestartet) und Wissensdurst (5 Aktionen an einem Tag)
+
 ## [1.47.0] - 2026-07-23
 - Gamification: Erfolge-Seite zeigt jetzt einen Gesamtfortschrittsbalken ("X von Y Erfolgen freigeschaltet")
 
