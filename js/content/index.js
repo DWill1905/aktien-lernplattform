@@ -1,7 +1,8 @@
 import { grundlagen } from "./grundlagen.js";
 import { fundamentalanalyse } from "./fundamentalanalyse.js";
 import { technischeAnalyse } from "./technische-analyse.js";
-export const MODULES = [grundlagen, fundamentalanalyse, technischeAnalyse];
+import { risikomanagement } from "./risikomanagement.js";
+export const MODULES = [grundlagen, fundamentalanalyse, technischeAnalyse, risikomanagement];
 export function moduleById(id) {
     return MODULES.find((m) => m.id === id);
 }

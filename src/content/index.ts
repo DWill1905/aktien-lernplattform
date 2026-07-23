@@ -2,8 +2,9 @@ import { LearningModule, Lesson, ModuleId } from "../types.js";
 import { grundlagen } from "./grundlagen.js";
 import { fundamentalanalyse } from "./fundamentalanalyse.js";
 import { technischeAnalyse } from "./technische-analyse.js";
+import { risikomanagement } from "./risikomanagement.js";
 
-export const MODULES: LearningModule[] = [grundlagen, fundamentalanalyse, technischeAnalyse];
+export const MODULES: LearningModule[] = [grundlagen, fundamentalanalyse, technischeAnalyse, risikomanagement];
 
 export function moduleById(id: string): LearningModule | undefined {
   return MODULES.find((m) => m.id === (id as ModuleId));

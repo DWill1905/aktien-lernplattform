@@ -1,4 +1,9 @@
-export type ModuleId = "grundlagen" | "fundamentalanalyse" | "technische-analyse";
+export type ModuleId =
+  | "grundlagen"
+  | "fundamentalanalyse"
+  | "technische-analyse"
+  | "risikomanagement"
+  | "fortgeschrittene-analyse";
 
 export interface QuizOption {
   text: string;
