@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.30.0] - 2026-07-23
+- Portfolio-Simulator: Positionsgrößen-Rechner nach der 1-%-Regel (Stückzahl aus Kapital, Risiko-% und Stop-Abstand; direkt in die Order übernehmbar)
+
 ## [1.29.0] - 2026-07-23
 - Portfolio-Simulator: Limit- und Stop-Orders (inkl. Stop-Loss). Vorgemerkte Orders werden beim Zeit-Vorspulen ausgeführt, sobald der Auslösekurs erreicht wird; neue Karte „Offene Orders" mit Stornierung
 

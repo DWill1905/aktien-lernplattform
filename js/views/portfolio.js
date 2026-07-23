@@ -209,6 +209,54 @@ export function renderPortfolio() {
             ]),
             message,
         ]);
+        // --- Risiko-/Positionsgrößen-Rechner (1-%-Regel) ---
+        const calcCapital = portfolioValue(state);
+        const riskPctInput = el("input", { type: "number", min: "0.1", step: "0.1", value: "1" });
+        const entryInput = el("input", { type: "number", min: "0", step: "0.01", value: currentPrice(stockById(selectedStockId), state.day).toFixed(2) });
+        const stopInput = el("input", { type: "number", min: "0", step: "0.01", placeholder: "Stop-Kurs" });
+        const calcResult = el("div", { class: "trade-message" }, []);
+        let suggestedShares = 0;
+        const applyCalcBtn = makeButton("In Stückzahl übernehmen", "secondary", () => {
+            if (suggestedShares > 0) {
+                sharesInput.value = String(suggestedShares);
+                stockSelect.value = selectedStockId;
+            }
+        });
+        const recompute = () => {
+            const risk = riskPctInput.valueAsNumber;
+            const entry = entryInput.valueAsNumber;
+            const stop = stopInput.valueAsNumber;
+            if (!(risk > 0) || !(entry > 0) || !(stop > 0) || entry <= stop) {
+                suggestedShares = 0;
+                calcResult.textContent = "Bitte Risiko in %, Einstiegs- und Stop-Kurs angeben (Stop muss unter dem Einstieg liegen).";
+                calcResult.className = "trade-message";
+                applyCalcBtn.setAttribute("disabled", "true");
+                return;
+            }
+            const riskAmount = (calcCapital * risk) / 100;
+            suggestedShares = Math.floor(riskAmount / (entry - stop));
+            calcResult.textContent = `Empfohlene Stückzahl: ${suggestedShares} · Risiko ${formatCurrency(riskAmount)} · Positionswert ${formatCurrency(suggestedShares * entry)}`;
+            calcResult.className = "trade-message ok";
+            if (suggestedShares > 0)
+                applyCalcBtn.removeAttribute("disabled");
+            else
+                applyCalcBtn.setAttribute("disabled", "true");
+        };
+        [riskPctInput, entryInput, stopInput].forEach((i) => i.addEventListener("input", recompute));
+        recompute();
+        const calcCard = el("div", { class: "card" }, [
+            el("h2", {}, ["Positionsgrößen-Rechner"]),
+            el("p", { class: "muted" }, [
+                `Nach der Profi-Regel: riskiere pro Trade nur einen kleinen Teil deines Kapitals (aktuell ${formatCurrency(calcCapital)}). Die Stückzahl ergibt sich aus Risiko und Stop-Abstand.`,
+            ]),
+            el("div", { class: "trade-form" }, [
+                el("label", {}, ["Risiko (% vom Kapital)", riskPctInput]),
+                el("label", {}, ["Einstiegskurs (€)", entryInput]),
+                el("label", {}, ["Stop-Kurs (€)", stopInput]),
+                applyCalcBtn,
+            ]),
+            calcResult,
+        ]);
         // --- Offene (Limit-/Stop-) Orders ---
         const orders = pendingOrders(state);
         const ordersCard = orders.length === 0
@@ -324,7 +372,7 @@ export function renderPortfolio() {
                     allocationRow("Barguthaben", state.cash, value),
                 ]),
             ]);
-        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, ordersCard, holdingsCard, allocationCard, txCard]);
+        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, calcCard, ordersCard, holdingsCard, allocationCard, txCard]);
         queueMicrotask(() => drawChart(canvas, history));
         return wrapper;
     }
