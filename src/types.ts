@@ -50,6 +50,7 @@ export interface Transaction {
   type: "buy" | "sell";
   shares: number;
   price: number;
+  fee?: number;
 }
 
 export interface PortfolioState {

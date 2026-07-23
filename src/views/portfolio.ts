@@ -57,7 +57,7 @@ export function renderPortfolio(): HTMLElement {
       el("p", { class: "muted" }, [
         "Virtuelles Startkapital von ",
         formatCurrency(STARTKAPITAL),
-        " · Kurse sind fiktiv und lokal generiert, ohne echtes Marktrisiko.",
+        " · Kurse sind fiktiv und lokal generiert, ohne echtes Marktrisiko · pro Order fällt eine Gebühr von 0,25 % (mind. 1 €) an.",
       ]),
       el("div", { class: "stat-row" }, [
         el("div", { class: "stat" }, [el("div", { class: "label" }, ["Barguthaben"]), el("div", { class: "value" }, [formatCurrency(state.cash)])]),
@@ -210,6 +210,7 @@ export function renderPortfolio(): HTMLElement {
         el("td", {}, [stock ? `${stock.name} (${stock.ticker})` : tx.stockId]),
         el("td", { class: "num" }, [String(tx.shares)]),
         el("td", { class: "num" }, [formatCurrency(tx.price)]),
+        el("td", { class: "num" }, [tx.fee ? formatCurrency(tx.fee) : "–"]),
       ]);
     });
     const txCard = el("div", { class: "card" }, [
@@ -217,7 +218,7 @@ export function renderPortfolio(): HTMLElement {
       txRows.length === 0
         ? el("p", { class: "muted" }, ["Noch keine Transaktionen."])
         : el("table", {}, [
-            el("thead", {}, [el("tr", {}, [el("th", {}, ["Tag"]), el("th", {}, ["Typ"]), el("th", {}, ["Aktie"]), el("th", { class: "num" }, ["Stück"]), el("th", { class: "num" }, ["Kurs"])])]),
+            el("thead", {}, [el("tr", {}, [el("th", {}, ["Tag"]), el("th", {}, ["Typ"]), el("th", {}, ["Aktie"]), el("th", { class: "num" }, ["Stück"]), el("th", { class: "num" }, ["Kurs"]), el("th", { class: "num" }, ["Gebühr"])])]),
             el("tbody", {}, txRows),
           ]),
     ]);

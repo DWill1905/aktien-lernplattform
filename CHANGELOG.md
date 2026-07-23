@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.7.0] - 2026-07-23
+- Portfolio-Simulator: realistische Ordergebühr (0,25 %, mind. 1 €) bei Kauf und Verkauf; Gebühr fließt in Einstandspreis/Erlös ein und wird in den Transaktionen ausgewiesen
+
 ## [1.6.0] - 2026-07-23
 - Neue Technische-Analyse-Lektion „Handelsvolumen und Liquidität" (Volumen als Bestätigungsindikator, Spread, Slippage) mit Quiz
 
