@@ -272,5 +272,50 @@ export const grundlagen: LearningModule = {
         },
       ],
     },
+    {
+      id: "kosten-und-steuern",
+      moduleId: "grundlagen",
+      title: "Kosten und Steuern",
+      summary: "Gebühren und Steuern schmälern die Rendite – wer sie kennt, behält mehr vom Ertrag.",
+      content: [
+        "Jeder Kauf und Verkauf verursacht <strong>Kosten</strong>, die direkt an der Rendite zehren. Dazu zählen die <strong>Ordergebühr</strong> des Brokers (fix, prozentual oder beides), die <strong>Geld-Brief-Spanne</strong> (Spread) zwischen An- und Verkaufspreis sowie mögliche Depot- oder Handelsplatzentgelte. Viele Neobroker verlangen niedrige oder gar keine Ordergebühren – dafür kann der Spread etwas größer sein.",
+        "Bei Fonds und ETFs kommt die laufende <strong>Gesamtkostenquote</strong> (TER, Total Expense Ratio) hinzu. Sie wird nicht separat abgebucht, sondern täglich anteilig aus dem Fondsvermögen entnommen und schmälert so unbemerkt die Wertentwicklung. Schon ein Unterschied von 1 % pro Jahr summiert sich über Jahrzehnte durch den Zinseszinseffekt zu erheblichen Beträgen.",
+        "In Deutschland fällt auf Kapitalerträge – also realisierte Kursgewinne, Dividenden und Zinsen – die <strong>Abgeltungsteuer</strong> von 25 % an, zuzüglich Solidaritätszuschlag (5,5 % der Steuer, macht rund 26,4 % gesamt) und gegebenenfalls Kirchensteuer. Wichtig: Besteuert wird erst bei <strong>Realisierung</strong>. Ein Buchgewinn auf einer noch gehaltenen Aktie ist bis zum Verkauf steuerfrei.",
+        "Der <strong>Sparer-Pauschbetrag</strong> stellt pro Person 1.000 € an Kapitalerträgen im Jahr steuerfrei (2.000 € bei gemeinsam veranlagten Paaren). Über einen <strong>Freistellungsauftrag</strong> bei der Bank wird er automatisch berücksichtigt. Bei Aktienfonds und -ETFs bleiben zudem dank <strong>Teilfreistellung</strong> 30 % der Erträge steuerfrei.",
+        "Für Anleger folgt daraus eine einfache Konsequenz: Häufiges Handeln verursacht mehr Gebühren und löst früher Steuern aus, was den Zinseszinseffekt bremst. Kostenbewusstes, langfristiges Investieren mit wenigen Transaktionen ist deshalb für die meisten Privatanleger überlegen. (Dies ist keine Steuerberatung – Details und Freibeträge können sich ändern.)",
+      ],
+      quiz: [
+        {
+          question: "Wann fällt in Deutschland auf einen Aktiengewinn typischerweise Abgeltungsteuer an?",
+          options: [
+            { text: "Sobald der Kurs der noch gehaltenen Aktie steigt", correct: false },
+            { text: "Erst wenn der Gewinn durch Verkauf realisiert wird (oder bei Ausschüttung)", correct: true },
+            { text: "Jährlich pauschal auf den gesamten Depotwert", correct: false },
+            { text: "Nur wenn die Aktie länger als ein Jahr gehalten wurde", correct: false },
+          ],
+          explanation: "Buchgewinne bleiben steuerfrei; die Abgeltungsteuer greift erst bei Realisierung (Verkauf mit Gewinn) oder bei Dividenden und Zinsen.",
+        },
+        {
+          question: "Was ist die TER (Total Expense Ratio) eines ETFs?",
+          options: [
+            { text: "Eine einmalige Kaufgebühr beim Broker", correct: false },
+            { text: "Die laufende Gesamtkostenquote, die täglich anteilig aus dem Fondsvermögen entnommen wird", correct: true },
+            { text: "Die Steuer, die auf Dividenden anfällt", correct: false },
+            { text: "Der Spread zwischen An- und Verkaufskurs", correct: false },
+          ],
+          explanation: "Die TER wird nicht separat abgebucht, sondern schmälert die Wertentwicklung fortlaufend – schon kleine Unterschiede wirken über die Jahre stark.",
+        },
+        {
+          question: "Warum ist häufiges Handeln für die Nettorendite oft nachteilig?",
+          options: [
+            { text: "Weil jeder Trade Gebühren verursacht und Gewinne früher versteuert werden, was den Zinseszinseffekt bremst", correct: true },
+            { text: "Weil Broker aktives Handeln gesetzlich verbieten", correct: false },
+            { text: "Weil der Sparer-Pauschbetrag dadurch steigt", correct: false },
+            { text: "Weil Kursgewinne bei häufigem Handeln steuerfrei werden", correct: false },
+          ],
+          explanation: "Transaktionskosten und vorgezogene Steuerzahlungen mindern das für den Zinseszins verfügbare Kapital – kostenbewusstes, langfristiges Investieren bleibt meist überlegen.",
+        },
+      ],
+    },
   ],
 };
