@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.21.0] - 2026-07-23
+- Neues Modul „Profi-Analyse" mit Lektion „Unternehmensbewertung mit DCF" (innerer Wert, Zeitwert des Geldes, Terminal Value, Sensitivität) inkl. Quiz und Navigationseintrag
+
 ## [1.20.0] - 2026-07-23
 - Risiko & Trading: Lektion „Drawdown, Verlustserien und Risk of Ruin" (max. Drawdown, asymmetrische Erholung, Korrelationsrisiko) mit Quiz – Modul nun mit 5 Lektionen komplett
 

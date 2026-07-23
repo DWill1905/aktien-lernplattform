@@ -3,8 +3,15 @@ import { grundlagen } from "./grundlagen.js";
 import { fundamentalanalyse } from "./fundamentalanalyse.js";
 import { technischeAnalyse } from "./technische-analyse.js";
 import { risikomanagement } from "./risikomanagement.js";
+import { fortgeschritteneAnalyse } from "./fortgeschrittene-analyse.js";
 
-export const MODULES: LearningModule[] = [grundlagen, fundamentalanalyse, technischeAnalyse, risikomanagement];
+export const MODULES: LearningModule[] = [
+  grundlagen,
+  fundamentalanalyse,
+  technischeAnalyse,
+  risikomanagement,
+  fortgeschritteneAnalyse,
+];
 
 export function moduleById(id: string): LearningModule | undefined {
   return MODULES.find((m) => m.id === (id as ModuleId));
