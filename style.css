@@ -307,6 +307,22 @@ main#app {
 .streak-day.today { outline: 2px solid var(--md-primary); outline-offset: -2px; }
 .streak-day-label { font-size: 0.7rem; color: var(--md-on-surface-variant); text-transform: uppercase; }
 .streak-day-dot { font-size: 1rem; min-height: 1.2rem; }
+
+.achievements-row { margin-top: 0.9rem; }
+.achievement-icons { display: flex; gap: 0.4rem; margin-top: 0.4rem; flex-wrap: wrap; }
+.achievement-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: var(--md-shape-full);
+  background: var(--md-surface-container-high);
+  font-size: 1.1rem;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+.achievement-icon.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); }
 .glossar-search {
   width: 100%;
   padding: 0.6rem 0.85rem;

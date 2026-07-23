@@ -5,6 +5,7 @@ import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
 import { loadGamification, levelProgress, weekActivity, weekdayLabel } from "../gamification.js";
+import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
 export function renderDashboard() {
     const progress = loadProgress();
     const portfolio = loadPortfolio();
@@ -20,6 +21,8 @@ export function renderDashboard() {
         el("span", { class: "streak-day-label" }, [weekdayLabel(day.date)]),
         el("span", { class: "streak-day-dot" }, [day.active ? "🔥" : ""]),
     ])));
+    const unlockedIds = new Set(loadUnlockedAchievements());
+    const achievementIcons = ACHIEVEMENTS.map((a) => el("span", { class: `achievement-icon${unlockedIds.has(a.id) ? " unlocked" : ""}`, title: unlockedIds.has(a.id) ? `${a.title}: ${a.description}` : "Noch nicht freigeschaltet" }, [a.icon]));
     const totalLessons = totalLessonCount();
     const completedLessons = MODULES.reduce((sum, m) => sum + m.lessons.filter((l) => progress.lessons[l.id]?.completed).length, 0);
     const overallPct = totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0;
@@ -38,6 +41,7 @@ export function renderDashboard() {
     resetProgressBtn.addEventListener("click", () => {
         if (confirm("Gesamten Lernfortschritt zurücksetzen? Alle als gelesen markierten Lektionen und Quiz-Ergebnisse gehen verloren.")) {
             resetProgress();
+            resetAchievements();
             const appRoot = document.getElementById("app");
             if (appRoot)
                 mount(appRoot, renderDashboard());
@@ -59,6 +63,10 @@ export function renderDashboard() {
             el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
             el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
             weekRow,
+            el("div", { class: "achievements-row" }, [
+                el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length}`]),
+                el("div", { class: "achievement-icons" }, achievementIcons),
+            ]),
             el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
             el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
             completedLessons > 0 ? resetProgressBtn : null,

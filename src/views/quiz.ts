@@ -1,7 +1,8 @@
 import { el } from "../dom.js";
-import { lessonById, moduleById } from "../content/index.js";
+import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, recordQuizResult } from "../state.js";
 import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS } from "../gamification.js";
+import { evaluateAchievements } from "../achievements.js";
 
 export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -102,6 +103,7 @@ export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
       const perfect = score === lesson.quiz.length;
       awardXp(score * XP_QUIZ_CORRECT + (perfect ? XP_QUIZ_PERFECT_BONUS : 0));
     }
+    evaluateAchievements({ progress: loadProgress(), modules: MODULES });
     evaluateBtn.setAttribute("disabled", "true");
 
     const index = mod.lessons.findIndex((l) => l.id === lesson.id);

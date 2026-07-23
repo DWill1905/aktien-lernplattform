@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.35.0] - 2026-07-23
+- Gamification: Erfolge-System mit ersten 3 Badges (Erste Schritte, Volltreffer, Modul gemeistert), im Dashboard als Icon-Reihe sichtbar
+
 ## [1.34.0] - 2026-07-23
 - Gamification: 7-Tage-Streak-Kalenderleiste im Dashboard (wie bei Lern-Apps üblich) zeigt, an welchen Tagen der letzten Woche gelernt wurde
 
