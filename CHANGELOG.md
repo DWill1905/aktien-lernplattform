@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.19.0] - 2026-07-23
+- Risiko & Trading: Lektion „Handelsplan und Trading-Journal" (Setups, Prozess vor Ergebnis, Journal-Kennzahlen, Profit-Faktor) mit Quiz
+
 ## [1.18.0] - 2026-07-23
 - Risiko & Trading: Lektion „Stop-Loss und Trailing Stop" (Stop-Platzierung nach Markttechnik/Volatilität, Trailing Stops, enge vs. weite Stops) mit Quiz
 

@@ -139,5 +139,50 @@ export const risikomanagement = {
                 },
             ],
         },
+        {
+            id: "handelsplan-journal",
+            moduleId: "risikomanagement",
+            title: "Handelsplan und Trading-Journal",
+            summary: "Profis handeln nach einem schriftlichen Plan und werten jeden Trade aus – Amateure improvisieren.",
+            content: [
+                "Ein <strong>Handelsplan</strong> ist das schriftlich festgehaltene Regelwerk: Welche Märkte handle ich? Welches <strong>Setup</strong> (welche Bedingungen) muss erfüllt sein, damit ich einsteige? Wo liegen Einstieg, Stop und Ziel? Wie viel riskiere ich pro Trade? Ein Plan ersetzt willkürliche Bauchentscheidungen durch wiederholbare, überprüfbare Abläufe.",
+                "Der wichtigste Perspektivwechsel für Profis lautet: <strong>Prozess vor Ergebnis</strong>. Ein regelkonformer Trade kann verlieren, ein regelwidriger \"Zockertrade\" kann zufällig gewinnen. Bewertet wird nicht der einzelne Ausgang, sondern ob der Plan diszipliniert eingehalten wurde – denn nur ein guter Prozess ist über viele Trades hinweg profitabel.",
+                "Das <strong>Trading-Journal</strong> dokumentiert jeden Trade: Setup, Einstiegsgrund, Ein- und Ausstiegskurs, das Ergebnis in R-Multiples sowie die eigene Verfassung und begangene Fehler. Es verwandelt Erfahrung in überprüfbare Daten statt in vage Erinnerungen.",
+                "Aus dem Journal lassen sich die entscheidenden Kennzahlen ableiten: Trefferquote, durchschnittliches R, Erwartungswert und der <strong>Profit-Faktor</strong> (Summe der Gewinne ÷ Summe der Verluste). So erkennt man, welche Setups wirklich funktionieren und welche man streichen sollte.",
+                "Ohne Journal wiederholt man dieselben Fehler unbemerkt. Mit Journal wird Trading zu einem datengetriebenen Handwerk, das sich systematisch verbessern lässt – genau das trennt den Profi vom Glücksspieler.",
+            ],
+            quiz: [
+                {
+                    question: "Was bedeutet der Grundsatz „Prozess vor Ergebnis\"?",
+                    options: [
+                        { text: "Nur gewinnende Trades sind gute Trades", correct: false },
+                        { text: "Ein Trade wird danach bewertet, ob der Plan diszipliniert eingehalten wurde – nicht allein am einzelnen Ausgang", correct: true },
+                        { text: "Der Prozess ist egal, solange der Trade gewinnt", correct: false },
+                        { text: "Man sollte den Plan nach jedem Verlust ändern", correct: false },
+                    ],
+                    explanation: "Einzelne Ergebnisse sind vom Zufall geprägt; nur ein konsequent guter Prozess führt über viele Trades zu Profitabilität.",
+                },
+                {
+                    question: "Wozu dient ein Trading-Journal?",
+                    options: [
+                        { text: "Trades zu dokumentieren, um aus Daten zu lernen und die eigenen Setups auszuwerten", correct: true },
+                        { text: "Steuern automatisch abzuführen", correct: false },
+                        { text: "Kursziele der Bank zu übernehmen", correct: false },
+                        { text: "Ordergebühren zu vermeiden", correct: false },
+                    ],
+                    explanation: "Das Journal macht aus Erfahrung überprüfbare Daten (Setup, R-Multiple, Fehler) und deckt auf, welche Ansätze wirklich funktionieren.",
+                },
+                {
+                    question: "Was beschreibt der Profit-Faktor?",
+                    options: [
+                        { text: "Die Summe aller Gewinne geteilt durch die Summe aller Verluste", correct: true },
+                        { text: "Den höchsten Einzelgewinn eines Jahres", correct: false },
+                        { text: "Die Anzahl der Trades pro Tag", correct: false },
+                        { text: "Die Höhe der Dividende", correct: false },
+                    ],
+                    explanation: "Ein Profit-Faktor über 1 bedeutet, dass die Gewinne die Verluste in Summe übersteigen – eine zentrale Auswertungskennzahl aus dem Journal.",
+                },
+            ],
+        },
     ],
 };
