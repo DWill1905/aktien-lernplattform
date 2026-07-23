@@ -18,6 +18,8 @@ export function starLabel(stars, max = 3) {
 export const XP_LESSON = 10;
 export const XP_QUIZ_CORRECT = 5;
 export const XP_QUIZ_PERFECT_BONUS = 10;
+export const XP_PERFECT_STREAK_BONUS = 25;
+export const PERFECT_STREAK_MILESTONE = 3;
 function todayStr() {
     return new Date().toISOString().slice(0, 10);
 }
@@ -31,10 +33,13 @@ function addDays(date, delta) {
     d.setUTCDate(d.getUTCDate() + delta);
     return d.toISOString().slice(0, 10);
 }
+function emptyState() {
+    return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0 };
+}
 export function loadGamification() {
     const raw = localStorage.getItem(KEY);
     if (!raw)
-        return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+        return emptyState();
     try {
         const parsed = JSON.parse(raw);
         return {
@@ -42,19 +47,28 @@ export function loadGamification() {
             streak: parsed.streak ?? 0,
             longestStreak: parsed.longestStreak ?? 0,
             lastActiveDate: parsed.lastActiveDate ?? null,
+            perfectQuizStreak: parsed.perfectQuizStreak ?? 0,
         };
     }
     catch {
-        return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+        return emptyState();
     }
 }
 function saveGamification(state) {
     localStorage.setItem(KEY, JSON.stringify(state));
 }
 export function resetGamification() {
-    const state = { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+    const state = emptyState();
     saveGamification(state);
     return state;
+}
+/** Aktualisiert die Serie perfekter Quizzes in Folge; ab jedem 3. Meilenstein gibt es Bonus-XP. */
+export function registerQuizAttempt(perfect) {
+    const state = loadGamification();
+    state.perfectQuizStreak = perfect ? state.perfectQuizStreak + 1 : 0;
+    saveGamification(state);
+    const bonusXp = perfect && state.perfectQuizStreak % PERFECT_STREAK_MILESTONE === 0 ? XP_PERFECT_STREAK_BONUS : 0;
+    return { streak: state.perfectQuizStreak, bonusXp };
 }
 /** Aktualisiert die Tagesserie anhand des heutigen Datums (Lücke von genau 1 Tag verlängert die Serie). */
 function touchStreak(state) {

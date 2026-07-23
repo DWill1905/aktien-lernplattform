@@ -1,8 +1,10 @@
 import { LearningModule, ProgressState } from "./types.js";
+import { GamificationState, PERFECT_STREAK_MILESTONE } from "./gamification.js";
 
 export interface AchievementContext {
   progress: ProgressState;
   modules: LearningModule[];
+  gamification?: GamificationState;
 }
 
 export interface Achievement {
@@ -38,6 +40,13 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "🏅",
     check: (ctx) =>
       ctx.modules.some((mod) => mod.lessons.length > 0 && mod.lessons.every((lesson) => ctx.progress.lessons[lesson.id]?.completed)),
+  },
+  {
+    id: "perfekte-serie",
+    title: "Auf Serie",
+    description: `${PERFECT_STREAK_MILESTONE} perfekte Quizzes in Folge.`,
+    icon: "🔥",
+    check: (ctx) => (ctx.gamification?.perfectQuizStreak ?? 0) >= PERFECT_STREAK_MILESTONE,
   },
 ];
 

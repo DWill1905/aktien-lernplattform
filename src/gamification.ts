@@ -3,6 +3,7 @@ export interface GamificationState {
   streak: number;
   longestStreak: number;
   lastActiveDate: string | null;
+  perfectQuizStreak: number;
 }
 
 const KEY = "boersenschule:gamification";
@@ -24,6 +25,8 @@ export function starLabel(stars: number, max = 3): string {
 export const XP_LESSON = 10;
 export const XP_QUIZ_CORRECT = 5;
 export const XP_QUIZ_PERFECT_BONUS = 10;
+export const XP_PERFECT_STREAK_BONUS = 25;
+export const PERFECT_STREAK_MILESTONE = 3;
 
 function todayStr(): string {
   return new Date().toISOString().slice(0, 10);
@@ -41,9 +44,13 @@ function addDays(date: string, delta: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+function emptyState(): GamificationState {
+  return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null, perfectQuizStreak: 0 };
+}
+
 export function loadGamification(): GamificationState {
   const raw = localStorage.getItem(KEY);
-  if (!raw) return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+  if (!raw) return emptyState();
   try {
     const parsed = JSON.parse(raw) as Partial<GamificationState>;
     return {
@@ -51,9 +58,10 @@ export function loadGamification(): GamificationState {
       streak: parsed.streak ?? 0,
       longestStreak: parsed.longestStreak ?? 0,
       lastActiveDate: parsed.lastActiveDate ?? null,
+      perfectQuizStreak: parsed.perfectQuizStreak ?? 0,
     };
   } catch {
-    return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+    return emptyState();
   }
 }
 
@@ -62,9 +70,23 @@ function saveGamification(state: GamificationState): void {
 }
 
 export function resetGamification(): GamificationState {
-  const state: GamificationState = { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
+  const state = emptyState();
   saveGamification(state);
   return state;
+}
+
+export interface QuizStreakResult {
+  streak: number;
+  bonusXp: number;
+}
+
+/** Aktualisiert die Serie perfekter Quizzes in Folge; ab jedem 3. Meilenstein gibt es Bonus-XP. */
+export function registerQuizAttempt(perfect: boolean): QuizStreakResult {
+  const state = loadGamification();
+  state.perfectQuizStreak = perfect ? state.perfectQuizStreak + 1 : 0;
+  saveGamification(state);
+  const bonusXp = perfect && state.perfectQuizStreak % PERFECT_STREAK_MILESTONE === 0 ? XP_PERFECT_STREAK_BONUS : 0;
+  return { streak: state.perfectQuizStreak, bonusXp };
 }
 
 /** Aktualisiert die Tagesserie anhand des heutigen Datums (Lücke von genau 1 Tag verlängert die Serie). */

@@ -1,7 +1,7 @@
 import { el, html } from "../dom.js";
 import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, markLessonRead } from "../state.js";
-import { awardXp, XP_LESSON, levelForXp } from "../gamification.js";
+import { awardXp, XP_LESSON, levelForXp, loadGamification } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 export function renderLesson(moduleId, lessonId) {
@@ -19,7 +19,7 @@ export function renderLesson(moduleId, lessonId) {
             showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
         }
     }
-    evaluateAchievements({ progress: loadProgress(), modules: MODULES }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+    evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
     const paragraphs = lesson.content.map((p) => html(`<p>${p}</p>`));
     const index = mod.lessons.findIndex((l) => l.id === lesson.id);
     const next = mod.lessons[index + 1];

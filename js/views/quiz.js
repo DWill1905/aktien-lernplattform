@@ -1,7 +1,7 @@
 import { el } from "../dom.js";
 import { MODULES, lessonById, moduleById } from "../content/index.js";
 import { loadProgress, recordQuizResult } from "../state.js";
-import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp } from "../gamification.js";
+import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp, loadGamification, registerQuizAttempt } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 export function renderQuiz(moduleId, lessonId) {
@@ -94,8 +94,17 @@ export function renderQuiz(moduleId, lessonId) {
                 const info = levelForXp(result.state.xp);
                 showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
             }
+            const streakResult = registerQuizAttempt(perfect);
+            if (streakResult.bonusXp > 0) {
+                const bonusResult = awardXp(streakResult.bonusXp);
+                showToast(`🔥 ${streakResult.streak} perfekte Quizzes in Folge! +${streakResult.bonusXp} Bonus-XP`, "level");
+                if (bonusResult.leveledUp) {
+                    const info = levelForXp(bonusResult.state.xp);
+                    showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                }
+            }
         }
-        evaluateAchievements({ progress: loadProgress(), modules: MODULES }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+        evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
         evaluateBtn.setAttribute("disabled", "true");
         const index = mod.lessons.findIndex((l) => l.id === lesson.id);
         const next = mod.lessons[index + 1];
