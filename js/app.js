@@ -33,4 +33,10 @@ function updateActiveNav() {
 }
 window.addEventListener("hashchange", updateActiveNav);
 updateActiveNav();
+// Skip-Link fokussiert den Inhalt, ohne den Hash zu ändern (sonst würde der Router feuern).
+document.querySelector(".skip-link")?.addEventListener("click", (e) => {
+    e.preventDefault();
+    app.focus();
+    app.scrollIntoView();
+});
 startRouter();

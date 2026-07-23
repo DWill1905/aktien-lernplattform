@@ -156,6 +156,20 @@ p { font-size: 1rem; line-height: 1.5rem; color: var(--md-on-background); }
 }
 .brand:hover { text-decoration: none; }
 
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -3.5rem;
+  z-index: 100;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--md-shape-sm);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  font-weight: 500;
+  transition: top 0.15s ease;
+}
+.skip-link:focus { top: 0.5rem; }
+
 .topnav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
 .topnav a {
   position: relative;

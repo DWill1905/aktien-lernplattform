@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.14.0] - 2026-07-23
+- SEO & Barrierefreiheit: Open-Graph-/Twitter-Tags, theme-color (hell/dunkel), canonical URL sowie ein Skip-Link „Zum Inhalt springen"
+
 ## [1.13.1] - 2026-07-23
 - Performance: Kursverläufe (priceHistory) werden memoisiert – deutlich weniger Neuberechnungen pro Render
 
