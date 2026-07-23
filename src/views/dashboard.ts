@@ -1,6 +1,6 @@
-import { el } from "../dom.js";
+import { el, mount } from "../dom.js";
 import { MODULES, totalLessonCount } from "../content/index.js";
-import { loadProgress } from "../state.js";
+import { loadProgress, resetProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
@@ -30,6 +30,15 @@ export function renderDashboard(): HTMLElement {
     ]);
   });
 
+  const resetProgressBtn = el("button", { class: "btn secondary" }, ["Lernfortschritt zurücksetzen"]) as HTMLButtonElement;
+  resetProgressBtn.addEventListener("click", () => {
+    if (confirm("Gesamten Lernfortschritt zurücksetzen? Alle als gelesen markierten Lektionen und Quiz-Ergebnisse gehen verloren.")) {
+      resetProgress();
+      const appRoot = document.getElementById("app");
+      if (appRoot) mount(appRoot, renderDashboard());
+    }
+  });
+
   return el("div", {}, [
     el("h1", {}, ["Willkommen in der Börsenschule"]),
     el("p", { class: "muted" }, [
@@ -38,6 +47,7 @@ export function renderDashboard(): HTMLElement {
     el("div", { class: "card overall-progress" }, [
       el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
       el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
+      completedLessons > 0 ? resetProgressBtn : null,
     ]),
     el("div", { class: "grid" }, moduleCards),
     el("h2", {}, ["Portfolio-Simulator"]),

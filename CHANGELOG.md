@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.12.0] - 2026-07-23
+- Dashboard: „Lernfortschritt zurücksetzen" (getrennt vom Depot-Reset), erscheint nur bei vorhandenem Fortschritt und mit Rückfrage
+
 ## [1.11.2] - 2026-07-23
 - Handel: Stückzahl-Eingabe nutzt valueAsNumber – Dezimal- oder leere Eingaben werden nun sauber abgelehnt statt stillschweigend abgeschnitten
 

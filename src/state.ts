@@ -26,6 +26,12 @@ export function markLessonRead(lessonId: string): void {
   saveProgress(state);
 }
 
+export function resetProgress(): ProgressState {
+  const state: ProgressState = { lessons: {} };
+  saveProgress(state);
+  return state;
+}
+
 export function recordQuizResult(lessonId: string, score: number, total: number): void {
   const state = loadProgress();
   const entry = state.lessons[lessonId] ?? { completed: true, quizScore: null, quizTotal: null };
