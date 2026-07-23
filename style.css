@@ -291,6 +291,22 @@ main#app {
   background: var(--md-error-container);
   color: var(--md-on-error-container);
 }
+
+.streak-week { display: flex; gap: 0.4rem; margin-top: 0.9rem; }
+.streak-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+  padding: 0.4rem 0.2rem;
+  border-radius: var(--md-shape-md);
+  background: var(--md-surface-container-high);
+}
+.streak-day.active { background: var(--md-error-container); }
+.streak-day.today { outline: 2px solid var(--md-primary); outline-offset: -2px; }
+.streak-day-label { font-size: 0.7rem; color: var(--md-on-surface-variant); text-transform: uppercase; }
+.streak-day-dot { font-size: 1rem; min-height: 1.2rem; }
 .glossar-search {
   width: 100%;
   padding: 0.6rem 0.85rem;

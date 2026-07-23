@@ -21,6 +21,12 @@ function daysBetween(a: string, b: string): number {
   return Math.round((db - da) / 86_400_000);
 }
 
+function addDays(date: string, delta: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + delta);
+  return d.toISOString().slice(0, 10);
+}
+
 export function loadGamification(): GamificationState {
   const raw = localStorage.getItem(KEY);
   if (!raw) return { xp: 0, streak: 0, longestStreak: 0, lastActiveDate: null };
@@ -140,4 +146,29 @@ export function levelProgress(xp: number): LevelProgress {
   const xpIntoLevel = xp - current.xpRequired;
   const xpForLevel = next - current.xpRequired;
   return { level: current.level, title: current.title, xpIntoLevel, xpForLevel, pct: Math.round((xpIntoLevel / xpForLevel) * 100), maxLevel: false };
+}
+
+export interface DayActivity {
+  date: string;
+  active: boolean;
+  isToday: boolean;
+}
+
+const WEEKDAY_LABELS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+
+export function weekdayLabel(date: string): string {
+  return WEEKDAY_LABELS[new Date(`${date}T00:00:00Z`).getUTCDay()];
+}
+
+/** Letzte `days` Kalendertage (älteste zuerst) mit Markierung, ob sie Teil der aktuellen Streak sind. */
+export function weekActivity(state: GamificationState, days = 7): DayActivity[] {
+  const today = todayStr();
+  const result: DayActivity[] = [];
+  for (let i = days - 1; i >= 0; i--) {
+    const date = addDays(today, -i);
+    const active =
+      state.lastActiveDate != null && state.streak > 0 && daysBetween(date, state.lastActiveDate) >= 0 && daysBetween(date, state.lastActiveDate) < state.streak;
+    result.push({ date, active, isToday: date === today });
+  }
+  return result;
 }

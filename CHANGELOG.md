@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.34.0] - 2026-07-23
+- Gamification: 7-Tage-Streak-Kalenderleiste im Dashboard (wie bei Lern-Apps üblich) zeigt, an welchen Tagen der letzten Woche gelernt wurde
+
 ## [1.33.0] - 2026-07-23
 - Gamification: Lern-Streak – Tage in Folge mit Lernaktivität werden gezählt und im Dashboard mit 🔥 angezeigt
 

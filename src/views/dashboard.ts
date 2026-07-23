@@ -4,7 +4,7 @@ import { loadProgress, resetProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
-import { loadGamification, levelProgress } from "../gamification.js";
+import { loadGamification, levelProgress, weekActivity, weekdayLabel } from "../gamification.js";
 
 export function renderDashboard(): HTMLElement {
   const progress = loadProgress();
@@ -16,6 +16,17 @@ export function renderDashboard(): HTMLElement {
   const levelSubtitle = levelInfo.maxLevel
     ? "Maximallevel erreicht"
     : `${levelInfo.xpIntoLevel} / ${levelInfo.xpForLevel} XP · noch ${(levelInfo.xpForLevel ?? 0) - levelInfo.xpIntoLevel} XP bis Level ${levelInfo.level + 1}`;
+  const weekDays = weekActivity(gamification);
+  const weekRow = el(
+    "div",
+    { class: "streak-week", "aria-label": "Lernaktivität der letzten 7 Tage" },
+    weekDays.map((day) =>
+      el("div", { class: `streak-day${day.active ? " active" : ""}${day.isToday ? " today" : ""}` }, [
+        el("span", { class: "streak-day-label" }, [weekdayLabel(day.date)]),
+        el("span", { class: "streak-day-dot" }, [day.active ? "🔥" : ""]),
+      ])
+    )
+  );
 
   const totalLessons = totalLessonCount();
   const completedLessons = MODULES.reduce(
@@ -60,6 +71,7 @@ export function renderDashboard(): HTMLElement {
       ]),
       el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
       el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
+      weekRow,
       el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
       el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
       completedLessons > 0 ? resetProgressBtn : null,

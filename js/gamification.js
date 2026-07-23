@@ -10,6 +10,11 @@ function daysBetween(a, b) {
     const db = new Date(`${b}T00:00:00Z`).getTime();
     return Math.round((db - da) / 86400000);
 }
+function addDays(date, delta) {
+    const d = new Date(`${date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + delta);
+    return d.toISOString().slice(0, 10);
+}
 export function loadGamification() {
     const raw = localStorage.getItem(KEY);
     if (!raw)
@@ -105,4 +110,19 @@ export function levelProgress(xp) {
     const xpIntoLevel = xp - current.xpRequired;
     const xpForLevel = next - current.xpRequired;
     return { level: current.level, title: current.title, xpIntoLevel, xpForLevel, pct: Math.round((xpIntoLevel / xpForLevel) * 100), maxLevel: false };
+}
+const WEEKDAY_LABELS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+export function weekdayLabel(date) {
+    return WEEKDAY_LABELS[new Date(`${date}T00:00:00Z`).getUTCDay()];
+}
+/** Letzte `days` Kalendertage (älteste zuerst) mit Markierung, ob sie Teil der aktuellen Streak sind. */
+export function weekActivity(state, days = 7) {
+    const today = todayStr();
+    const result = [];
+    for (let i = days - 1; i >= 0; i--) {
+        const date = addDays(today, -i);
+        const active = state.lastActiveDate != null && state.streak > 0 && daysBetween(date, state.lastActiveDate) >= 0 && daysBetween(date, state.lastActiveDate) < state.streak;
+        result.push({ date, active, isToday: date === today });
+    }
+    return result;
 }
