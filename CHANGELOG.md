@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.27.0] - 2026-07-23
+- Profi-Analyse: Lektion „Leerverkauf, Hebel und Derivate" (Short-Risiko, Hebelwirkung, Optionen/CFDs, Totalverlust) mit Quiz und klaren Risikohinweisen
+
 ## [1.26.0] - 2026-07-23
 - Profi-Analyse: Lektion „Portfolio-Kennzahlen: Volatilität, Beta, Sharpe, Korrelation" (risikoadjustierte Rendite, systematisches Risiko, Alpha) mit Quiz
 

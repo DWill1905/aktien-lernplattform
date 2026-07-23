@@ -276,5 +276,50 @@ export const fortgeschritteneAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "leerverkauf-hebel-derivate",
+      moduleId: "fortgeschrittene-analyse",
+      title: "Leerverkauf, Hebel und Derivate",
+      summary: "Mächtige, aber gefährliche Werkzeuge – zu verstehen, wie sie wirken, gehört zum Profiwissen.",
+      content: [
+        "Beim <strong>Leerverkauf</strong> (Short) verdient man an fallenden Kursen: Man leiht sich eine Aktie, verkauft sie und kauft sie später (idealerweise billiger) zurück. Das Risiko ist jedoch asymmetrisch und theoretisch <strong>unbegrenzt</strong> – während eine Aktie maximal auf null fallen kann, kann sie beliebig weit steigen. Ein plötzlicher Anstieg kann zudem einen <strong>Short Squeeze</strong> auslösen, der Verluste dramatisch verstärkt.",
+        "Ein <strong>Hebel</strong> (Leverage) erlaubt es, mit wenig Kapital eine große Position zu steuern. Der Haken: Er vervielfacht Gewinne <strong>und</strong> Verluste gleichermaßen. Ein Hebel von 10 bedeutet, dass schon 10 % Kursbewegung gegen dich dein eingesetztes Kapital auslöschen können – bei manchen Produkten droht sogar eine Nachschusspflicht.",
+        "<strong>Derivate</strong> sind Finanzinstrumente, deren Wert von einem Basiswert (z. B. einer Aktie) abgeleitet ist. Dazu zählen <strong>Optionen</strong> (das Recht, aber nicht die Pflicht, zu einem Basispreis zu kaufen – Call – oder zu verkaufen – Put), Futures, Hebelzertifikate und CFDs. Sie können der <strong>Absicherung</strong> (Hedging) dienen oder der reinen Spekulation.",
+        "Besondere Fallstricke: Optionen verlieren mit der Zeit an Wert (<strong>Zeitwertverfall</strong>), und Hebel- bzw. Knock-out-Produkte können bei Erreichen einer Schwelle zum <strong>Totalverlust</strong> führen. Bei CFDs verliert erfahrungsgemäß die große Mehrheit der Privatanleger Geld – die Anbieter müssen genau darauf hinweisen.",
+        "Die Kernbotschaft: Diese Werkzeuge sind etwas für erfahrene Anleger mit striktem Risikomanagement und nur mit Kapital, dessen Totalverlust man verkraftet. Für Einsteiger sind sie gefährlich. (Dies ist reine Wissensvermittlung und keine Anlageberatung oder Aufforderung, solche Produkte zu handeln.)",
+      ],
+      quiz: [
+        {
+          question: "Warum ist das Verlustrisiko bei einem Leerverkauf theoretisch unbegrenzt?",
+          options: [
+            { text: "Weil eine Aktie beliebig weit steigen kann, während man auf fallende Kurse gesetzt hat", correct: true },
+            { text: "Weil Leerverkäufe gesetzlich verboten sind", correct: false },
+            { text: "Weil die Dividende ausfällt", correct: false },
+            { text: "Weil der Kurs maximal auf null fallen kann", correct: false },
+          ],
+          explanation: "Beim Short gewinnt man bei fallenden Kursen; da eine Aktie aber unbegrenzt steigen kann, ist der mögliche Verlust nach oben nicht begrenzt.",
+        },
+        {
+          question: "Wie wirkt ein Hebel auf Gewinne und Verluste?",
+          options: [
+            { text: "Er vervielfacht beide gleichermaßen", correct: true },
+            { text: "Er erhöht nur die Gewinne", correct: false },
+            { text: "Er senkt das Risiko", correct: false },
+            { text: "Er hat keinen Einfluss auf Verluste", correct: false },
+          ],
+          explanation: "Ein Hebel steuert mit wenig Kapital eine große Position – Kursbewegungen wirken dadurch verstärkt in beide Richtungen, Gewinne wie Verluste.",
+        },
+        {
+          question: "Was ist eine Call-Option?",
+          options: [
+            { text: "Das Recht, aber nicht die Pflicht, einen Basiswert zu einem festgelegten Preis zu kaufen", correct: true },
+            { text: "Die Pflicht, eine Aktie sofort zu verkaufen", correct: false },
+            { text: "Eine garantierte Dividendenzahlung", correct: false },
+            { text: "Ein zinsloses Sparprodukt", correct: false },
+          ],
+          explanation: "Ein Call verbrieft das Recht (nicht die Pflicht), den Basiswert zum Basispreis zu kaufen – nutzbar zur Absicherung oder Spekulation, mit Zeitwertverfall als Risiko.",
+        },
+      ],
+    },
   ],
 };
