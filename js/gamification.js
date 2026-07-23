@@ -95,3 +95,14 @@ export function nextLevelXp(xp) {
     const next = LEVELS[current.level];
     return next ? next.xpRequired : null;
 }
+/** Fortschritt innerhalb des aktuellen Levels, für Anzeige als Balken. */
+export function levelProgress(xp) {
+    const current = levelForXp(xp);
+    const next = nextLevelXp(xp);
+    if (next === null) {
+        return { level: current.level, title: current.title, xpIntoLevel: xp - current.xpRequired, xpForLevel: null, pct: 100, maxLevel: true };
+    }
+    const xpIntoLevel = xp - current.xpRequired;
+    const xpForLevel = next - current.xpRequired;
+    return { level: current.level, title: current.title, xpIntoLevel, xpForLevel, pct: Math.round((xpIntoLevel / xpForLevel) * 100), maxLevel: false };
+}

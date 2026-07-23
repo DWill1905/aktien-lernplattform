@@ -280,6 +280,9 @@ main#app {
   background: var(--md-tertiary-container);
   color: var(--md-on-tertiary-container);
 }
+.level-progress { background: var(--md-tertiary-container); }
+.level-progress > span { background: var(--md-tertiary); }
+.level-subtitle { margin-top: 0.35rem; margin-bottom: 0; font-size: 0.75rem; }
 .glossar-search {
   width: 100%;
   padding: 0.6rem 0.85rem;

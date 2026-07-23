@@ -4,14 +4,17 @@ import { loadProgress, resetProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
-import { loadGamification, levelForXp } from "../gamification.js";
+import { loadGamification, levelProgress } from "../gamification.js";
 export function renderDashboard() {
     const progress = loadProgress();
     const portfolio = loadPortfolio();
     const value = portfolioValue(portfolio);
     const totalReturn = (value - STARTKAPITAL) / STARTKAPITAL;
     const gamification = loadGamification();
-    const levelInfo = levelForXp(gamification.xp);
+    const levelInfo = levelProgress(gamification.xp);
+    const levelSubtitle = levelInfo.maxLevel
+        ? "Maximallevel erreicht"
+        : `${levelInfo.xpIntoLevel} / ${levelInfo.xpForLevel} XP · noch ${(levelInfo.xpForLevel ?? 0) - levelInfo.xpIntoLevel} XP bis Level ${levelInfo.level + 1}`;
     const totalLessons = totalLessonCount();
     const completedLessons = MODULES.reduce((sum, m) => sum + m.lessons.filter((l) => progress.lessons[l.id]?.completed).length, 0);
     const overallPct = totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0;
@@ -43,8 +46,10 @@ export function renderDashboard() {
         el("div", { class: "card overall-progress" }, [
             el("div", { class: "level-row" }, [
                 el("span", { class: "level-chip" }, [`Level ${levelInfo.level} · ${levelInfo.title}`]),
-                el("span", { class: "muted" }, [`${gamification.xp} XP`]),
+                el("span", { class: "muted" }, [`${gamification.xp} XP gesamt`]),
             ]),
+            el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
+            el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
             el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
             el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
             completedLessons > 0 ? resetProgressBtn : null,

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.32.0] - 2026-07-23
+- Gamification: XP-Fortschrittsbalken im Dashboard zeigt den Fortschritt im aktuellen Level und die noch fehlende XP bis zum nächsten Level
+
 ## [1.31.0] - 2026-07-23
 - Gamification: XP- und Level-System – Lektionen (+10 XP) und Quiz (+5 XP je richtige Antwort, +10 Perfekt-Bonus) geben beim ersten Abschluss XP; 20 Level mit Titeln (Anfänger bis Aktien-Champion), Level-Anzeige im Dashboard
 
