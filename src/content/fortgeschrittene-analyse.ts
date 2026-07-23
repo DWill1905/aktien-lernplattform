@@ -51,5 +51,50 @@ export const fortgeschritteneAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "profi-kennzahlen",
+      moduleId: "fortgeschrittene-analyse",
+      title: "Profi-Kennzahlen: ROE, ROIC, EV/EBITDA, PEG",
+      summary: "Über KGV hinaus: Kennzahlen, die Kapitaleffizienz, Kapitalstruktur und Wachstum sauber einbeziehen.",
+      content: [
+        "Die <strong>Eigenkapitalrendite</strong> (ROE, Return on Equity) misst, wie viel Gewinn ein Unternehmen aus dem Eigenkapital erwirtschaftet: Nettogewinn ÷ Eigenkapital. Ein hoher ROE wirkt attraktiv – aber Vorsicht: Er lässt sich durch hohe Verschuldung künstlich aufblähen, weil dann wenig Eigenkapital einem großen Gewinn gegenübersteht.",
+        "Deshalb schauen Profis zusätzlich auf die <strong>Kapitalrendite</strong> (ROIC, Return on Invested Capital): Sie setzt den operativen Gewinn ins Verhältnis zum gesamten investierten Kapital (Eigen- und Fremdkapital). Liegt der ROIC dauerhaft über den Kapitalkosten (WACC), schafft das Unternehmen echten Wert – ein starkes Qualitätssignal und oft ein Hinweis auf einen Burggraben.",
+        "Das <strong>EV/EBITDA</strong> vergleicht den <strong>Enterprise Value</strong> (Marktkapitalisierung plus Nettoverschuldung) mit dem EBITDA. Weil der Enterprise Value die Schulden einbezieht, ist diese Kennzahl kapitalstruktur-neutral – dadurch lassen sich Unternehmen mit sehr unterschiedlicher Verschuldung fairer vergleichen als mit dem reinen KGV.",
+        "Das <strong>PEG-Ratio</strong> (Price/Earnings-to-Growth) teilt das KGV durch die erwartete Gewinnwachstumsrate in Prozent. Es setzt die Bewertung ins Verhältnis zum Wachstum: Ein KGV von 30 ist bei 30 % Wachstum (PEG 1) etwas ganz anderes als bei 5 % Wachstum (PEG 6). Für Wachstumswerte ist das PEG oft aussagekräftiger als das nackte KGV.",
+        "Keine Kennzahl steht für sich allein. Erst im Zusammenspiel – Kapitaleffizienz (ROIC), faire Bewertung (EV/EBITDA), Wachstum (PEG) – entsteht ein belastbares Bild von Qualität und Preis eines Unternehmens.",
+      ],
+      quiz: [
+        {
+          question: "Warum ist der ROIC oft aussagekräftiger als der ROE?",
+          options: [
+            { text: "Weil er das gesamte investierte Kapital einbezieht und nicht durch hohe Verschuldung verzerrt wird", correct: true },
+            { text: "Weil er immer höher ist als der ROE", correct: false },
+            { text: "Weil er nur bei Banken gilt", correct: false },
+            { text: "Weil er die Dividende misst", correct: false },
+          ],
+          explanation: "Der ROE kann durch viel Fremdkapital künstlich hoch wirken; der ROIC betrachtet Eigen- und Fremdkapital gemeinsam und zeigt die echte Kapitaleffizienz.",
+        },
+        {
+          question: "Was ist der Vorteil von EV/EBITDA gegenüber dem KGV?",
+          options: [
+            { text: "Es ist kapitalstruktur-neutral, weil der Enterprise Value die Schulden berücksichtigt", correct: true },
+            { text: "Es ist immer niedriger als das KGV", correct: false },
+            { text: "Es berücksichtigt die Dividende", correct: false },
+            { text: "Es funktioniert nur ohne Schulden", correct: false },
+          ],
+          explanation: "Der Enterprise Value schließt die Nettoverschuldung ein – dadurch werden unterschiedlich finanzierte Unternehmen vergleichbar, anders als beim reinen KGV.",
+        },
+        {
+          question: "Was drückt ein PEG-Ratio von etwa 1 aus?",
+          options: [
+            { text: "Dass die Bewertung (KGV) ungefähr dem erwarteten Gewinnwachstum entspricht", correct: true },
+            { text: "Dass die Aktie garantiert unterbewertet ist", correct: false },
+            { text: "Dass das Unternehmen keine Schulden hat", correct: false },
+            { text: "Dass die Dividendenrendite bei 1 % liegt", correct: false },
+          ],
+          explanation: "Das PEG teilt das KGV durch die Wachstumsrate; ein Wert nahe 1 gilt als grobe Marke, dass Preis und Wachstum in einem ausgewogenen Verhältnis stehen.",
+        },
+      ],
+    },
   ],
 };

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.22.0] - 2026-07-23
+- Profi-Analyse: Lektion „Profi-Kennzahlen: ROE, ROIC, EV/EBITDA, PEG" (Kapitaleffizienz, Enterprise Value, wachstumsbereinigte Bewertung) mit Quiz
+
 ## [1.21.0] - 2026-07-23
 - Neues Modul „Profi-Analyse" mit Lektion „Unternehmensbewertung mit DCF" (innerer Wert, Zeitwert des Geldes, Terminal Value, Sensitivität) inkl. Quiz und Navigationseintrag
 
