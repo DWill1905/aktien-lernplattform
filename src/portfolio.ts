@@ -29,6 +29,39 @@ export function pendingOrders(state: PortfolioState): PendingOrder[] {
   return state.pendingOrders ?? [];
 }
 
+/** Anzahl verschiedener Branchen mit aktuell gehaltenen Positionen (Diversifikation). */
+export function sectorsHeld(state: PortfolioState): number {
+  const sectors = new Set<string>();
+  for (const [stockId, position] of Object.entries(state.positions)) {
+    if (position.shares <= 0) continue;
+    const stock = stockById(stockId);
+    if (stock) sectors.add(stock.sector);
+  }
+  return sectors.size;
+}
+
+/** Summe des bereits realisierten Gewinns/Verlusts über alle Verkäufe (Wiederaufbau des Einstandspreises aus der Historie). */
+export function realizedProfitTotal(state: PortfolioState): number {
+  const chronological = [...state.transactions].reverse();
+  const cost: Record<string, { shares: number; avgPrice: number }> = {};
+  let realized = 0;
+  for (const tx of chronological) {
+    const pos = cost[tx.stockId] ?? { shares: 0, avgPrice: 0 };
+    if (tx.type === "buy") {
+      const total = tx.price * tx.shares + (tx.fee ?? 0);
+      const totalShares = pos.shares + tx.shares;
+      pos.avgPrice = totalShares > 0 ? (pos.avgPrice * pos.shares + total) / totalShares : 0;
+      pos.shares = totalShares;
+    } else {
+      const proceeds = tx.price * tx.shares - (tx.fee ?? 0);
+      realized += proceeds - pos.avgPrice * tx.shares;
+      pos.shares -= tx.shares;
+    }
+    cost[tx.stockId] = pos;
+  }
+  return realized;
+}
+
 // --- Interne Ausführung (mutiert den State, ohne zu laden/speichern) ---
 
 function applyBuy(state: PortfolioState, stock: Stock, shares: number, price: number): TradeResult {

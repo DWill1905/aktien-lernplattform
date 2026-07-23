@@ -1,8 +1,22 @@
 import { el } from "../dom.js";
 import { STOCKS, currentPrice, priceHistory, stockById } from "../market.js";
-import { loadPortfolio, resetPortfolio, STARTKAPITAL } from "../state.js";
+import { loadPortfolio, loadProgress, resetPortfolio, STARTKAPITAL } from "../state.js";
 import { advanceDay, buy, sell, portfolioValue, placeOrder, cancelPendingOrder, pendingOrders } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
+import { MODULES } from "../content/index.js";
+import { loadGamification } from "../gamification.js";
+import { evaluateAchievements } from "../achievements.js";
+import { showToast } from "../toast.js";
+import { PortfolioState } from "../types.js";
+
+function checkAchievements(portfolioState: PortfolioState): void {
+  evaluateAchievements({
+    progress: loadProgress(),
+    modules: MODULES,
+    gamification: loadGamification(),
+    portfolio: portfolioState,
+  }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+}
 
 function drawChart(canvas: HTMLCanvasElement, prices: number[]): void {
   const ctx = canvas.getContext("2d");
@@ -115,15 +129,15 @@ export function renderPortfolio(): HTMLElement {
       ]),
       el("div", { class: "actions" }, [
         makeButton("+1 Tag", "secondary", () => {
-          advanceDay(1);
+          checkAchievements(advanceDay(1));
           refresh();
         }),
         makeButton("+5 Tage", "secondary", () => {
-          advanceDay(5);
+          checkAchievements(advanceDay(5));
           refresh();
         }),
         makeButton("+20 Tage", "secondary", () => {
-          advanceDay(20);
+          checkAchievements(advanceDay(20));
           refresh();
         }),
         makeButton("Depot zurücksetzen", "danger", () => {
@@ -215,7 +229,10 @@ export function renderPortfolio(): HTMLElement {
           : placeOrder(stockSelect.value, side, kind as "limit" | "stop", shares, triggerInput.valueAsNumber);
       message.textContent = result.message;
       message.className = `trade-message ${result.ok ? "ok" : "error"}`;
-      if (result.ok) refresh();
+      if (result.ok) {
+        checkAchievements(loadPortfolio());
+        refresh();
+      }
     };
     const buyBtn = makeButton("Kaufen", "", () => submit("buy"));
     const sellBtn = makeButton("Verkaufen", "secondary", () => submit("sell"));

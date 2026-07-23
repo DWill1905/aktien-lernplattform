@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.42.0] - 2026-07-23
+- Gamification: 3 neue Portfolio-Erfolge (Erster Trade, Gut diversifiziert, Erster Gewinn), automatisch nach Trades und Zeit-Vorspulen geprüft
+
 ## [1.41.0] - 2026-07-23
 - Gamification: Tägliches Lernziel (3 Lektionen/Quizzes pro Tag) mit Fortschrittsanzeige im Dashboard und +15 Bonus-XP bei Zielerreichung
 

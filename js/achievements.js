@@ -1,4 +1,5 @@
 import { PERFECT_STREAK_MILESTONE } from "./gamification.js";
+import { sectorsHeld, realizedProfitTotal } from "./portfolio.js";
 export const ACHIEVEMENTS = [
     {
         id: "erste-lektion",
@@ -27,6 +28,27 @@ export const ACHIEVEMENTS = [
         description: `${PERFECT_STREAK_MILESTONE} perfekte Quizzes in Folge.`,
         icon: "🔥",
         check: (ctx) => (ctx.gamification?.perfectQuizStreak ?? 0) >= PERFECT_STREAK_MILESTONE,
+    },
+    {
+        id: "erster-trade",
+        title: "Erster Trade",
+        description: "Deine erste Order im Portfolio-Simulator ausgeführt.",
+        icon: "💱",
+        check: (ctx) => (ctx.portfolio?.transactions.length ?? 0) > 0,
+    },
+    {
+        id: "diversifiziert",
+        title: "Gut diversifiziert",
+        description: "Positionen in mindestens 3 verschiedenen Branchen gehalten.",
+        icon: "🧺",
+        check: (ctx) => ctx.portfolio != null && sectorsHeld(ctx.portfolio) >= 3,
+    },
+    {
+        id: "erster-gewinn",
+        title: "Erster Gewinn",
+        description: "Einen Trade mit realisiertem Gewinn abgeschlossen.",
+        icon: "💰",
+        check: (ctx) => ctx.portfolio != null && realizedProfitTotal(ctx.portfolio) > 0,
     },
 ];
 const KEY = "boersenschule:achievements";
