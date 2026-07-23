@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.44.0] - 2026-07-23
+- Gamification: Level-Anzeige jetzt dauerhaft in der Kopfzeile sichtbar (auf jeder Seite, aktualisiert sich live bei XP-Änderungen)
+
 ## [1.43.0] - 2026-07-23
 - Gamification: Modul-Meister-Badges – für jedes der 5 Lernmodule je ein Erfolg für „Abgeschlossen" und „Perfekt" (alle Quizzes 100 %)
 

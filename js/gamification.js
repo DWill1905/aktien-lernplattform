@@ -60,6 +60,7 @@ export function loadGamification() {
 }
 function saveGamification(state) {
     localStorage.setItem(KEY, JSON.stringify(state));
+    window.dispatchEvent(new CustomEvent("gamification:changed"));
 }
 export function resetGamification() {
     const state = emptyState();

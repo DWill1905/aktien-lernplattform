@@ -7,6 +7,7 @@ import { renderQuiz } from "./views/quiz.js";
 import { renderPortfolio } from "./views/portfolio.js";
 import { renderGlossary } from "./views/glossary.js";
 import { renderAchievements } from "./views/achievements.js";
+import { loadGamification, levelForXp } from "./gamification.js";
 
 const app = document.getElementById("app")!;
 
@@ -40,6 +41,17 @@ function updateActiveNav(): void {
 
 window.addEventListener("hashchange", updateActiveNav);
 updateActiveNav();
+
+const topbarLevel = document.getElementById("topbar-level");
+function updateTopbarLevel(): void {
+  if (!topbarLevel) return;
+  const { xp } = loadGamification();
+  const info = levelForXp(xp);
+  topbarLevel.textContent = `Lvl ${info.level}`;
+  topbarLevel.title = `${info.title} · ${xp} XP – zu deinen Erfolgen`;
+}
+window.addEventListener("gamification:changed", updateTopbarLevel);
+updateTopbarLevel();
 
 // Skip-Link fokussiert den Inhalt, ohne den Hash zu ändern (sonst würde der Router feuern).
 document.querySelector<HTMLAnchorElement>(".skip-link")?.addEventListener("click", (e) => {
