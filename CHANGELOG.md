@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.28.0] - 2026-07-23
+- Profi-Analyse: Lektion „Anlagestrategien: Value, Growth, Momentum, Dividende" (Anlagestile, Faktorprämien, Stil-Disziplin) mit Quiz – Modul mit 8 Lektionen inhaltlich komplett
+
 ## [1.27.0] - 2026-07-23
 - Profi-Analyse: Lektion „Leerverkauf, Hebel und Derivate" (Short-Risiko, Hebelwirkung, Optionen/CFDs, Totalverlust) mit Quiz und klaren Risikohinweisen
 

@@ -321,5 +321,50 @@ export const fortgeschritteneAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "anlagestrategien",
+      moduleId: "fortgeschrittene-analyse",
+      title: "Anlagestrategien: Value, Growth, Momentum, Dividende",
+      summary: "Es gibt nicht die eine beste Strategie – aber es gibt die Pflicht, eine zu verstehen und konsequent durchzuhalten.",
+      content: [
+        "<strong>Value-Investing</strong> sucht unterbewertete Aktien, deren Kurs unter dem geschätzten inneren Wert liegt – typischerweise mit niedrigem KGV oder KBV. Die geistigen Väter sind Benjamin Graham und Warren Buffett; Kern ist die <strong>Sicherheitsmarge</strong> zwischen Preis und Wert und viel Geduld, bis der Markt die Unterbewertung auflöst.",
+        "<strong>Growth-Investing</strong> setzt auf Unternehmen mit hohem Umsatz- und Gewinnwachstum. Anleger akzeptieren dafür hohe Bewertungen (hohe KGVs), weil sie auf eine große Zukunft wetten. Solche Titel sind oft chancenreich, aber auch deutlich volatiler und zinssensibler.",
+        "<strong>Momentum-Investing</strong> folgt dem Prinzip, dass jüngste Gewinner tendenziell weiter steigen und Verlierer weiter fallen – man kauft also relative Stärke. Der Momentum-Effekt ist empirisch gut belegt, erfordert aber striktes Risikomanagement, weil Trends abrupt drehen können.",
+        "Die <strong>Dividendenstrategie</strong> fokussiert Unternehmen mit stabilen, über Jahre wachsenden Ausschüttungen (\"Dividendenaristokraten\"). Sie liefert planbaren Cashflow und wirkt oft defensiver. Eng verwandt ist die <strong>Quality</strong>-Strategie, die auf hohe Kapitalrenditen (ROIC) und starke Burggräben setzt.",
+        "Diese Ansätze sind zugleich akademisch belegte <strong>Faktorprämien</strong> (Value, Momentum, Size, Quality, Low-Volatility). Entscheidend ist die Erkenntnis: Es gibt nicht die eine überlegene Strategie – verschiedene Stile führen in verschiedenen Marktphasen. Der häufigste Fehler ist das ständige Wechseln des Stils. Profis wählen einen Ansatz, verstehen ihn tief und halten ihn diszipliniert durch.",
+      ],
+      quiz: [
+        {
+          question: "Was kennzeichnet das Value-Investing?",
+          options: [
+            { text: "Die Suche nach unterbewerteten Aktien mit Sicherheitsmarge zwischen Preis und innerem Wert", correct: true },
+            { text: "Den Kauf der Aktien mit dem höchsten KGV", correct: false },
+            { text: "Ausschließlich das Handeln nach Chartmustern", correct: false },
+            { text: "Das tägliche Umschichten des gesamten Depots", correct: false },
+          ],
+          explanation: "Value-Investoren kaufen Aktien unter ihrem geschätzten inneren Wert und setzen auf die Sicherheitsmarge – geprägt von Graham und Buffett.",
+        },
+        {
+          question: "Worauf beruht die Momentum-Strategie?",
+          options: [
+            { text: "Darauf, dass jüngste Gewinner tendenziell weiter steigen (relative Stärke kaufen)", correct: true },
+            { text: "Darauf, gezielt die größten Verlierer zu kaufen", correct: false },
+            { text: "Auf der Höhe der Dividende", correct: false },
+            { text: "Auf dem Zufallsprinzip", correct: false },
+          ],
+          explanation: "Momentum nutzt die empirisch belegte Tendenz, dass Trends eine Weile anhalten – Gewinner werden gekauft, Verlierer gemieden.",
+        },
+        {
+          question: "Was ist laut Lektion der häufigste Fehler im Umgang mit Anlagestrategien?",
+          options: [
+            { text: "Den Stil ständig zu wechseln, statt einen Ansatz zu verstehen und diszipliniert durchzuhalten", correct: true },
+            { text: "Überhaupt eine Strategie zu haben", correct: false },
+            { text: "Kennzahlen zu verwenden", correct: false },
+            { text: "Langfristig zu investieren", correct: false },
+          ],
+          explanation: "Da verschiedene Stile in verschiedenen Phasen funktionieren, schadet ständiges Wechseln; Stil-Disziplin ist entscheidend.",
+        },
+      ],
+    },
   ],
 };
