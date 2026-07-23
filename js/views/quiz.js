@@ -35,10 +35,31 @@ export function renderQuiz(moduleId, lessonId) {
             explanation,
         ]);
     });
+    const hint = el("div", { class: "quiz-hint" }, []);
     const evaluateBtn = el("button", { class: "btn" }, ["Auswerten"]);
+    function reset() {
+        evaluated = false;
+        selected.fill(null);
+        optionRefs.forEach((nodes) => nodes.forEach((node) => {
+            node.style.borderColor = "";
+            node.classList.remove("selected", "correct", "incorrect");
+        }));
+        questionBlocks.forEach((block) => block.querySelector(".quiz-explanation")?.classList.remove("show"));
+        hint.textContent = "";
+        resultBox.replaceChildren();
+        evaluateBtn.removeAttribute("disabled");
+        questionBlocks[0]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
     evaluateBtn.addEventListener("click", () => {
         if (evaluated)
             return;
+        const firstUnanswered = selected.findIndex((s) => s === null);
+        if (firstUnanswered !== -1) {
+            hint.textContent = `Bitte beantworte zuerst alle Fragen (noch offen: Frage ${firstUnanswered + 1}).`;
+            questionBlocks[firstUnanswered]?.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+        hint.textContent = "";
         evaluated = true;
         let score = 0;
         lesson.quiz.forEach((q, qi) => {
@@ -60,9 +81,12 @@ export function renderQuiz(moduleId, lessonId) {
         evaluateBtn.setAttribute("disabled", "true");
         const index = mod.lessons.findIndex((l) => l.id === lesson.id);
         const next = mod.lessons[index + 1];
+        const retryBtn = el("button", { class: "btn secondary" }, ["Erneut versuchen"]);
+        retryBtn.addEventListener("click", reset);
         resultBox.replaceChildren(el("p", { class: "quiz-score" }, [`Ergebnis: ${score} von ${lesson.quiz.length} richtig`]), el("div", { class: "actions" }, [
             next ? el("a", { class: "btn", href: `#/lektion/${mod.id}/${next.id}` }, ["Nächste Lektion →"]) : null,
             el("a", { class: "btn secondary", href: `#/modul/${mod.id}` }, ["Zurück zur Modulübersicht"]),
+            retryBtn,
         ]));
     });
     container.append(el("div", { class: "breadcrumb" }, [
@@ -71,6 +95,6 @@ export function renderQuiz(moduleId, lessonId) {
         el("a", { href: `#/modul/${mod.id}` }, [mod.title]),
         " / ",
         el("a", { href: `#/lektion/${mod.id}/${lesson.id}` }, [lesson.title]),
-    ]), el("h1", {}, [`Quiz: ${lesson.title}`]), el("div", { class: "card" }, [...questionBlocks, evaluateBtn]), resultBox);
+    ]), el("h1", {}, [`Quiz: ${lesson.title}`]), el("div", { class: "card" }, [...questionBlocks, evaluateBtn, hint]), resultBox);
     return container;
 }

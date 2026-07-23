@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.8.0] - 2026-07-23
+- Quiz: Auswertung erst nach Beantwortung aller Fragen (mit Hinweis auf offene Frage); neuer Button „Erneut versuchen"
+
 ## [1.7.0] - 2026-07-23
 - Portfolio-Simulator: realistische Ordergebühr (0,25 %, mind. 1 €) bei Kauf und Verkauf; Gebühr fließt in Einstandspreis/Erlös ein und wird in den Transaktionen ausgewiesen
 
