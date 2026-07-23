@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.15.0] - 2026-07-23
+- Neue durchsuchbare Glossar-Seite mit ~40 Fachbegriffen (eigene Route und Navigationslink)
+
 ## [1.14.1] - 2026-07-23
 - README aktualisiert: neue Lektionen (Kosten & Steuern, Sparplan, Anlegerpsychologie, Inflation, Cashflow, Handelsvolumen) und Simulator-Erweiterungen (Ordergebühr, Branchen-Aufteilung)
 
