@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.12.1] - 2026-07-23
+- Fachliche Präzisierungen: Dividendenrhythmus (Deutschland jährlich / USA quartalsweise) und MSCI-World-Kennzahl (über 1.300 Unternehmen aus 23 Industrieländern)
+
 ## [1.12.0] - 2026-07-23
 - Dashboard: „Lernfortschritt zurücksetzen" (getrennt vom Depot-Reset), erscheint nur bei vorhandenem Fortschritt und mit Rückfrage
 

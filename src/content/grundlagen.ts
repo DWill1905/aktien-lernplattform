@@ -103,7 +103,7 @@ export const grundlagen: LearningModule = {
         "Wenn du in den Aktienmarkt investierst, hast du grundsätzlich drei Bausteine zur Auswahl: <strong>Einzelaktien</strong>, <strong>aktiv gemanagte Fonds</strong> und <strong>ETFs</strong> (Exchange Traded Funds).",
         "Eine <strong>Einzelaktie</strong> gibt dir volle Kontrolle, aber auch volles Risiko: Der Erfolg hängt an einem einzigen Unternehmen. Ein schlechtes Quartal, ein Skandal oder ein disruptiver Konkurrent können den Kurs stark belasten.",
         "Ein <strong>aktiver Fonds</strong> wird von einem Fondsmanager verwaltet, der versucht, durch geschickte Auswahl besser abzuschneiden als der Gesamtmarkt. Dafür verlangt er eine laufende Verwaltungsgebühr, oft 1–2 % pro Jahr. Studien zeigen, dass die meisten aktiven Fonds den Markt langfristig nicht schlagen.",
-        "Ein <strong>ETF</strong> bildet einen Index (z. B. den MSCI World mit über 1.500 Unternehmen) einfach nach, ohne dass jemand aktiv auswählt. Dadurch sind die Kosten sehr niedrig (oft unter 0,3 % pro Jahr), und du bist automatisch breit diversifiziert. Deshalb gelten ETFs für viele Privatanleger als solide Basis eines Depots.",
+        "Ein <strong>ETF</strong> bildet einen Index (z. B. den MSCI World mit über 1.300 Unternehmen aus 23 Industrieländern) einfach nach, ohne dass jemand aktiv auswählt. Dadurch sind die Kosten sehr niedrig (oft unter 0,3 % pro Jahr), und du bist automatisch breit diversifiziert. Deshalb gelten ETFs für viele Privatanleger als solide Basis eines Depots.",
         "Eine sinnvolle Strategie für Einsteiger ist oft: ETFs als breiten, kostengünstigen Kern des Depots nutzen und, falls gewünscht, mit einem kleineren Anteil an Einzelaktien gezielt eigene Überzeugungen umsetzen.",
       ],
       quiz: [
@@ -235,7 +235,7 @@ export const grundlagen: LearningModule = {
       summary: "Der Gewinn einer Aktie besteht aus Kursgewinn UND Ausschüttung – beides zählt.",
       content: [
         "Die <strong>Gesamtrendite</strong> (Total Return) einer Aktienanlage setzt sich aus zwei Bestandteilen zusammen: der <strong>Kursveränderung</strong> und den erhaltenen <strong>Dividenden</strong>. Wer nur auf den Kurs schaut, unterschätzt oft die tatsächliche Rendite dividendenstarker Unternehmen.",
-        "Eine Dividende ist die Ausschüttung eines Teils des Unternehmensgewinns an die Aktionäre, meist ein- oder zweimal jährlich beschlossen von der Hauptversammlung. Nicht jedes Unternehmen zahlt Dividenden – viele Wachstumsunternehmen reinvestieren Gewinne lieber ins eigene Geschäft.",
+        "Eine Dividende ist die Ausschüttung eines Teils des Unternehmensgewinns an die Aktionäre. In Deutschland wird sie meist einmal jährlich von der Hauptversammlung beschlossen, während US-Unternehmen typischerweise vierteljährlich ausschütten. Nicht jedes Unternehmen zahlt Dividenden – viele Wachstumsunternehmen reinvestieren Gewinne lieber ins eigene Geschäft.",
         "Am <strong>Ex-Dividenden-Tag</strong> sinkt der Aktienkurs rechnerisch um den Betrag der Dividende, weil das ausgeschüttete Geld dem Unternehmen nicht mehr gehört. Eine Dividende ist also kein \"geschenktes\" Extra, sondern eine Umschichtung von Unternehmens- zu Privatvermögen.",
         "Wird die Dividende wieder in weitere Aktien investiert (<strong>Reinvestition</strong> bzw. Thesaurierung bei Fonds), entsteht über lange Zeiträume ein starker Zinseszinseffekt: Historisch stammt ein erheblicher Teil der langfristigen Aktienmarktrendite aus reinvestierten Dividenden, nicht allein aus Kurssteigerungen.",
       ],
