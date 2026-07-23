@@ -1,6 +1,7 @@
 import { el } from "../dom.js";
 import { lessonById, moduleById } from "../content/index.js";
-import { recordQuizResult } from "../state.js";
+import { loadProgress, recordQuizResult } from "../state.js";
+import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS } from "../gamification.js";
 
 export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -79,6 +80,8 @@ export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
     }
     hint.textContent = "";
 
+    const firstAttempt = loadProgress().lessons[lesson.id]?.quizTotal == null;
+
     evaluated = true;
     let score = 0;
     lesson.quiz.forEach((q, qi) => {
@@ -95,6 +98,10 @@ export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
       explanationEl?.classList.add("show");
     });
     recordQuizResult(lesson.id, score, lesson.quiz.length);
+    if (firstAttempt) {
+      const perfect = score === lesson.quiz.length;
+      awardXp(score * XP_QUIZ_CORRECT + (perfect ? XP_QUIZ_PERFECT_BONUS : 0));
+    }
     evaluateBtn.setAttribute("disabled", "true");
 
     const index = mod.lessons.findIndex((l) => l.id === lesson.id);

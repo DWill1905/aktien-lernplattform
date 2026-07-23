@@ -1,6 +1,7 @@
 import { el, html } from "../dom.js";
 import { lessonById, moduleById } from "../content/index.js";
-import { markLessonRead } from "../state.js";
+import { loadProgress, markLessonRead } from "../state.js";
+import { awardXp, XP_LESSON } from "../gamification.js";
 
 export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -9,7 +10,9 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
     return el("div", { class: "empty-state" }, ["Lektion nicht gefunden.", el("p", {}, [el("a", { href: "#/" }, ["Zurück zur Übersicht"])])]);
   }
 
+  const alreadyCompleted = loadProgress().lessons[lesson.id]?.completed ?? false;
   markLessonRead(lesson.id);
+  if (!alreadyCompleted) awardXp(XP_LESSON);
 
   const paragraphs = lesson.content.map((p) => html(`<p>${p}</p>`));
   const index = mod.lessons.findIndex((l) => l.id === lesson.id);

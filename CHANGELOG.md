@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.31.0] - 2026-07-23
+- Gamification: XP- und Level-System – Lektionen (+10 XP) und Quiz (+5 XP je richtige Antwort, +10 Perfekt-Bonus) geben beim ersten Abschluss XP; 20 Level mit Titeln (Anfänger bis Aktien-Champion), Level-Anzeige im Dashboard
+
 ## [1.30.0] - 2026-07-23
 - Portfolio-Simulator: Positionsgrößen-Rechner nach der 1-%-Regel (Stückzahl aus Kapital, Risiko-% und Stop-Abstand; direkt in die Order übernehmbar)
 
