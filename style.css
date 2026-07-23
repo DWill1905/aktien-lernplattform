@@ -308,7 +308,9 @@ main#app {
 .streak-day-label { font-size: 0.7rem; color: var(--md-on-surface-variant); text-transform: uppercase; }
 .streak-day-dot { font-size: 1rem; min-height: 1.2rem; }
 
-.achievements-row { margin-top: 0.9rem; }
+.achievements-row { display: block; margin-top: 0.9rem; color: inherit; }
+.achievements-row:hover { text-decoration: none; }
+.achievements-row:hover .muted { color: var(--md-primary); }
 .achievement-icons { display: flex; gap: 0.4rem; margin-top: 0.4rem; flex-wrap: wrap; }
 .achievement-icon {
   display: flex;
@@ -323,6 +325,24 @@ main#app {
   opacity: 0.45;
 }
 .achievement-icon.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); }
+
+.achievement-list { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+.achievement-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--md-shape-md);
+  margin-bottom: 0.75rem;
+  background: var(--md-surface-container-low);
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+.achievement-card.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.achievement-card-icon { font-size: 1.75rem; flex-shrink: 0; }
+.achievement-card h3 { margin: 0; }
+.achievement-card p { margin: 0.2rem 0 0; }
+.achievement-card > span.badge { margin-left: auto; flex-shrink: 0; }
 .glossar-search {
   width: 100%;
   padding: 0.6rem 0.85rem;

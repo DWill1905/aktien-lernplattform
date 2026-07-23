@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.36.0] - 2026-07-23
+- Gamification: Neue Seite „Erfolge" (#/erfolge) mit allen Achievements, gesperrt/freigeschaltet; Navigationseintrag und Verlinkung vom Dashboard
+
 ## [1.35.0] - 2026-07-23
 - Gamification: Erfolge-System mit ersten 3 Badges (Erste Schritte, Volltreffer, Modul gemeistert), im Dashboard als Icon-Reihe sichtbar
 

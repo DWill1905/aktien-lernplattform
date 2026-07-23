@@ -79,8 +79,8 @@ export function renderDashboard(): HTMLElement {
       el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
       el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
       weekRow,
-      el("div", { class: "achievements-row" }, [
-        el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length}`]),
+      el("a", { class: "achievements-row", href: "#/erfolge" }, [
+        el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),
         el("div", { class: "achievement-icons" }, achievementIcons),
       ]),
       el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
