@@ -1,0 +1,13 @@
+{
+  "name": "aktien-lernplattform",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "npx http-server -p 8080 -c-1 ."
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}

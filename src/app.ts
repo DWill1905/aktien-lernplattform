@@ -1,0 +1,19 @@
+import { route, notFound, startRouter } from "./router.js";
+import { mount } from "./dom.js";
+import { renderDashboard } from "./views/dashboard.js";
+import { renderModule } from "./views/module.js";
+import { renderLesson } from "./views/lesson.js";
+import { renderQuiz } from "./views/quiz.js";
+import { renderPortfolio } from "./views/portfolio.js";
+
+const app = document.getElementById("app")!;
+
+route("/", () => mount(app, renderDashboard()));
+route("/modul/:moduleId", (params) => mount(app, renderModule(params.moduleId)));
+route("/lektion/:moduleId/:lessonId", (params) => mount(app, renderLesson(params.moduleId, params.lessonId)));
+route("/quiz/:moduleId/:lessonId", (params) => mount(app, renderQuiz(params.moduleId, params.lessonId)));
+route("/portfolio", () => mount(app, renderPortfolio()));
+
+notFound(() => mount(app, renderDashboard()));
+
+startRouter();
