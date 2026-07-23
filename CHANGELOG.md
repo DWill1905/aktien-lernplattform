@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.3.0] - 2026-07-23
+- Neue Grundlagen-Lektion „Anlegerpsychologie: typische Denkfehler" (Verlustaversion, Dispositionseffekt, Ankereffekt, Herdentrieb) mit Quiz
+
 ## [1.2.0] - 2026-07-23
 - Neue Grundlagen-Lektion „Sparplan und Cost-Average-Effekt" (Durchschnittskosteneffekt, Einmalanlage vs. Rate, „Time in the market") mit Quiz
 

@@ -359,5 +359,50 @@ export const grundlagen = {
                 },
             ],
         },
+        {
+            id: "anlegerpsychologie",
+            moduleId: "grundlagen",
+            title: "Anlegerpsychologie: typische Denkfehler",
+            summary: "Die größten Renditekiller sitzen oft nicht im Markt, sondern im eigenen Kopf.",
+            content: [
+                "Die Verhaltensökonomie (Behavioral Finance) zeigt: Anlageentscheidungen sind selten rein rational. Wiederkehrende Denkfehler kosten Privatanleger nachweislich Rendite – sie zu kennen ist der erste Schritt, um sie zu vermeiden.",
+                "Die <strong>Verlustaversion</strong> ist einer der stärksten Effekte: Ein Verlust schmerzt psychologisch etwa doppelt so stark, wie ein gleich großer Gewinn erfreut. Daraus folgt der <strong>Dispositionseffekt</strong> – Anleger verkaufen Gewinner zu früh, um den Gewinn \"sicher\" zu haben, und halten Verlierer zu lange in der Hoffnung, \"nur bis der Kurs wieder bei meinem Einstand ist\".",
+                "Der <strong>Ankereffekt</strong> beschreibt die Fixierung auf einen willkürlichen Bezugspunkt, meist den eigenen Kaufkurs. Ob eine Aktie heute kaufens- oder verkaufenswert ist, hängt aber von ihren Zukunftsaussichten ab – nicht davon, was du selbst einmal bezahlt hast. Der Markt kennt deinen Einstandskurs nicht.",
+                "Weitere häufige Muster sind der <strong>Herdentrieb</strong> (der Masse in Hypes hinterherlaufen und auf dem Höhepunkt einsteigen), die <strong>Selbstüberschätzung</strong> (Overconfidence, die zu übermäßig häufigem Handeln und Unterschätzen von Risiken führt) und der <strong>Bestätigungsfehler</strong> (nur nach Informationen suchen, die die eigene Meinung stützen).",
+                "Das wirksamste Gegenmittel ist kein Geheimtipp, sondern <strong>Struktur</strong>: ein vorab festgelegter Plan, breite Diversifikation, ein automatisierter Sparplan und klare Regeln, wann gekauft oder verkauft wird. Regeln nehmen der Emotion im entscheidenden Moment die Kontrolle aus der Hand.",
+            ],
+            quiz: [
+                {
+                    question: "Was besagt die Verlustaversion?",
+                    options: [
+                        { text: "Anleger empfinden Verluste psychologisch deutlich stärker als gleich große Gewinne", correct: true },
+                        { text: "Anleger meiden grundsätzlich jede Form von Risiko", correct: false },
+                        { text: "Verluste sind steuerlich immer absetzbar", correct: false },
+                        { text: "Große Gewinne erfreuen genauso stark, wie gleich große Verluste schmerzen", correct: false },
+                    ],
+                    explanation: "Weil Verluste ungefähr doppelt so schwer wiegen wie gleich große Gewinne, treffen Anleger oft unlogische Entscheidungen, um Verluste zu vermeiden.",
+                },
+                {
+                    question: "Was beschreibt der Dispositionseffekt?",
+                    options: [
+                        { text: "Gewinneraktien werden zu früh verkauft und Verliereraktien zu lange gehalten", correct: true },
+                        { text: "Anleger kaufen ausschließlich Aktien mit hoher Dividende", correct: false },
+                        { text: "Der Broker verteilt Aktien automatisch auf mehrere Depots", correct: false },
+                        { text: "Verluste werden sofort realisiert, Gewinne nie", correct: false },
+                    ],
+                    explanation: "Als Folge der Verlustaversion sichern Anleger Gewinne vorschnell und klammern sich an Verlierer – häufig genau die falsche Reihenfolge.",
+                },
+                {
+                    question: "Warum ist der eigene Kaufkurs (Ankereffekt) ein schlechter Maßstab für eine Verkaufsentscheidung?",
+                    options: [
+                        { text: "Weil er gesetzlich nicht berücksichtigt werden darf", correct: false },
+                        { text: "Weil die Zukunftsaussichten der Aktie zählen, nicht der historisch von dir gezahlte Preis", correct: true },
+                        { text: "Weil der Kaufkurs steuerlich irrelevant ist", correct: false },
+                        { text: "Weil der Broker den Kaufkurs nicht speichert", correct: false },
+                    ],
+                    explanation: "Der Markt orientiert sich an Erwartungen über die Zukunft; dein persönlicher Einstandspreis ist für die Bewertung einer Aktie ohne Bedeutung.",
+                },
+            ],
+        },
     ],
 };
