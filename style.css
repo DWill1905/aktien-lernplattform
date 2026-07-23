@@ -1,52 +1,139 @@
+/* ==========================================================================
+   Material Design 3 — Farbtokens (Rollen nach M3-Spezifikation)
+   Seed-Farbe: Teal-Grün, passend zum bisherigen Markenauftritt.
+   ========================================================================== */
 :root {
   color-scheme: light dark;
-  --bg: #f5f7fa;
-  --panel: #ffffff;
-  --panel-2: #eef1f6;
-  --border: #dde3ec;
-  --ink: #1c2530;
-  --ink-2: #56626f;
-  --accent: #1c6e5c;
-  --accent-2: #145f4f;
-  --accent-soft: #e2f2ee;
-  --danger: #b3372c;
-  --danger-soft: #fbe9e7;
-  --warn: #9a6b1a;
-  --radius: 12px;
-  --shadow: 0 1px 2px rgba(20, 30, 40, 0.06), 0 4px 16px rgba(20, 30, 40, 0.05);
+
+  --md-primary: #146356;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #a2f2df;
+  --md-on-primary-container: #00201a;
+
+  --md-secondary: #4a6358;
+  --md-on-secondary: #ffffff;
+  --md-secondary-container: #cce8da;
+  --md-on-secondary-container: #06201a;
+
+  --md-tertiary: #3f6375;
+  --md-on-tertiary: #ffffff;
+  --md-tertiary-container: #c2e8fd;
+  --md-on-tertiary-container: #001e2c;
+
+  --md-error: #ba1a1a;
+  --md-on-error: #ffffff;
+  --md-error-container: #ffdad6;
+  --md-on-error-container: #410002;
+
+  --md-success: #2c6e3f;
+  --md-on-success-container: #00210a;
+  --md-success-container: #b1f1bd;
+
+  --md-background: #fbfdf9;
+  --md-on-background: #191c1a;
+  --md-surface: #fbfdf9;
+  --md-on-surface: #191c1a;
+  --md-surface-variant: #dbe5de;
+  --md-on-surface-variant: #404944;
+  --md-outline: #707974;
+  --md-outline-variant: #bfc9c2;
+
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #f3f5f0;
+  --md-surface-container: #eef1ec;
+  --md-surface-container-high: #e8ebe6;
+  --md-surface-container-highest: #e2e5e0;
+
+  /* Shape scale (M3) */
+  --md-shape-xs: 4px;
+  --md-shape-sm: 8px;
+  --md-shape-md: 12px;
+  --md-shape-lg: 16px;
+  --md-shape-xl: 28px;
+  --md-shape-full: 999px;
+
+  /* Elevation (M3 levels 0–3, vereinfacht) */
+  --md-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.16), 0 1px 3px 1px rgba(0, 0, 0, 0.08);
+  --md-elevation-2: 0 1px 2px rgba(0, 0, 0, 0.18), 0 3px 6px 2px rgba(0, 0, 0, 0.1);
+  --md-elevation-3: 0 1px 3px rgba(0, 0, 0, 0.2), 0 5px 10px 3px rgba(0, 0, 0, 0.12);
+
+  /* Legacy-Aliase, damit bestehendes JS (Chart-Farbe, Quiz-Auswahl) unverändert funktioniert */
+  --accent: var(--md-primary);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #14181d;
-    --panel: #1b2027;
-    --panel-2: #222933;
-    --border: #2d3540;
-    --ink: #e7ecf1;
-    --ink-2: #a2adb9;
-    --accent: #4fbfa0;
-    --accent-2: #6fd4b6;
-    --accent-soft: #1d3530;
-    --danger: #e2695c;
-    --danger-soft: #3a2220;
-    --warn: #d9a441;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --md-primary: #86d5c2;
+    --md-on-primary: #003730;
+    --md-primary-container: #005046;
+    --md-on-primary-container: #a2f2df;
+
+    --md-secondary: #b0ccbe;
+    --md-on-secondary: #1c352b;
+    --md-secondary-container: #334b40;
+    --md-on-secondary-container: #cce8da;
+
+    --md-tertiary: #a6cce2;
+    --md-on-tertiary: #073544;
+    --md-tertiary-container: #254b5c;
+    --md-on-tertiary-container: #c2e8fd;
+
+    --md-error: #ffb4ab;
+    --md-on-error: #690005;
+    --md-error-container: #93000a;
+    --md-on-error-container: #ffdad6;
+
+    --md-success: #96d5a3;
+    --md-on-success-container: #b1f1bd;
+    --md-success-container: #0f5223;
+
+    --md-background: #101413;
+    --md-on-background: #e1e3df;
+    --md-surface: #101413;
+    --md-on-surface: #e1e3df;
+    --md-surface-variant: #404944;
+    --md-on-surface-variant: #bfc9c2;
+    --md-outline: #8a938d;
+    --md-outline-variant: #404944;
+
+    --md-surface-container-lowest: #0b0f0e;
+    --md-surface-container-low: #191c1a;
+    --md-surface-container: #1d201e;
+    --md-surface-container-high: #272b29;
+    --md-surface-container-highest: #323533;
+
+    --md-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px 1px rgba(0, 0, 0, 0.28);
+    --md-elevation-2: 0 1px 2px rgba(0, 0, 0, 0.45), 0 3px 6px 2px rgba(0, 0, 0, 0.3);
+    --md-elevation-3: 0 1px 3px rgba(0, 0, 0, 0.5), 0 5px 10px 3px rgba(0, 0, 0, 0.32);
   }
 }
 
+/* ==========================================================================
+   Basis & Typografie (M3-Skala: Headline / Title / Body / Label)
+   ========================================================================== */
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: var(--md-background);
+  color: var(--md-on-background);
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-a { color: var(--accent); text-decoration: none; }
+a { color: var(--md-primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+h1 { font-size: 1.75rem; line-height: 2.25rem; font-weight: 500; margin: 0 0 0.4rem; letter-spacing: 0; }
+h2 { font-size: 1.375rem; line-height: 1.75rem; font-weight: 500; margin: 1.5rem 0 0.6rem; }
+h3 { font-size: 1rem; line-height: 1.5rem; font-weight: 500; letter-spacing: 0.009em; margin: 1.1rem 0 0.4rem; }
+p { font-size: 1rem; line-height: 1.5rem; color: var(--md-on-background); }
+.muted { color: var(--md-on-surface-variant); font-size: 0.875rem; }
+
+/* ==========================================================================
+   Top App Bar
+   ========================================================================== */
 .topbar {
   display: flex;
   align-items: center;
@@ -54,23 +141,43 @@ a:hover { text-decoration: underline; }
   flex-wrap: wrap;
   gap: 0.75rem;
   padding: 0.9rem 1.5rem;
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
+  background: var(--md-surface-container-low);
+  border-bottom: 1px solid var(--md-outline-variant);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 .brand {
-  font-weight: 700;
-  font-size: 1.1rem;
-  color: var(--ink);
+  font-size: 1.375rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  color: var(--md-on-surface);
 }
 .brand:hover { text-decoration: none; }
 
-.topnav { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-.topnav a { color: var(--ink-2); font-weight: 500; font-size: 0.95rem; }
-.topnav a:hover { color: var(--accent); text-decoration: none; }
+.topnav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+.topnav a {
+  position: relative;
+  overflow: hidden;
+  color: var(--md-on-surface-variant);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.006em;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--md-shape-full);
+}
+.topnav a:hover { color: var(--md-on-surface); text-decoration: none; }
+.topnav a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.topnav a:hover::after { opacity: 0.08; }
+.topnav a:active::after { opacity: 0.1; }
 
 main#app {
   max-width: 960px;
@@ -80,22 +187,17 @@ main#app {
 
 .footer {
   text-align: center;
-  color: var(--ink-2);
-  font-size: 0.8rem;
+  color: var(--md-on-surface-variant);
+  font-size: 0.75rem;
   padding: 1.5rem;
 }
 
-h1 { font-size: 1.7rem; margin: 0 0 0.4rem; }
-h2 { font-size: 1.3rem; margin: 1.5rem 0 0.6rem; }
-h3 { font-size: 1.05rem; margin: 1.1rem 0 0.4rem; }
-p { color: var(--ink); }
-.muted { color: var(--ink-2); }
-
+/* ==========================================================================
+   Cards (M3 Filled Card als Basis, Elevated Card für klickbare Kacheln)
+   ========================================================================== */
 .card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  background: var(--md-surface-container-low);
+  border-radius: var(--md-shape-md);
   padding: 1.25rem 1.4rem;
   margin-bottom: 1rem;
 }
@@ -109,30 +211,49 @@ p { color: var(--ink); }
 
 .module-card {
   display: block;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  background: var(--md-surface-container-low);
+  border-radius: var(--md-shape-md);
+  box-shadow: var(--md-elevation-1);
   padding: 1.25rem;
-  color: var(--ink);
+  color: var(--md-on-surface);
+  transition: box-shadow 0.15s ease;
 }
-.module-card:hover { text-decoration: none; border-color: var(--accent); }
+.module-card:hover { text-decoration: none; box-shadow: var(--md-elevation-2); }
+.module-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.module-card:hover::after { opacity: 0.05; }
+.module-card:active::after { opacity: 0.08; }
 .module-card .icon { font-size: 1.6rem; }
 .module-card h3 { margin-top: 0.5rem; }
 
+/* ==========================================================================
+   Linear Progress Indicator
+   ========================================================================== */
 .progress-bar {
-  height: 8px;
-  border-radius: 999px;
-  background: var(--panel-2);
+  height: 4px;
+  border-radius: var(--md-shape-full);
+  background: var(--md-secondary-container);
   overflow: hidden;
   margin-top: 0.6rem;
 }
 .progress-bar > span {
   display: block;
   height: 100%;
-  background: var(--accent);
+  border-radius: var(--md-shape-full);
+  background: var(--md-primary);
 }
 
+/* ==========================================================================
+   Lektionsliste
+   ========================================================================== */
 .lesson-list { list-style: none; padding: 0; margin: 1rem 0 0; }
 .lesson-list li {
   display: flex;
@@ -140,116 +261,197 @@ p { color: var(--ink); }
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--md-shape-md);
   margin-bottom: 0.6rem;
-  background: var(--panel);
+  background: var(--md-surface-container-low);
 }
-.lesson-list a { color: var(--ink); font-weight: 500; }
-.lesson-list a:hover { color: var(--accent); }
+.lesson-list a { position: relative; color: var(--md-on-surface); font-weight: 500; }
+.lesson-list a:hover { color: var(--md-primary); }
+
+/* Assist-Chip-artige Badges */
 .badge {
   font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: var(--panel-2);
-  color: var(--ink-2);
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--md-shape-full);
+  border: 1px solid var(--md-outline-variant);
+  color: var(--md-on-surface-variant);
   white-space: nowrap;
 }
-.badge.done { background: var(--accent-soft); color: var(--accent); }
+.badge.done {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-color: transparent;
+}
 
 .lesson-content p { margin: 0 0 0.9rem; }
 .lesson-content ul { margin: 0 0 0.9rem; padding-left: 1.3rem; }
 .lesson-content li { margin-bottom: 0.3rem; }
 
+/* ==========================================================================
+   Buttons (Filled / Tonal / Outlined analog M3-Button-Varianten)
+   ========================================================================== */
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
   border: none;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.92rem;
-  padding: 0.6rem 1.1rem;
+  border-radius: var(--md-shape-full);
+  background: var(--md-primary);
+  color: var(--md-on-primary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.006em;
+  height: 2.5rem;
+  padding: 0 1.5rem;
   cursor: pointer;
+  transition: box-shadow 0.15s ease;
 }
-.btn:hover { background: var(--accent-2); text-decoration: none; }
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.btn:hover { text-decoration: none; box-shadow: var(--md-elevation-1); }
+.btn:hover::after { opacity: 0.08; }
+.btn:active::after { opacity: 0.1; }
+
+/* Tonal button */
 .btn.secondary {
-  background: var(--panel-2);
-  color: var(--ink);
-  border: 1px solid var(--border);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
 }
-.btn.secondary:hover { background: var(--border); }
-.btn.danger { background: var(--danger); }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.secondary:hover { box-shadow: none; }
+
+/* Filled error button */
+.btn.danger { background: var(--md-error); color: var(--md-on-error); }
+
+.btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.btn:disabled::after { opacity: 0 !important; }
 
 .actions { display: flex; gap: 0.7rem; margin-top: 1.3rem; flex-wrap: wrap; }
 
+/* ==========================================================================
+   Quiz
+   ========================================================================== */
 .quiz-question { margin-bottom: 1.4rem; }
-.quiz-question .question-text { font-weight: 600; margin-bottom: 0.6rem; }
+.quiz-question .question-text { font-weight: 500; margin-bottom: 0.6rem; }
 .quiz-option {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.55rem 0.7rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-sm);
   margin-bottom: 0.4rem;
+  color: var(--md-on-surface);
   cursor: pointer;
+  transition: border-color 0.15s ease;
 }
-.quiz-option:hover { border-color: var(--accent); }
-.quiz-option.correct { border-color: var(--accent); background: var(--accent-soft); }
-.quiz-option.incorrect { border-color: var(--danger); background: var(--danger-soft); }
+.quiz-option::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.quiz-option:hover::after { opacity: 0.05; }
+.quiz-option:hover { border-color: var(--md-primary); }
+.quiz-option.correct {
+  border-color: var(--md-success);
+  background: var(--md-success-container);
+  color: var(--md-on-success-container);
+}
+.quiz-option.incorrect {
+  border-color: var(--md-error);
+  background: var(--md-error-container);
+  color: var(--md-on-error-container);
+}
 .quiz-explanation {
-  font-size: 0.88rem;
-  color: var(--ink-2);
+  font-size: 0.875rem;
+  color: var(--md-on-surface-variant);
   margin-top: 0.5rem;
-  padding: 0.6rem 0.8rem;
-  background: var(--panel-2);
-  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  background: var(--md-surface-container-high);
+  border-radius: var(--md-shape-sm);
   display: none;
 }
 .quiz-explanation.show { display: block; }
 .quiz-score {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.375rem;
+  font-weight: 500;
   margin: 1rem 0;
 }
 
+/* ==========================================================================
+   Tabellen
+   ========================================================================== */
 table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
-th, td { text-align: left; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--border); font-size: 0.92rem; }
-th { color: var(--ink-2); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.02em; }
+th, td { text-align: left; padding: 0.6rem 0.6rem; border-bottom: 1px solid var(--md-outline-variant); font-size: 0.875rem; }
+th { color: var(--md-on-surface-variant); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-.pos { color: var(--accent); }
-.neg { color: var(--danger); }
+.pos { color: var(--md-success); }
+.neg { color: var(--md-error); }
 
+/* ==========================================================================
+   Stat-Kacheln (Filled Card, klein)
+   ========================================================================== */
 .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem; }
 .stat {
   flex: 1 1 140px;
-  background: var(--panel-2);
-  border-radius: var(--radius);
+  background: var(--md-surface-container-high);
+  border-radius: var(--md-shape-md);
   padding: 0.85rem 1rem;
 }
-.stat .label { font-size: 0.78rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.02em; }
-.stat .value { font-size: 1.25rem; font-weight: 700; margin-top: 0.15rem; }
+.stat .label { font-size: 0.75rem; color: var(--md-on-surface-variant); text-transform: uppercase; letter-spacing: 0.04em; }
+.stat .value { font-size: 1.375rem; font-weight: 500; margin-top: 0.15rem; }
 
+/* ==========================================================================
+   Outlined Text Fields (Handelsformular)
+   ========================================================================== */
 .trade-form { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: flex-end; margin-top: 0.9rem; }
-.trade-form label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.82rem; color: var(--ink-2); }
+.trade-form label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.75rem; color: var(--md-on-surface-variant); }
 .trade-form select, .trade-form input {
-  padding: 0.5rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--panel);
-  color: var(--ink);
-  font-size: 0.92rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--md-shape-xs);
+  border: 1px solid var(--md-outline);
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  font-size: 0.875rem;
+  height: 2.5rem;
 }
-.trade-message { margin-top: 0.7rem; font-size: 0.88rem; }
-.trade-message.ok { color: var(--accent); }
-.trade-message.error { color: var(--danger); }
+.trade-form select:focus, .trade-form input:focus {
+  outline: none;
+  border: 2px solid var(--md-primary);
+  padding: 0.55rem 0.7rem;
+}
+.trade-message { margin-top: 0.7rem; font-size: 0.875rem; }
+.trade-message.ok { color: var(--md-success); }
+.trade-message.error { color: var(--md-error); }
 
-canvas.chart { width: 100%; height: 180px; display: block; margin-top: 0.75rem; background: var(--panel-2); border-radius: 8px; }
+canvas.chart {
+  width: 100%;
+  height: 180px;
+  display: block;
+  margin-top: 0.75rem;
+  background: var(--md-surface-container-high);
+  border-radius: var(--md-shape-md);
+}
 
-.breadcrumb { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 0.75rem; }
-.breadcrumb a { color: var(--ink-2); }
+.breadcrumb { font-size: 0.75rem; color: var(--md-on-surface-variant); margin-bottom: 0.75rem; }
+.breadcrumb a { color: var(--md-on-surface-variant); }
 
-.empty-state { text-align: center; color: var(--ink-2); padding: 2rem 1rem; }
+.empty-state { text-align: center; color: var(--md-on-surface-variant); padding: 2rem 1rem; }
