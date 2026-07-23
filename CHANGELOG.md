@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.13.0] - 2026-07-23
+- Portfolio-Simulator: neue Karte „Aufteilung nach Branchen" (Diversifikation/Klumpenrisiko visualisiert, inkl. Barguthaben-Anteil)
+
 ## [1.12.1] - 2026-07-23
 - Fachliche Präzisierungen: Dividendenrhythmus (Deutschland jährlich / USA quartalsweise) und MSCI-World-Kennzahl (über 1.300 Unternehmen aus 23 Industrieländern)
 

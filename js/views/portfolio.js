@@ -63,6 +63,16 @@ function drawChart(canvas, prices) {
     ctx.textBaseline = "top";
     ctx.fillText(`${prices[prices.length - 1].toFixed(2)} €`, width - padX, 0);
 }
+function allocationRow(label, part, total) {
+    const pct = total > 0 ? (part / total) * 100 : 0;
+    return el("div", { class: "allocation-row" }, [
+        el("div", { class: "allocation-head" }, [
+            el("span", {}, [label]),
+            el("span", { class: "num" }, [`${formatCurrency(part)} · ${pct.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`]),
+        ]),
+        el("div", { class: "progress-bar" }, [el("span", { style: `width:${pct}%` }, [])]),
+    ]);
+}
 export function renderPortfolio() {
     let state = loadPortfolio();
     let selectedStockId = STOCKS[0].id;
@@ -239,7 +249,29 @@ export function renderPortfolio() {
                     el("tbody", {}, txRows),
                 ]),
         ]);
-        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, holdingsCard, txCard]);
+        // --- Aufteilung nach Branchen (Diversifikation) ---
+        const investedBySector = {};
+        for (const [stockId, pos] of holdingEntries) {
+            const stock = stockById(stockId);
+            if (!stock)
+                continue;
+            investedBySector[stock.sector] = (investedBySector[stock.sector] ?? 0) + pos.shares * currentPrice(stock, state.day);
+        }
+        const allocationCard = holdingEntries.length === 0
+            ? null
+            : el("div", { class: "card" }, [
+                el("h2", {}, ["Aufteilung nach Branchen"]),
+                el("p", { class: "muted" }, [
+                    "So ist dein Kapital gestreut – je breiter über Branchen und Barguthaben verteilt, desto geringer das Klumpenrisiko.",
+                ]),
+                el("div", { class: "allocation" }, [
+                    ...Object.entries(investedBySector)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([sector, part]) => allocationRow(sector, part, value)),
+                    allocationRow("Barguthaben", state.cash, value),
+                ]),
+            ]);
+        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, holdingsCard, allocationCard, txCard]);
         queueMicrotask(() => drawChart(canvas, history));
         return wrapper;
     }
