@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.13.1] - 2026-07-23
+- Performance: Kursverläufe (priceHistory) werden memoisiert – deutlich weniger Neuberechnungen pro Render
+
 ## [1.13.0] - 2026-07-23
 - Portfolio-Simulator: neue Karte „Aufteilung nach Branchen" (Diversifikation/Klumpenrisiko visualisiert, inkl. Barguthaben-Anteil)
 

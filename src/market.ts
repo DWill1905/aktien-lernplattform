@@ -28,7 +28,17 @@ function gaussian(rng: () => number): number {
   return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
 }
 
+// Kursverläufe sind deterministisch (seed + Tag), daher gefahrlos cachebar.
+// Der Cache spart wiederholte O(Tage)-Berechnungen pro Render (Marktübersicht,
+// Positionen, Depotwert, Chart greifen alle auf dieselben Verläufe zu).
+// Rückgabe nicht mutieren – die Aufrufer lesen die Kurse nur.
+const historyCache = new Map<string, number[]>();
+
 export function priceHistory(stock: Stock, days: number): number[] {
+  const key = `${stock.seed}:${days}`;
+  const cached = historyCache.get(key);
+  if (cached) return cached;
+
   const rng = mulberry32(stock.seed);
   const prices = [stock.basePrice];
   let price = stock.basePrice;
@@ -37,6 +47,7 @@ export function priceHistory(stock: Stock, days: number): number[] {
     price = Math.max(0.5, price * (1 + shock));
     prices.push(Math.round(price * 100) / 100);
   }
+  historyCache.set(key, prices);
   return prices;
 }
 
