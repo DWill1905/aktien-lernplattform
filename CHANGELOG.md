@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.45.0] - 2026-07-23
+- Gamification: Streak-Rettung-Hinweis – Warnbanner im Dashboard, wenn die laufende Streak heute noch nicht fortgesetzt wurde
+
 ## [1.44.0] - 2026-07-23
 - Gamification: Level-Anzeige jetzt dauerhaft in der Kopfzeile sichtbar (auf jeder Seite, aktualisiert sich live bei XP-Änderungen)
 

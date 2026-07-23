@@ -222,6 +222,11 @@ export function levelProgress(xp: number): LevelProgress {
   return { level: current.level, title: current.title, xpIntoLevel, xpForLevel, pct: Math.round((xpIntoLevel / xpForLevel) * 100), maxLevel: false };
 }
 
+/** True, wenn eine laufende Streak heute noch nicht fortgesetzt wurde und daher zu verfallen droht. */
+export function isStreakAtRisk(state: GamificationState): boolean {
+  return state.streak > 0 && state.lastActiveDate !== todayStr();
+}
+
 export interface DayActivity {
   date: string;
   active: boolean;

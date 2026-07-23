@@ -165,6 +165,10 @@ export function levelProgress(xp) {
     const xpForLevel = next - current.xpRequired;
     return { level: current.level, title: current.title, xpIntoLevel, xpForLevel, pct: Math.round((xpIntoLevel / xpForLevel) * 100), maxLevel: false };
 }
+/** True, wenn eine laufende Streak heute noch nicht fortgesetzt wurde und daher zu verfallen droht. */
+export function isStreakAtRisk(state) {
+    return state.streak > 0 && state.lastActiveDate !== todayStr();
+}
 const WEEKDAY_LABELS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 export function weekdayLabel(date) {
     return WEEKDAY_LABELS[new Date(`${date}T00:00:00Z`).getUTCDay()];

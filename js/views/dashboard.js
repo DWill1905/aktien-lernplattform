@@ -4,7 +4,7 @@ import { loadProgress, resetProgress } from "../state.js";
 import { loadPortfolio, STARTKAPITAL } from "../state.js";
 import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
-import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus } from "../gamification.js";
+import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus, isStreakAtRisk } from "../gamification.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
 export function renderDashboard() {
     const progress = loadProgress();
@@ -21,6 +21,12 @@ export function renderDashboard() {
         el("span", { class: "streak-day-label" }, [weekdayLabel(day.date)]),
         el("span", { class: "streak-day-dot" }, [day.active ? "🔥" : ""]),
     ])));
+    const streakAtRisk = isStreakAtRisk(gamification);
+    const streakWarning = streakAtRisk
+        ? el("p", { class: "streak-warning" }, [
+            `⚠️ Deine ${gamification.streak}-Tage-Streak läuft heute noch aus – schließe eine Lektion oder ein Quiz ab, um sie zu retten!`,
+        ])
+        : null;
     const goal = dailyGoalStatus(gamification);
     const goalRow = el("div", { class: `daily-goal${goal.goalMet ? " met" : ""}` }, [
         el("span", {}, [goal.goalMet ? "✅ Tagesziel erreicht" : `🎯 Tagesziel: ${goal.count} / ${goal.goal} Aktionen heute`]),
@@ -70,6 +76,7 @@ export function renderDashboard() {
             el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
             el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
             weekRow,
+            streakWarning,
             goalRow,
             el("a", { class: "achievements-row", href: "#/erfolge" }, [
                 el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),

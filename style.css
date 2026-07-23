@@ -321,6 +321,16 @@ main#app {
 .streak-day-label { font-size: 0.7rem; color: var(--md-on-surface-variant); text-transform: uppercase; }
 .streak-day-dot { font-size: 1rem; min-height: 1.2rem; }
 
+.streak-warning {
+  margin: 0.9rem 0 0;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--md-shape-sm);
+  background: var(--md-error-container);
+  color: var(--md-on-error-container);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
 .daily-goal { margin-top: 0.9rem; font-size: 0.875rem; }
 .daily-goal.met { color: var(--md-success); font-weight: 500; }
 .daily-goal-bar { height: 6px; }
