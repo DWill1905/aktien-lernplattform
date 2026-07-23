@@ -1,6 +1,7 @@
 import { el } from "../dom.js";
 import { moduleById } from "../content/index.js";
 import { loadProgress } from "../state.js";
+import { quizStars, starLabel } from "../gamification.js";
 export function renderModule(moduleId) {
     const mod = moduleById(moduleId);
     if (!mod) {
@@ -9,11 +10,17 @@ export function renderModule(moduleId) {
     const progress = loadProgress();
     const items = mod.lessons.map((lesson) => {
         const entry = progress.lessons[lesson.id];
-        const badge = entry?.completed
-            ? el("span", { class: "badge done" }, [
-                entry.quizScore !== null && entry.quizTotal !== null ? `✓ Quiz ${entry.quizScore}/${entry.quizTotal}` : "✓ gelesen",
-            ])
-            : el("span", { class: "badge" }, ["offen"]);
+        let badge;
+        if (entry?.completed && entry.quizScore !== null && entry.quizTotal !== null) {
+            const stars = quizStars(entry.quizScore, entry.quizTotal);
+            badge = el("span", { class: "badge done quiz-stars", title: `Quiz: ${entry.quizScore}/${entry.quizTotal} richtig` }, [starLabel(stars)]);
+        }
+        else if (entry?.completed) {
+            badge = el("span", { class: "badge done" }, ["✓ gelesen"]);
+        }
+        else {
+            badge = el("span", { class: "badge" }, ["offen"]);
+        }
         return el("li", {}, [
             el("a", { href: `#/lektion/${mod.id}/${lesson.id}` }, [lesson.title]),
             badge,

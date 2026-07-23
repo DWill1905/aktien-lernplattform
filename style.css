@@ -400,6 +400,7 @@ main#app {
   color: var(--md-on-primary-container);
   border-color: transparent;
 }
+.badge.quiz-stars { letter-spacing: 0.1em; font-size: 0.85rem; }
 
 .lesson-content p { margin: 0 0 0.9rem; }
 .lesson-content ul { margin: 0 0 0.9rem; padding-left: 1.3rem; }

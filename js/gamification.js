@@ -1,4 +1,20 @@
 const KEY = "boersenschule:gamification";
+/** Sterne-Bewertung (1-3) für ein Quiz-Ergebnis, analog zu Lern-Apps. */
+export function quizStars(score, total) {
+    if (total <= 0)
+        return 0;
+    const pct = score / total;
+    if (pct >= 1)
+        return 3;
+    if (pct >= 0.66)
+        return 2;
+    if (pct > 0)
+        return 1;
+    return 0;
+}
+export function starLabel(stars, max = 3) {
+    return "★".repeat(stars) + "☆".repeat(Math.max(0, max - stars));
+}
 export const XP_LESSON = 10;
 export const XP_QUIZ_CORRECT = 5;
 export const XP_QUIZ_PERFECT_BONUS = 10;

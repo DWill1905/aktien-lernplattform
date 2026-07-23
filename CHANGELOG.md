@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.39.0] - 2026-07-23
+- Gamification: Quiz-Ergebnisse werden in der Modul-Lektionsliste als 1-3-Sterne-Bewertung statt nur als Bruchzahl angezeigt
+
 ## [1.38.0] - 2026-07-23
 - Gamification: Achievement-Unlock-Toast – sofortige Benachrichtigung, sobald ein neuer Erfolg freigeschaltet wird
 
