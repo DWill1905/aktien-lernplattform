@@ -96,5 +96,50 @@ export const fortgeschritteneAnalyse: LearningModule = {
         },
       ],
     },
+    {
+      id: "makro-zinsen-konjunktur",
+      moduleId: "fortgeschrittene-analyse",
+      title: "Makro, Zinsen und Konjunkturzyklus",
+      summary: "Der wichtigste Hebel für die gesamte Börse sitzt bei den Notenbanken – Profis behalten das große Bild im Auge.",
+      content: [
+        "Der stärkste übergeordnete Kurstreiber sind die <strong>Zinsen</strong>, gesteuert von Notenbanken wie der EZB und der US-Notenbank Fed über den Leitzins. Zinsen wirken auf die gesamte Bewertung von Aktien – nicht nur auf einzelne Titel.",
+        "<strong>Steigende Zinsen</strong> belasten Aktien gleich mehrfach: Anleihen werfen wieder mehr ab und werden zur Konkurrenz, Kredite und Investitionen werden teurer, und künftige Gewinne werden stärker abgezinst. Besonders <strong>Wachstums- und Technologiewerte</strong> leiden, weil ihr Wert weit in der Zukunft liegt. Fallende Zinsen wirken umgekehrt tendenziell kurstreibend – daher die Börsenweisheit \"Don't fight the Fed\".",
+        "Die Wirtschaft durchläuft einen <strong>Konjunkturzyklus</strong>: Aufschwung, Boom, Abschwung und Rezession. Wichtig für Anleger: Der Aktienmarkt ist ein <strong>vorlaufender Indikator</strong> – er nimmt Erholung oder Abschwung meist rund ein halbes Jahr vorweg, bevor sie in den realen Wirtschaftsdaten sichtbar werden.",
+        "Ein vielbeachtetes Frühwarnsignal ist die <strong>Zinskurve</strong>. Normalerweise sind langfristige Zinsen höher als kurzfristige. Kehrt sich das um (<strong>inverse Zinskurve</strong>, kurzfristige Zinsen über langfristigen), galt das in der Vergangenheit häufig als Vorbote einer Rezession.",
+        "Aus dem Zyklus folgt die <strong>Sektorrotation</strong>: In frühen Aufschwungphasen laufen oft zyklische Branchen (Industrie, Konsum-Luxus) besser, in Abschwüngen eher defensive (Versorger, Basiskonsum, Pharma), deren Nachfrage konjunkturunabhängiger ist. Wer den Zyklus grob einordnet, versteht die Rotation zwischen den Sektoren besser.",
+      ],
+      quiz: [
+        {
+          question: "Warum belasten steigende Zinsen tendenziell besonders Wachstumsaktien?",
+          options: [
+            { text: "Weil deren Gewinne weit in der Zukunft liegen und stärker abgezinst werden – zudem werden Anleihen attraktiver", correct: true },
+            { text: "Weil Wachstumsaktien keine Dividende zahlen dürfen", correct: false },
+            { text: "Weil steigende Zinsen den Umsatz gesetzlich begrenzen", correct: false },
+            { text: "Weil Wachstumsaktien vom Handel ausgesetzt werden", correct: false },
+          ],
+          explanation: "Höhere Zinsen erhöhen den Diskontsatz für künftige Gewinne und machen Anleihen zur Konkurrenz – beides trifft weit in der Zukunft bewertete Wachstumswerte am stärksten.",
+        },
+        {
+          question: "Was gilt eine inverse Zinskurve historisch als Signal?",
+          options: [
+            { text: "Für einen garantierten Börsencrash am nächsten Tag", correct: false },
+            { text: "Als häufiger Vorbote einer Rezession (kurzfristige Zinsen über langfristigen)", correct: true },
+            { text: "Für steigende Dividenden", correct: false },
+            { text: "Für ein Verbot von Leerverkäufen", correct: false },
+          ],
+          explanation: "Wenn kurzfristige Zinsen über den langfristigen liegen, war das in der Vergangenheit oft ein Frühindikator für eine bevorstehende Rezession.",
+        },
+        {
+          question: "Was besagt der Umstand, dass der Aktienmarkt ein vorlaufender Indikator ist?",
+          options: [
+            { text: "Er bildet die aktuelle Wirtschaftslage exakt in Echtzeit ab", correct: false },
+            { text: "Er nimmt Erholung oder Abschwung meist vorweg, bevor sie in den Wirtschaftsdaten sichtbar werden", correct: true },
+            { text: "Er reagiert immer erst ein Jahr nach der Wirtschaft", correct: false },
+            { text: "Er hat mit der Konjunktur nichts zu tun", correct: false },
+          ],
+          explanation: "Kurse spiegeln Erwartungen wider und laufen der realen Wirtschaft typischerweise etwa ein halbes Jahr voraus.",
+        },
+      ],
+    },
   ],
 };

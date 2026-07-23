@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.23.0] - 2026-07-23
+- Profi-Analyse: Lektion „Makro, Zinsen und Konjunkturzyklus" (Notenbanken, Zinswirkung, inverse Zinskurve, Sektorrotation) mit Quiz
+
 ## [1.22.0] - 2026-07-23
 - Profi-Analyse: Lektion „Profi-Kennzahlen: ROE, ROIC, EV/EBITDA, PEG" (Kapitaleffizienz, Enterprise Value, wachstumsbereinigte Bewertung) mit Quiz
 
