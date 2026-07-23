@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.1] - 2026-07-23
+- Navigation: aktueller Bereich wird hervorgehoben (aktive Klasse + aria-current) – auch auf Lektions- und Quiz-Seiten des jeweiligen Moduls
+
 ## [1.11.0] - 2026-07-23
 - Kursverlauf-Chart: Höchst-/Tiefst-/aktueller Kurs beschriftet, dezente Flächenfüllung, Markierung des aktuellen Kurses und aria-label als Text-Alternative
 

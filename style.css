@@ -178,6 +178,10 @@ p { font-size: 1rem; line-height: 1.5rem; color: var(--md-on-background); }
 }
 .topnav a:hover::after { opacity: 0.08; }
 .topnav a:active::after { opacity: 0.1; }
+.topnav a.active {
+  color: var(--md-on-secondary-container);
+  background: var(--md-secondary-container);
+}
 
 main#app {
   max-width: 960px;

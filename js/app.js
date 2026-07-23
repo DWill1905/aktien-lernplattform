@@ -12,4 +12,25 @@ route("/lektion/:moduleId/:lessonId", (params) => mount(app, renderLesson(params
 route("/quiz/:moduleId/:lessonId", (params) => mount(app, renderQuiz(params.moduleId, params.lessonId)));
 route("/portfolio", () => mount(app, renderPortfolio()));
 notFound(() => mount(app, renderDashboard()));
+function updateActiveNav() {
+    const hash = location.hash || "#/";
+    document.querySelectorAll(".topnav a").forEach((a) => {
+        const key = (a.getAttribute("href") ?? "").replace(/^#\//, "");
+        let active;
+        if (key === "portfolio") {
+            active = hash.startsWith("#/portfolio");
+        }
+        else {
+            const moduleId = key.split("/")[1] ?? "";
+            active = new RegExp(`(?:modul|lektion|quiz)/${moduleId}(?:/|$)`).test(hash);
+        }
+        a.classList.toggle("active", active);
+        if (active)
+            a.setAttribute("aria-current", "page");
+        else
+            a.removeAttribute("aria-current");
+    });
+}
+window.addEventListener("hashchange", updateActiveNav);
+updateActiveNav();
 startRouter();
