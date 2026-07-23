@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.47.0] - 2026-07-23
+- Gamification: Erfolge-Seite zeigt jetzt einen Gesamtfortschrittsbalken ("X von Y Erfolgen freigeschaltet")
+
 ## [1.46.0] - 2026-07-23
 - Gamification: Konfetti-Mikroanimation bei perfektem Quiz und Level-up (reines CSS/JS, respektiert prefers-reduced-motion)
 

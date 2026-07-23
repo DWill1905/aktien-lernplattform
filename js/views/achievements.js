@@ -13,11 +13,13 @@ export function renderAchievements() {
             el("span", { class: "badge" + (done ? " done" : "") }, [done ? "✓ freigeschaltet" : "gesperrt"]),
         ]);
     });
+    const pct = ACHIEVEMENTS.length ? Math.round((unlocked.size / ACHIEVEMENTS.length) * 100) : 0;
     return el("div", {}, [
         el("div", { class: "breadcrumb" }, [el("a", { href: "#/" }, ["Übersicht"]), " / ", "Erfolge"]),
         el("h1", {}, ["🏆 Deine Erfolge"]),
-        el("p", { class: "muted" }, [
-            `${unlocked.size} von ${ACHIEVEMENTS.length} Erfolgen freigeschaltet.`,
+        el("div", { class: "card overall-progress achievements-progress" }, [
+            el("div", { class: "label" }, [`${unlocked.size} von ${ACHIEVEMENTS.length} Erfolgen freigeschaltet (${pct} %)`]),
+            el("div", { class: "progress-bar" }, [el("span", { style: `width:${pct}%` }, [])]),
         ]),
         el("ul", { class: "achievement-list" }, items),
     ]);

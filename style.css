@@ -354,6 +354,7 @@ main#app {
 }
 .achievement-icon.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); }
 
+.achievements-progress { margin-top: 1rem; }
 .achievement-list { list-style: none; padding: 0; margin: 1.25rem 0 0; }
 .achievement-card {
   display: flex;
