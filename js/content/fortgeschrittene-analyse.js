@@ -229,5 +229,50 @@ export const fortgeschritteneAnalyse = {
                 },
             ],
         },
+        {
+            id: "portfolio-kennzahlen",
+            moduleId: "fortgeschrittene-analyse",
+            title: "Portfolio-Kennzahlen: Volatilität, Beta, Sharpe, Korrelation",
+            summary: "Profis messen nicht nackte Rendite, sondern Rendite im Verhältnis zum eingegangenen Risiko.",
+            content: [
+                "Die <strong>Volatilität</strong> (Standardabweichung der Renditen) ist das gängigste Risikomaß: Sie beschreibt, wie stark die Renditen um ihren Mittelwert schwanken. Zwei Depots mit gleicher Rendite können völlig unterschiedliche Volatilität haben – und damit unterschiedlich viel Nervenkraft und Durchhaltevermögen erfordern.",
+                "Das <strong>Beta</strong> misst, wie sensibel eine Aktie auf den Gesamtmarkt reagiert. Ein Beta von 1 bedeutet: Sie bewegt sich im Gleichschritt mit dem Markt. Über 1 heißt aggressiver (stärkere Ausschläge), unter 1 defensiver, ein negatives Beta bewegt sich gegenläufig. Beta erfasst das <strong>systematische Marktrisiko</strong>, das sich nicht wegdiversifizieren lässt.",
+                "Die <strong>Sharpe Ratio</strong> ist die zentrale Kennzahl für risikoadjustierte Rendite: (Rendite − risikofreier Zins) ÷ Volatilität. Sie zeigt, wie viel Überrendite pro Einheit Risiko erzielt wurde. Ein höherer Wert ist besser – ein Depot mit 8 % Rendite bei geringer Schwankung kann besser sein als eines mit 12 % bei extremer Schwankung.",
+                "Die <strong>Korrelation</strong> (von −1 bis +1) beschreibt, wie stark sich zwei Anlagen gemeinsam bewegen. Echte Diversifikation entsteht nur bei geringer oder negativer Korrelation: Zwei stark korrelierte Aktien (etwa zwei Banken) im Depot streuen das Risiko kaum, auch wenn es zwei verschiedene Titel sind.",
+                "Ergänzend misst das <strong>Alpha</strong> die Über- oder Unterrendite gegenüber dem, was das Beta allein erwarten ließe – also den echten Mehrwert einer Strategie. Die Kernbotschaft für Profis: Nicht die höchste Rendite gewinnt, sondern die beste Rendite je eingegangenem Risiko.",
+            ],
+            quiz: [
+                {
+                    question: "Was misst die Sharpe Ratio?",
+                    options: [
+                        { text: "Die Überrendite pro Einheit Risiko (Volatilität) – die risikoadjustierte Rendite", correct: true },
+                        { text: "Die absolute Rendite ohne Rücksicht auf Risiko", correct: false },
+                        { text: "Die Höhe der Dividende", correct: false },
+                        { text: "Die Anzahl der Trades pro Jahr", correct: false },
+                    ],
+                    explanation: "Sharpe = (Rendite − risikofreier Zins) ÷ Volatilität. Sie setzt die Rendite ins Verhältnis zum eingegangenen Risiko; höher ist besser.",
+                },
+                {
+                    question: "Was sagt ein Beta größer als 1 über eine Aktie aus?",
+                    options: [
+                        { text: "Sie schwankt tendenziell stärker als der Gesamtmarkt (aggressiver)", correct: true },
+                        { text: "Sie ist völlig unabhängig vom Markt", correct: false },
+                        { text: "Sie zahlt garantiert eine hohe Dividende", correct: false },
+                        { text: "Sie kann nicht fallen", correct: false },
+                    ],
+                    explanation: "Ein Beta über 1 bedeutet überdurchschnittliche Ausschläge relativ zum Markt – mehr systematisches Marktrisiko, aber auch mehr Bewegung in beide Richtungen.",
+                },
+                {
+                    question: "Warum diversifizieren zwei stark korrelierte Aktien das Risiko kaum?",
+                    options: [
+                        { text: "Weil sie sich weitgehend gemeinsam bewegen und bei Rückschlägen zusammen fallen", correct: true },
+                        { text: "Weil Korrelation nur bei Anleihen zählt", correct: false },
+                        { text: "Weil sie steuerlich gleich behandelt werden", correct: false },
+                        { text: "Weil sie dieselbe Dividende zahlen müssen", correct: false },
+                    ],
+                    explanation: "Echte Diversifikation braucht geringe oder negative Korrelation; stark korrelierte Titel verhalten sich fast wie eine einzige Position.",
+                },
+            ],
+        },
     ],
 };
