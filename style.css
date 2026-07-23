@@ -285,6 +285,7 @@ main#app {
 .glossar dt { font-weight: 600; margin-top: 0.85rem; }
 .glossar dd { margin: 0.15rem 0 0; color: var(--md-on-surface-variant); }
 
+.btn-inline { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
 .allocation-row { margin-bottom: 0.7rem; }
 .allocation-head {
   display: flex;

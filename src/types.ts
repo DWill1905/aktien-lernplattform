@@ -58,11 +58,22 @@ export interface Transaction {
   fee?: number;
 }
 
+export interface PendingOrder {
+  id: string;
+  stockId: string;
+  side: "buy" | "sell";
+  kind: "limit" | "stop";
+  shares: number;
+  triggerPrice: number;
+  createdDay: number;
+}
+
 export interface PortfolioState {
   cash: number;
   day: number;
   positions: Record<string, Position>;
   transactions: Transaction[];
+  pendingOrders?: PendingOrder[];
 }
 
 export interface ProgressEntry {

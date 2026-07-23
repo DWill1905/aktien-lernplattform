@@ -1,7 +1,7 @@
 import { el } from "../dom.js";
 import { STOCKS, currentPrice, priceHistory, stockById } from "../market.js";
 import { loadPortfolio, resetPortfolio, STARTKAPITAL } from "../state.js";
-import { advanceDay, buy, sell, portfolioValue } from "../portfolio.js";
+import { advanceDay, buy, sell, portfolioValue, placeOrder, cancelPendingOrder, pendingOrders } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
 function drawChart(canvas, prices) {
     const ctx = canvas.getContext("2d");
@@ -167,33 +167,86 @@ export function renderPortfolio() {
         const stockSelect = el("select", { id: "trade-stock" }, STOCKS.map((s) => el("option", { value: s.id, selected: s.id === selectedStockId }, [`${s.name} (${s.ticker})`])));
         const sharesInput = el("input", { type: "number", min: "1", step: "1", value: "1", id: "trade-shares" });
         const message = el("div", { class: "trade-message" }, []);
+        const orderKindSelect = el("select", { id: "trade-kind" }, [
+            el("option", { value: "market", selected: true }, ["Market (sofort)"]),
+            el("option", { value: "limit" }, ["Limit"]),
+            el("option", { value: "stop" }, ["Stop / Stop-Loss"]),
+        ]);
+        const triggerInput = el("input", { type: "number", min: "0", step: "0.01", placeholder: "z. B. 45,00", id: "trade-trigger" });
+        const triggerLabel = el("label", { class: "trigger-field" }, ["Auslösekurs (€)", triggerInput]);
+        const syncTrigger = () => {
+            triggerLabel.style.display = orderKindSelect.value === "market" ? "none" : "";
+        };
+        orderKindSelect.addEventListener("change", syncTrigger);
+        syncTrigger();
         // valueAsNumber liefert bei leerer oder nicht-numerischer Eingabe NaN und bei
-        // Dezimalzahlen den echten Wert – so lehnt die Ganzzahl-Prüfung in buy()/sell()
+        // Dezimalzahlen den echten Wert – so lehnen die Prüfungen in buy()/sell()/placeOrder()
         // ungültige Eingaben ab, statt sie stillschweigend abzuschneiden (parseInt-Fallstrick).
-        const buyBtn = makeButton("Kaufen", "", () => {
-            const result = buy(stockSelect.value, sharesInput.valueAsNumber);
+        const submit = (side) => {
+            const shares = sharesInput.valueAsNumber;
+            const kind = orderKindSelect.value;
+            const result = kind === "market"
+                ? side === "buy"
+                    ? buy(stockSelect.value, shares)
+                    : sell(stockSelect.value, shares)
+                : placeOrder(stockSelect.value, side, kind, shares, triggerInput.valueAsNumber);
             message.textContent = result.message;
             message.className = `trade-message ${result.ok ? "ok" : "error"}`;
             if (result.ok)
                 refresh();
-        });
-        const sellBtn = makeButton("Verkaufen", "secondary", () => {
-            const result = sell(stockSelect.value, sharesInput.valueAsNumber);
-            message.textContent = result.message;
-            message.className = `trade-message ${result.ok ? "ok" : "error"}`;
-            if (result.ok)
-                refresh();
-        });
+        };
+        const buyBtn = makeButton("Kaufen", "", () => submit("buy"));
+        const sellBtn = makeButton("Verkaufen", "secondary", () => submit("sell"));
         const tradeCard = el("div", { class: "card" }, [
             el("h2", {}, ["Handeln"]),
             el("div", { class: "trade-form" }, [
                 el("label", {}, ["Aktie", stockSelect]),
                 el("label", {}, ["Stückzahl", sharesInput]),
+                el("label", {}, ["Orderart", orderKindSelect]),
+                triggerLabel,
                 buyBtn,
                 sellBtn,
             ]),
             message,
         ]);
+        // --- Offene (Limit-/Stop-) Orders ---
+        const orders = pendingOrders(state);
+        const ordersCard = orders.length === 0
+            ? null
+            : el("div", { class: "card" }, [
+                el("h2", {}, ["Offene Orders"]),
+                el("p", { class: "muted" }, [
+                    "Diese Orders werden beim Vorspulen der Zeit ausgeführt, sobald der Auslösekurs erreicht wird.",
+                ]),
+                el("table", {}, [
+                    el("thead", {}, [
+                        el("tr", {}, [
+                            el("th", {}, ["Aktie"]),
+                            el("th", {}, ["Art"]),
+                            el("th", {}, ["Seite"]),
+                            el("th", { class: "num" }, ["Stück"]),
+                            el("th", { class: "num" }, ["Auslösekurs"]),
+                            el("th", {}, [""]),
+                        ]),
+                    ]),
+                    el("tbody", {}, orders.map((o) => {
+                        const stock = stockById(o.stockId);
+                        const cancelBtn = el("button", { class: "btn secondary btn-inline" }, ["Stornieren"]);
+                        cancelBtn.addEventListener("click", () => {
+                            cancelPendingOrder(o.id);
+                            refresh();
+                        });
+                        return el("tr", {}, [
+                            el("td", {}, [stock ? `${stock.name} (${stock.ticker})` : o.stockId]),
+                            el("td", {}, [o.kind === "limit" ? "Limit" : "Stop"]),
+                            el("td", {}, [o.side === "buy" ? "Kauf" : "Verkauf"]),
+                            el("td", { class: "num" }, [String(o.shares)]),
+                            el("td", { class: "num" }, [formatCurrency(o.triggerPrice)]),
+                            el("td", {}, [cancelBtn]),
+                        ]);
+                    })),
+                ]),
+            ]);
         // --- Holdings ---
         const holdingEntries = Object.entries(state.positions);
         const holdingsCard = el("div", { class: "card" }, [
@@ -271,7 +324,7 @@ export function renderPortfolio() {
                     allocationRow("Barguthaben", state.cash, value),
                 ]),
             ]);
-        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, holdingsCard, allocationCard, txCard]);
+        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, ordersCard, holdingsCard, allocationCard, txCard]);
         queueMicrotask(() => drawChart(canvas, history));
         return wrapper;
     }
