@@ -406,5 +406,50 @@ export const grundlagen: LearningModule = {
         },
       ],
     },
+    {
+      id: "inflation-realrendite",
+      moduleId: "grundlagen",
+      title: "Inflation und Realrendite",
+      summary: "Entscheidend ist nicht, wie viel Geld du hast, sondern was du dir dafür kaufen kannst.",
+      content: [
+        "<strong>Inflation</strong> bezeichnet den allgemeinen Anstieg des Preisniveaus – dein Geld verliert an <strong>Kaufkraft</strong>. Bei 2 % Inflation pro Jahr kostet dasselbe Produkt nach einem Jahr 2 % mehr; dein nicht verzinstes Geld kauft entsprechend weniger.",
+        "Deshalb unterscheidet man <strong>Nominalrendite</strong> (der reine Zuwachs in Euro) und <strong>Realrendite</strong> (der Zuwachs nach Abzug der Inflation). Als Faustformel gilt: Realrendite ≈ Nominalrendite − Inflationsrate. Erzielst du 5 % Rendite bei 3 % Inflation, wächst dein Vermögen real nur um rund 2 %.",
+        "Das erklärt, warum vermeintlich \"sichere\" Sparbücher tückisch sein können: Liegt der Sparzins unter der Inflation, ist die Realrendite <strong>negativ</strong> – das Guthaben wächst nominal, verliert aber real an Kaufkraft. Nichtstun ist an der Börse also keineswegs risikofrei, sondern trägt ein schleichendes Kaufkraftrisiko.",
+        "Über die Zeit wirkt Inflation wie ein negativer Zinseszins: Schon 2 % pro Jahr halbieren die Kaufkraft in gut 35 Jahren (Faustregel: 70 geteilt durch die Inflationsrate ergibt die Jahre bis zur Halbierung).",
+        "<strong>Aktien</strong> gelten über lange Zeiträume als partieller Inflationsschutz, weil Unternehmen als Sachwerte gestiegene Kosten häufig über höhere Preise weitergeben und so Umsätze und Gewinne mit dem Preisniveau mitwachsen können. Ein Schutz für jedes einzelne Jahr ist das aber nicht – kurzfristig können hohe Inflation und steigende Zinsen Aktienkurse durchaus belasten.",
+      ],
+      quiz: [
+        {
+          question: "Was ist die Realrendite einer Geldanlage?",
+          options: [
+            { text: "Der Wertzuwachs in Euro vor jeglichem Abzug", correct: false },
+            { text: "Der Wertzuwachs nach Abzug der Inflation – also der echte Kaufkraftgewinn", correct: true },
+            { text: "Die Rendite nach Abzug der Ordergebühren", correct: false },
+            { text: "Die vom Staat garantierte Mindestverzinsung", correct: false },
+          ],
+          explanation: "Die Realrendite zieht die Inflation von der Nominalrendite ab und zeigt, wie viel Kaufkraft tatsächlich hinzugewonnen wurde.",
+        },
+        {
+          question: "Warum kann ein Sparbuch trotz positiver Zinsen Geld \"vernichten\"?",
+          options: [
+            { text: "Weil Sparzinsen grundsätzlich verboten sind", correct: false },
+            { text: "Weil bei einem Zins unterhalb der Inflationsrate die Realrendite negativ ist und Kaufkraft verloren geht", correct: true },
+            { text: "Weil Banken das Guthaben jährlich kürzen", correct: false },
+            { text: "Weil Sparbücher höher besteuert werden als Aktien", correct: false },
+          ],
+          explanation: "Liegt der Nominalzins unter der Inflation, schrumpft die reale Kaufkraft des Guthabens – nominal wächst es, real verliert es.",
+        },
+        {
+          question: "Warum gelten Aktien langfristig als partieller Inflationsschutz?",
+          options: [
+            { text: "Weil ihr Kurs gesetzlich an die Inflation gekoppelt ist", correct: false },
+            { text: "Weil Unternehmen als Sachwerte gestiegene Kosten oft über höhere Preise weitergeben und Gewinne mitwachsen können", correct: true },
+            { text: "Weil Aktien in Inflationsphasen garantiert steigen", correct: false },
+            { text: "Weil Dividenden von der Inflation ausgenommen sind", correct: false },
+          ],
+          explanation: "Als Anteile an realen Unternehmen können Aktien langfristig mit dem Preisniveau mitwachsen – kurzfristig ist der Schutz aber unvollständig.",
+        },
+      ],
+    },
   ],
 };

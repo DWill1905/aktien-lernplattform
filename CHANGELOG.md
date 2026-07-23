@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.4.0] - 2026-07-23
+- Neue Grundlagen-Lektion „Inflation und Realrendite" (Kaufkraft, Nominal- vs. Realrendite, Aktien als partieller Inflationsschutz) mit Quiz
+
 ## [1.3.0] - 2026-07-23
 - Neue Grundlagen-Lektion „Anlegerpsychologie: typische Denkfehler" (Verlustaversion, Dispositionseffekt, Ankereffekt, Herdentrieb) mit Quiz
 
