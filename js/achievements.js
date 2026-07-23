@@ -1,5 +1,26 @@
 import { PERFECT_STREAK_MILESTONE } from "./gamification.js";
 import { sectorsHeld, realizedProfitTotal } from "./portfolio.js";
+import { MODULES } from "./content/index.js";
+const moduleMasteryAchievements = MODULES.flatMap((mod) => [
+    {
+        id: `modul-${mod.id}-abgeschlossen`,
+        title: `${mod.title}: Abgeschlossen`,
+        description: `Alle Lektionen im Modul „${mod.title}" abgeschlossen.`,
+        icon: mod.icon,
+        check: (ctx) => mod.lessons.length > 0 && mod.lessons.every((lesson) => ctx.progress.lessons[lesson.id]?.completed),
+    },
+    {
+        id: `modul-${mod.id}-perfekt`,
+        title: `${mod.title}: Perfekt`,
+        description: `Alle Quizzes im Modul „${mod.title}" mit 100 % abgeschlossen.`,
+        icon: "💎",
+        check: (ctx) => mod.lessons.length > 0 &&
+            mod.lessons.every((lesson) => {
+                const entry = ctx.progress.lessons[lesson.id];
+                return entry?.quizScore !== null && entry?.quizTotal !== null && entry?.quizScore === entry?.quizTotal;
+            }),
+    },
+]);
 export const ACHIEVEMENTS = [
     {
         id: "erste-lektion",
@@ -50,6 +71,7 @@ export const ACHIEVEMENTS = [
         icon: "💰",
         check: (ctx) => ctx.portfolio != null && realizedProfitTotal(ctx.portfolio) > 0,
     },
+    ...moduleMasteryAchievements,
 ];
 const KEY = "boersenschule:achievements";
 export function loadUnlockedAchievements() {

@@ -1,6 +1,7 @@
 import { LearningModule, PortfolioState, ProgressState } from "./types.js";
 import { GamificationState, PERFECT_STREAK_MILESTONE } from "./gamification.js";
 import { sectorsHeld, realizedProfitTotal } from "./portfolio.js";
+import { MODULES } from "./content/index.js";
 
 export interface AchievementContext {
   progress: ProgressState;
@@ -16,6 +17,28 @@ export interface Achievement {
   icon: string;
   check: (ctx: AchievementContext) => boolean;
 }
+
+const moduleMasteryAchievements: Achievement[] = MODULES.flatMap((mod) => [
+  {
+    id: `modul-${mod.id}-abgeschlossen`,
+    title: `${mod.title}: Abgeschlossen`,
+    description: `Alle Lektionen im Modul „${mod.title}" abgeschlossen.`,
+    icon: mod.icon,
+    check: (ctx: AchievementContext) => mod.lessons.length > 0 && mod.lessons.every((lesson) => ctx.progress.lessons[lesson.id]?.completed),
+  },
+  {
+    id: `modul-${mod.id}-perfekt`,
+    title: `${mod.title}: Perfekt`,
+    description: `Alle Quizzes im Modul „${mod.title}" mit 100 % abgeschlossen.`,
+    icon: "💎",
+    check: (ctx: AchievementContext) =>
+      mod.lessons.length > 0 &&
+      mod.lessons.every((lesson) => {
+        const entry = ctx.progress.lessons[lesson.id];
+        return entry?.quizScore !== null && entry?.quizTotal !== null && entry?.quizScore === entry?.quizTotal;
+      }),
+  },
+]);
 
 export const ACHIEVEMENTS: Achievement[] = [
   {
@@ -71,6 +94,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     icon: "💰",
     check: (ctx) => ctx.portfolio != null && realizedProfitTotal(ctx.portfolio) > 0,
   },
+  ...moduleMasteryAchievements,
 ];
 
 const KEY = "boersenschule:achievements";

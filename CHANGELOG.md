@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.43.0] - 2026-07-23
+- Gamification: Modul-Meister-Badges – für jedes der 5 Lernmodule je ein Erfolg für „Abgeschlossen" und „Perfekt" (alle Quizzes 100 %)
+
 ## [1.42.0] - 2026-07-23
 - Gamification: 3 neue Portfolio-Erfolge (Erster Trade, Gut diversifiziert, Erster Gewinn), automatisch nach Trades und Zeit-Vorspulen geprüft
 
