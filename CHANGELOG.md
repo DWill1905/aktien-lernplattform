@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.14.1] - 2026-07-23
+- README aktualisiert: neue Lektionen (Kosten & Steuern, Sparplan, Anlegerpsychologie, Inflation, Cashflow, Handelsvolumen) und Simulator-Erweiterungen (Ordergebühr, Branchen-Aufteilung)
+
 ## [1.14.0] - 2026-07-23
 - SEO & Barrierefreiheit: Open-Graph-/Twitter-Tags, theme-color (hell/dunkel), canonical URL sowie ein Skip-Link „Zum Inhalt springen"
 
