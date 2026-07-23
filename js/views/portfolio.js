@@ -19,21 +19,49 @@ function drawChart(canvas, prices) {
     const min = Math.min(...prices);
     const max = Math.max(...prices);
     const range = max - min || 1;
-    const pad = 10;
+    const padX = 8;
+    const padTop = 14;
+    const padBottom = 16;
+    const plotH = height - padTop - padBottom;
     const styles = getComputedStyle(document.documentElement);
     const accent = styles.getPropertyValue("--accent").trim() || "#1c6e5c";
+    const muted = styles.getPropertyValue("--md-on-surface-variant").trim() || "#5a5a5a";
+    const xAt = (i) => padX + (i / (prices.length - 1)) * (width - padX * 2);
+    const yAt = (p) => padTop + (1 - (p - min) / range) * plotH;
+    // Fläche unter der Kurve (dezent gefüllt)
     ctx.beginPath();
-    prices.forEach((price, i) => {
-        const x = pad + (i / (prices.length - 1)) * (width - pad * 2);
-        const y = height - pad - ((price - min) / range) * (height - pad * 2);
-        if (i === 0)
-            ctx.moveTo(x, y);
-        else
-            ctx.lineTo(x, y);
-    });
+    prices.forEach((price, i) => (i === 0 ? ctx.moveTo(xAt(i), yAt(price)) : ctx.lineTo(xAt(i), yAt(price))));
+    ctx.lineTo(xAt(prices.length - 1), height - padBottom);
+    ctx.lineTo(xAt(0), height - padBottom);
+    ctx.closePath();
+    ctx.globalAlpha = 0.12;
+    ctx.fillStyle = accent;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    // Kurslinie
+    ctx.beginPath();
+    prices.forEach((price, i) => (i === 0 ? ctx.moveTo(xAt(i), yAt(price)) : ctx.lineTo(xAt(i), yAt(price))));
     ctx.strokeStyle = accent;
     ctx.lineWidth = 2;
     ctx.stroke();
+    // Punkt am aktuellen Kurs
+    const lastX = xAt(prices.length - 1);
+    const lastY = yAt(prices[prices.length - 1]);
+    ctx.beginPath();
+    ctx.arc(lastX, lastY, 3, 0, Math.PI * 2);
+    ctx.fillStyle = accent;
+    ctx.fill();
+    // Beschriftung: Höchst-, Tiefst- und aktueller Kurs
+    ctx.fillStyle = muted;
+    ctx.font = "11px system-ui, sans-serif";
+    ctx.textBaseline = "top";
+    ctx.textAlign = "left";
+    ctx.fillText(`Hoch ${max.toFixed(2)} €`, padX, 0);
+    ctx.textBaseline = "bottom";
+    ctx.fillText(`Tief ${min.toFixed(2)} €`, padX, height);
+    ctx.textAlign = "right";
+    ctx.textBaseline = "top";
+    ctx.fillText(`${prices[prices.length - 1].toFixed(2)} €`, width - padX, 0);
 }
 export function renderPortfolio() {
     let state = loadPortfolio();
@@ -86,7 +114,14 @@ export function renderPortfolio() {
         ]);
         // --- Chart ---
         const history = priceHistory(stockById(selectedStockId), state.day);
-        const canvas = el("canvas", { class: "chart" });
+        const firstPrice = history[0];
+        const lastPrice = history[history.length - 1];
+        const histChange = firstPrice ? (lastPrice - firstPrice) / firstPrice : 0;
+        const canvas = el("canvas", {
+            class: "chart",
+            role: "img",
+            "aria-label": `Kursverlauf ${stockById(selectedStockId).name}: von ${formatCurrency(firstPrice)} auf ${formatCurrency(lastPrice)} (${formatPercent(histChange)}) über ${history.length - 1} Handelstage.`,
+        });
         const chartCard = el("div", { class: "card" }, [
             el("h2", {}, [`Kursverlauf: ${stockById(selectedStockId).name}`]),
             canvas,

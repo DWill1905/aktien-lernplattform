@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.0] - 2026-07-23
+- Kursverlauf-Chart: Höchst-/Tiefst-/aktueller Kurs beschriftet, dezente Flächenfüllung, Markierung des aktuellen Kurses und aria-label als Text-Alternative
+
 ## [1.10.0] - 2026-07-23
 - Dashboard: Gesamt-Lernfortschritt über alle Module (abgeschlossene Lektionen, Prozentbalken)
 
