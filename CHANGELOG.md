@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.46.0] - 2026-07-23
+- Gamification: Konfetti-Mikroanimation bei perfektem Quiz und Level-up (reines CSS/JS, respektiert prefers-reduced-motion)
+
 ## [1.45.0] - 2026-07-23
 - Gamification: Streak-Rettung-Hinweis – Warnbanner im Dashboard, wenn die laufende Streak heute noch nicht fortgesetzt wurde
 

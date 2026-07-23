@@ -650,3 +650,30 @@ canvas.chart {
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast-level { background: var(--md-tertiary-container); color: var(--md-on-tertiary-container); }
 .toast-achievement { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+
+/* ==========================================================================
+   Konfetti (Level-up / perfektes Quiz)
+   ========================================================================== */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1100;
+}
+.confetti-piece {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  opacity: 0.9;
+  border-radius: 2px;
+  transform: rotate(var(--rotate));
+  animation: confetti-fall var(--fall-duration) var(--fall-delay) ease-in forwards;
+}
+@keyframes confetti-fall {
+  to {
+    transform: translateY(100vh) rotate(calc(var(--rotate) + 240deg));
+    opacity: 0;
+  }
+}

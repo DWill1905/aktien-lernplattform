@@ -4,6 +4,7 @@ import { loadProgress, markLessonRead } from "../state.js";
 import { awardXp, XP_LESSON, levelForXp, loadGamification, registerDailyGoalProgress, XP_DAILY_GOAL_BONUS } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
+import { burstConfetti } from "../confetti.js";
 
 export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -19,6 +20,7 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
     if (result.leveledUp) {
       const info = levelForXp(result.state.xp);
       showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+      burstConfetti();
     }
     const goal = registerDailyGoalProgress();
     if (goal.justCompleted) {
@@ -27,6 +29,7 @@ export function renderLesson(moduleId: string, lessonId: string): HTMLElement {
       if (bonusResult.leveledUp) {
         const info = levelForXp(bonusResult.state.xp);
         showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+        burstConfetti();
       }
     }
   }

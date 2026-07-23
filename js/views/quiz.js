@@ -4,6 +4,7 @@ import { loadProgress, recordQuizResult } from "../state.js";
 import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp, loadGamification, registerQuizAttempt, registerDailyGoalProgress, XP_DAILY_GOAL_BONUS, } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
+import { burstConfetti } from "../confetti.js";
 export function renderQuiz(moduleId, lessonId) {
     const mod = moduleById(moduleId);
     const lesson = lessonById(moduleId, lessonId);
@@ -89,10 +90,13 @@ export function renderQuiz(moduleId, lessonId) {
         recordQuizResult(lesson.id, score, lesson.quiz.length);
         if (firstAttempt) {
             const perfect = score === lesson.quiz.length;
+            if (perfect)
+                burstConfetti();
             const result = awardXp(score * XP_QUIZ_CORRECT + (perfect ? XP_QUIZ_PERFECT_BONUS : 0));
             if (result.leveledUp) {
                 const info = levelForXp(result.state.xp);
                 showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                burstConfetti();
             }
             const streakResult = registerQuizAttempt(perfect);
             if (streakResult.bonusXp > 0) {
@@ -101,6 +105,7 @@ export function renderQuiz(moduleId, lessonId) {
                 if (bonusResult.leveledUp) {
                     const info = levelForXp(bonusResult.state.xp);
                     showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                    burstConfetti();
                 }
             }
             const goal = registerDailyGoalProgress();
@@ -110,6 +115,7 @@ export function renderQuiz(moduleId, lessonId) {
                 if (goalBonusResult.leveledUp) {
                     const info = levelForXp(goalBonusResult.state.xp);
                     showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                    burstConfetti();
                 }
             }
         }
