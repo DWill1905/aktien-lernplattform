@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.20.0] - 2026-07-23
+- Risiko & Trading: Lektion „Drawdown, Verlustserien und Risk of Ruin" (max. Drawdown, asymmetrische Erholung, Korrelationsrisiko) mit Quiz – Modul nun mit 5 Lektionen komplett
+
 ## [1.19.0] - 2026-07-23
 - Risiko & Trading: Lektion „Handelsplan und Trading-Journal" (Setups, Prozess vor Ergebnis, Journal-Kennzahlen, Profit-Faktor) mit Quiz
 

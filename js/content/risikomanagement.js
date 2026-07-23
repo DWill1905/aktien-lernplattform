@@ -184,5 +184,50 @@ export const risikomanagement = {
                 },
             ],
         },
+        {
+            id: "drawdown-risk-of-ruin",
+            moduleId: "risikomanagement",
+            title: "Drawdown, Verlustserien und Risk of Ruin",
+            summary: "Verlustphasen gehören dazu – wer sie überlebt, gewinnt langfristig. Wer zu groß riskiert, scheidet aus.",
+            content: [
+                "Der <strong>Drawdown</strong> misst den Rückgang des Kontos von seinem bisherigen Höchststand (Peak) bis zum Tiefpunkt (Trough). Der <strong>maximale Drawdown</strong> ist der größte solche Rückgang in der Historie – die zentrale Kennzahl dafür, wie viel Schmerz eine Strategie unterwegs verursacht.",
+                "Die Erholung aus einem Drawdown ist <strong>asymmetrisch</strong>: −20 % erfordern +25 %, um zurück zum Ausgangswert zu kommen, −50 % bereits +100 % und −90 % ganze +900 %. Große Drawdowns sind deshalb nicht nur unangenehm, sondern rechnerisch nur sehr schwer aufzuholen.",
+                "<strong>Verlustserien sind normal</strong>, nicht die Ausnahme. Selbst bei einer soliden 50-%-Trefferquote treten über viele Trades hinweg zwangsläufig Serien von fünf, sechs oder mehr Verlusten in Folge auf. Wer pro Trade nur 1 % riskiert, verkraftet das leicht; wer 10 % riskiert, kann durch eine einzige normale Pechsträhne ausscheiden.",
+                "Genau das beschreibt das <strong>Risk of Ruin</strong> – die Wahrscheinlichkeit, das Konto oder einen kritischen Teil davon zu verlieren. Sie steigt stark mit dem Risiko pro Trade und mit einem schlechten Erwartungswert. Kleines, konstantes Risiko pro Position ist der wirksamste Schutz.",
+                "Zu beachten ist außerdem die <strong>Korrelation</strong>: Fünf gleichzeitige Trades im selben Sektor sind faktisch ein einziger großer Trade – fällt der Sektor, greifen alle Stops zugleich. Das effektive Risiko ist dann viel höher als die Summe der einzelnen 1-%-Ansätze vermuten lässt.",
+            ],
+            quiz: [
+                {
+                    question: "Welchen Gewinn braucht es, um einen Drawdown von 50 % wieder auszugleichen?",
+                    options: [
+                        { text: "+50 %", correct: false },
+                        { text: "+100 %", correct: true },
+                        { text: "+25 %", correct: false },
+                        { text: "+75 %", correct: false },
+                    ],
+                    explanation: "Aus 100 werden bei −50 % nur 50; um von 50 zurück auf 100 zu kommen, ist eine Verdopplung (+100 %) nötig – Erholung ist asymmetrisch.",
+                },
+                {
+                    question: "Warum sind Verlustserien für die Risikohöhe pro Trade so entscheidend?",
+                    options: [
+                        { text: "Weil selbst bei guter Strategie längere Pechsträhnen normal sind – zu großes Risiko pro Trade führt dann zum Ruin", correct: true },
+                        { text: "Weil Verlustserien gegen die Börsenregeln verstoßen", correct: false },
+                        { text: "Weil sie nur bei schlechten Tradern vorkommen", correct: false },
+                        { text: "Weil sie die Trefferquote erhöhen", correct: false },
+                    ],
+                    explanation: "Serien von 5–6 Verlusten sind über viele Trades erwartbar; nur kleines Risiko pro Position lässt einen solche Phasen überstehen.",
+                },
+                {
+                    question: "Warum erhöhen mehrere gleichzeitige Trades im selben Sektor das tatsächliche Risiko?",
+                    options: [
+                        { text: "Weil sie stark korreliert sind und bei einem Sektorabschwung gemeinsam verlieren – wie ein einziger großer Trade", correct: true },
+                        { text: "Weil der Broker dafür höhere Gebühren verlangt", correct: false },
+                        { text: "Weil Sektor-Trades steuerlich benachteiligt sind", correct: false },
+                        { text: "Sie erhöhen das Risiko nicht, solange jeder Trade nur 1 % riskiert", correct: false },
+                    ],
+                    explanation: "Korrelierte Positionen bewegen sich gemeinsam; das effektive Klumpenrisiko ist dann viel größer als die Summe der einzeln geplanten 1-%-Risiken.",
+                },
+            ],
+        },
     ],
 };
