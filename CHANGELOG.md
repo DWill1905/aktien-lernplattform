@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.24.0] - 2026-07-23
+- Profi-Analyse: Lektion „Chartmuster: Kopf-Schulter, Dreiecke, Flaggen" (Umkehr- und Fortsetzungsmuster, Ausbruch, Fehlausbrüche) mit Quiz
+
 ## [1.23.0] - 2026-07-23
 - Profi-Analyse: Lektion „Makro, Zinsen und Konjunkturzyklus" (Notenbanken, Zinswirkung, inverse Zinskurve, Sektorrotation) mit Quiz
 

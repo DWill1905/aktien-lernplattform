@@ -139,5 +139,50 @@ export const fortgeschritteneAnalyse = {
                 },
             ],
         },
+        {
+            id: "chartmuster",
+            moduleId: "fortgeschrittene-analyse",
+            title: "Chartmuster: Kopf-Schulter, Dreiecke, Flaggen",
+            summary: "Wiederkehrende Formationen im Chart, die Trader als Hinweise auf Umkehr oder Fortsetzung deuten.",
+            content: [
+                "<strong>Chartmuster</strong> sind wiederkehrende Kursformationen, die aus dem kollektiven Verhalten der Marktteilnehmer entstehen. Man unterscheidet grob <strong>Umkehrmuster</strong> (ein Trend dreht) und <strong>Fortsetzungsmuster</strong> (ein Trend pausiert und setzt sich dann fort).",
+                "Das bekannteste Umkehrmuster ist die <strong>Kopf-Schulter-Formation</strong>: drei Hochs, wobei das mittlere (der Kopf) höher liegt als die beiden äußeren (die Schultern). Die Verbindungslinie der Zwischentiefs heißt <strong>Nackenlinie</strong>. Wird sie nach unten durchbrochen, gilt das als bearishes Signal. Die umgekehrte (inverse) Kopf-Schulter am Ende eines Abwärtstrends deutet spiegelbildlich auf eine Aufwärtswende hin.",
+                "Typische Fortsetzungsmuster sind <strong>Dreiecke</strong> (aufsteigend, absteigend oder symmetrisch) und <strong>Flaggen bzw. Wimpel</strong> – kurze Verschnaufpausen innerhalb eines starken Trends, nach denen die Bewegung häufig in Trendrichtung weiterläuft.",
+                "Entscheidend ist der <strong>Ausbruch</strong> (Breakout) aus dem Muster, idealerweise mit erhöhtem Volumen als Bestätigung. Viele Trader projizieren zudem ein <strong>Kursziel</strong>, indem sie die Höhe der Formation an den Ausbruchspunkt anlegen.",
+                "Wichtig bleibt: Chartmuster sind <strong>Wahrscheinlichkeiten, keine Gewissheiten</strong>. <strong>Fehlausbrüche</strong> (false breakouts) kommen regelmäßig vor. Deshalb kombinieren Profis Muster mit einem Stop-Loss und weiteren Faktoren wie Volumen und übergeordnetem Trend, statt blind auf eine Formation zu setzen.",
+            ],
+            quiz: [
+                {
+                    question: "Was signalisiert der Bruch der Nackenlinie einer Kopf-Schulter-Formation nach unten?",
+                    options: [
+                        { text: "Ein bearishes Umkehrsignal (mögliches Ende des Aufwärtstrends)", correct: true },
+                        { text: "Eine garantierte Kursverdopplung", correct: false },
+                        { text: "Eine Dividendenerhöhung", correct: false },
+                        { text: "Den Beginn eines Aktiensplits", correct: false },
+                    ],
+                    explanation: "Die Kopf-Schulter ist ein Umkehrmuster; der Bruch der Nackenlinie nach unten gilt als Hinweis auf eine mögliche Trendwende nach unten.",
+                },
+                {
+                    question: "Wozu zählen Flaggen und Wimpel?",
+                    options: [
+                        { text: "Zu den Fortsetzungsmustern – kurze Pausen, nach denen der Trend oft weiterläuft", correct: true },
+                        { text: "Zu den garantierten Umkehrsignalen", correct: false },
+                        { text: "Zu den fundamentalen Kennzahlen", correct: false },
+                        { text: "Zu den Ordertypen", correct: false },
+                    ],
+                    explanation: "Flaggen und Wimpel sind kurze Konsolidierungen innerhalb eines Trends; nach dem Ausbruch setzt sich die Bewegung häufig in Trendrichtung fort.",
+                },
+                {
+                    question: "Warum sind Chartmuster kein Selbstläufer?",
+                    options: [
+                        { text: "Weil Fehlausbrüche vorkommen – Muster sind Wahrscheinlichkeiten und sollten mit Stop und weiteren Faktoren abgesichert werden", correct: true },
+                        { text: "Weil sie nur für Anleihen gelten", correct: false },
+                        { text: "Weil sie gesetzlich reguliert sind", correct: false },
+                        { text: "Weil sie den Kurs exakt vorhersagen", correct: false },
+                    ],
+                    explanation: "Kein Muster liefert Gewissheit; Fehlausbrüche sind normal, weshalb Profis Muster mit Volumen, Trendkontext und einem Stop-Loss kombinieren.",
+                },
+            ],
+        },
     ],
 };
