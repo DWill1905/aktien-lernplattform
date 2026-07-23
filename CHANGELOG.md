@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.33.0] - 2026-07-23
+- Gamification: Lern-Streak – Tage in Folge mit Lernaktivität werden gezählt und im Dashboard mit 🔥 angezeigt
+
 ## [1.32.0] - 2026-07-23
 - Gamification: XP-Fortschrittsbalken im Dashboard zeigt den Fortschritt im aktuellen Level und die noch fehlende XP bis zum nächsten Level
 

@@ -46,6 +46,9 @@ export function renderDashboard() {
         el("div", { class: "card overall-progress" }, [
             el("div", { class: "level-row" }, [
                 el("span", { class: "level-chip" }, [`Level ${levelInfo.level} · ${levelInfo.title}`]),
+                gamification.streak > 0
+                    ? el("span", { class: "streak-chip" }, [`🔥 ${gamification.streak} Tag${gamification.streak === 1 ? "" : "e"} Streak`])
+                    : null,
                 el("span", { class: "muted" }, [`${gamification.xp} XP gesamt`]),
             ]),
             el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
