@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.17.0] - 2026-07-23
+- Risiko & Trading: Lektion „Chancen-Risiko-Verhältnis und Erwartungswert" (CRV, R-Multiple, Erwartungswert, Trefferquote vs. CRV) mit Quiz
+
 ## [1.16.0] - 2026-07-23
 - Neues Modul „Risiko & Trading" mit Lektion „Positionsgröße und Risiko pro Trade" (1-%-Regel, Positionsgrößen-Formel, Kapitalerhalt) inkl. Quiz und Navigationseintrag
 
