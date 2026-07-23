@@ -317,5 +317,49 @@ export const grundlagen: LearningModule = {
         },
       ],
     },
+    {
+      id: "sparplan-cost-average",
+      moduleId: "grundlagen",
+      title: "Sparplan und Cost-Average-Effekt",
+      summary: "Regelmäßig automatisiert investieren – diszipliniert statt getrieben vom richtigen Zeitpunkt.",
+      content: [
+        "Ein <strong>Sparplan</strong> investiert automatisch in festen Abständen (z. B. monatlich) einen gleichbleibenden Betrag in eine Aktie oder – häufiger – einen ETF. Die meisten Broker bieten Sparpläne kostengünstig oder gebührenfrei an. Der große praktische Vorteil ist die <strong>Automatisierung</strong>: Man investiert kontinuierlich, ohne bei jeder Rate neu über den \"richtigen\" Zeitpunkt nachdenken zu müssen.",
+        "Weil der Betrag konstant bleibt, kauft man bei <strong>niedrigen Kursen automatisch mehr Anteile</strong> und bei hohen Kursen weniger. Dieser <strong>Cost-Average-Effekt</strong> (Durchschnittskosteneffekt) glättet den durchschnittlichen Einstandspreis über die Zeit und nimmt dem Anleger die Angst, \"zum falschen Zeitpunkt\" alles auf einmal investiert zu haben.",
+        "Wichtige Einordnung: Der Cost-Average-Effekt ist <strong>kein Garant für höhere Renditen</strong>. Da Aktienmärkte langfristig eher steigen, ist eine sofortige Einmalanlage im statistischen Mittel oft leicht überlegen, weil das Geld früher und länger investiert ist. Der Sparplan punktet vor allem dort, wo ohnehin nur laufendes Einkommen zur Verfügung steht – und indem er emotionale Fehlentscheidungen reduziert.",
+        "Damit verbindet sich die Börsenweisheit <strong>\"Time in the market beats timing the market\"</strong>: Über lange Zeiträume im Markt investiert zu sein, schlägt in der Regel den Versuch, Höchst- und Tiefpunkte exakt zu erwischen. Ein Sparplan setzt genau dieses Prinzip diszipliniert und ohne ständige Entscheidungen um.",
+      ],
+      quiz: [
+        {
+          question: "Was beschreibt der Cost-Average-Effekt bei einem Sparplan?",
+          options: [
+            { text: "Bei konstantem Sparbetrag kauft man bei niedrigen Kursen mehr und bei hohen Kursen weniger Anteile", correct: true },
+            { text: "Der Broker senkt automatisch die Gebühren, je länger man spart", correct: false },
+            { text: "Die Rendite ist garantiert höher als bei einer Einmalanlage", correct: false },
+            { text: "Man zahlt keine Steuern auf die Erträge eines Sparplans", correct: false },
+          ],
+          explanation: "Ein fester Betrag kauft bei tiefen Kursen mehr Anteile – das glättet den durchschnittlichen Einstandspreis, garantiert aber keine Mehrrendite.",
+        },
+        {
+          question: "Warum ist eine Einmalanlage einer Ratenzahlung im statistischen Mittel oft leicht überlegen?",
+          options: [
+            { text: "Weil Einmalanlagen von der Steuer befreit sind", correct: false },
+            { text: "Weil das Kapital früher und damit länger im tendenziell steigenden Markt investiert ist", correct: true },
+            { text: "Weil ein Sparplan höhere Gebühren verursacht", correct: false },
+            { text: "Weil der Cost-Average-Effekt die Rendite senkt", correct: false },
+          ],
+          explanation: "Da Aktienmärkte langfristig eher steigen, wirkt sich früher investiertes Kapital im Mittel positiv aus – der Sparplan bleibt dennoch für laufendes Einkommen und Disziplin wertvoll.",
+        },
+        {
+          question: "Was bringt die Börsenweisheit \"Time in the market beats timing the market\" auf den Punkt?",
+          options: [
+            { text: "Man sollte täglich handeln, um den Markt zu schlagen", correct: false },
+            { text: "Lange investiert zu bleiben schlägt meist den Versuch, exakte Ein- und Ausstiegszeitpunkte zu treffen", correct: true },
+            { text: "Nur kurzfristige Trades sind profitabel", correct: false },
+            { text: "Der Zeitpunkt des Kaufs ist die einzige Renditequelle", correct: false },
+          ],
+          explanation: "Das Markt-Timing gelingt kaum verlässlich; kontinuierliches Investiertsein nutzt den langfristigen Aufwärtstrend und den Zinseszinseffekt.",
+        },
+      ],
+    },
   ],
 };

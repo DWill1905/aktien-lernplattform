@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.0] - 2026-07-23
+- Neue Grundlagen-Lektion „Sparplan und Cost-Average-Effekt" (Durchschnittskosteneffekt, Einmalanlage vs. Rate, „Time in the market") mit Quiz
+
 ## [1.1.0] - 2026-07-23
 - Neue Grundlagen-Lektion „Kosten und Steuern" (Ordergebühren, Spread, TER, Abgeltungsteuer, Sparer-Pauschbetrag, Teilfreistellung) mit Quiz
 
