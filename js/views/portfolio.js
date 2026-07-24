@@ -434,7 +434,7 @@ export function renderPortfolio() {
         const health = computeHealthCheck(state);
         const healthCard = holdingEntries.length === 0
             ? null
-            : el("div", { class: "card" }, [
+            : el("div", { class: "card card-outlined health-card" }, [
                 el("h2", {}, ["🩺 Portfolio Health Check"]),
                 el("div", { class: "level-row" }, [
                     el("span", { class: "level-chip" }, [`Diversifikations-Score: ${health.diversificationScore} / 100`]),

@@ -1,16 +1,19 @@
 import { el } from "../dom.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements } from "../achievements.js";
+import { symbol } from "../shell.js";
 export function renderAchievements() {
     const unlocked = new Set(loadUnlockedAchievements());
     const items = ACHIEVEMENTS.map((a) => {
         const done = unlocked.has(a.id);
         return el("li", { class: `achievement-card${done ? " unlocked" : ""}` }, [
             el("div", { class: "achievement-card-icon" }, [a.icon]),
-            el("div", {}, [
+            el("div", { class: "achievement-card-text" }, [
                 el("h3", {}, [a.title]),
                 el("p", { class: "muted" }, [a.description]),
             ]),
-            el("span", { class: "badge" + (done ? " done" : "") }, [done ? "✓ freigeschaltet" : "gesperrt"]),
+            el("span", { class: "achievement-status", title: done ? "Freigeschaltet" : "Noch gesperrt" }, [
+                symbol(done ? "check_circle" : "lock", done),
+            ]),
         ]);
     });
     const pct = ACHIEVEMENTS.length ? Math.round((unlocked.size / ACHIEVEMENTS.length) * 100) : 0;

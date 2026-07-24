@@ -575,23 +575,59 @@ main#app[data-view="achievements"] { max-width: 940px; }
 .achievement-icon.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); }
 
 .achievements-progress { margin-top: 1rem; }
-.achievement-list { list-style: none; padding: 0; margin: 1.25rem 0 0; }
+.achievements-progress .progress-bar { height: 8px; }
+
+/* Erfolge als Raster aus Karten (M3-Redesign) */
+.achievement-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.875rem;
+}
 .achievement-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-radius: var(--md-shape-md);
-  margin-bottom: 0.75rem;
+  gap: 0.875rem;
+  padding: 1rem 1.125rem;
+  border-radius: var(--md-shape-lg);
+  margin: 0;
   background: var(--md-surface-container-low);
-  filter: grayscale(1);
-  opacity: 0.6;
+  box-shadow: var(--md-elevation-1);
 }
-.achievement-card.unlocked { filter: none; opacity: 1; background: var(--md-primary-container); color: var(--md-on-primary-container); }
-.achievement-card-icon { font-size: 1.75rem; flex-shrink: 0; }
-.achievement-card h3 { margin: 0; }
-.achievement-card p { margin: 0.2rem 0 0; }
-.achievement-card > span.badge { margin-left: auto; flex-shrink: 0; }
+.achievement-card.unlocked {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  box-shadow: none;
+}
+.achievement-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--md-shape-md);
+  background: var(--md-surface-container-high);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+.achievement-card.unlocked .achievement-card-icon {
+  background: var(--md-primary);
+  filter: none;
+  opacity: 1;
+}
+.achievement-card-text { flex: 1; min-width: 0; }
+.achievement-card h3 { margin: 0; font-size: 0.875rem; font-weight: 500; }
+.achievement-card p { margin: 0.15rem 0 0; font-size: 0.78rem; line-height: 1.35; }
+.achievement-card.unlocked h3,
+.achievement-card.unlocked p { color: var(--md-on-primary-container); }
+.achievement-card.unlocked p { opacity: 0.8; }
+.achievement-status { flex-shrink: 0; display: flex; }
+.achievement-status .msym { font-size: 20px; color: var(--md-outline-variant); }
+.achievement-card.unlocked .achievement-status .msym { color: var(--md-on-primary-container); }
 .glossar-search {
   width: 100%;
   padding: 0.6rem 0.85rem;
@@ -808,24 +844,56 @@ main#app[data-view="achievements"] { max-width: 940px; }
    Tabellen
    ========================================================================== */
 table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
-th, td { text-align: left; padding: 0.6rem 0.6rem; border-bottom: 1px solid var(--md-outline-variant); font-size: 0.875rem; }
-th { color: var(--md-on-surface-variant); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+th, td { text-align: left; padding: 0.625rem 0.5rem; font-size: 0.84rem; }
+/* Zeilentrenner oben statt unten – wie im Design, dadurch keine Linie unter der letzten Zeile */
+tbody tr { border-top: 1px solid var(--md-outline-variant); }
+th {
+  color: var(--md-on-surface-variant);
+  font-weight: 500;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .pos { color: var(--md-success); }
 .neg { color: var(--md-error); }
 
+/* Auf schmalen Viewports horizontal scrollen statt Spalten zu quetschen */
+@media (max-width: 640px) {
+  .card table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
 /* ==========================================================================
-   Stat-Kacheln (Filled Card, klein)
+   Stat-Kacheln (M3-Redesign: helle Karte, Kennzahl in der Display-Schrift)
    ========================================================================== */
 .stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem; }
 .stat {
-  flex: 1 1 140px;
-  background: var(--md-surface-container-high);
-  border-radius: var(--md-shape-md);
-  padding: 0.85rem 1rem;
+  /* 150px Basis, damit auch fünf Kacheln (Portfolio) in einer Zeile bleiben */
+  flex: 1 1 150px;
+  background: var(--md-surface-container-low);
+  border-radius: 14px;
+  padding: 0.875rem 1.125rem;
+  box-shadow: var(--md-elevation-1);
 }
-.stat .label { font-size: 0.75rem; color: var(--md-on-surface-variant); text-transform: uppercase; letter-spacing: 0.04em; }
-.stat .value { font-size: 1.375rem; font-weight: 500; margin-top: 0.15rem; }
+.stat .label {
+  font-size: 0.72rem;
+  color: var(--md-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.stat .value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  font-variant-numeric: tabular-nums;
+}
+/* Innerhalb einer Karte (z. B. Kennzahlen-Block) ohne zusätzliche Elevation */
+.card .stat { box-shadow: none; background: var(--md-surface-container-high); }
 
 /* ==========================================================================
    Outlined Text Fields (Handelsformular)
@@ -912,6 +980,15 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 .analyzer-callout { margin: 1rem 0 1.25rem; max-width: 420px; }
 
 .health-warning + .health-warning { margin-top: 0.5rem; }
+
+/* Outlined Card (M3): im Design für den Health Check, akzentuiert umrandet */
+.card-outlined {
+  background: transparent;
+  border: 1px solid var(--md-outline-variant);
+  box-shadow: none;
+}
+.health-card { border-color: var(--md-tertiary); }
+.health-card h2 { margin-top: 0; font-size: 1rem; }
 
 .crash-report { border: 1px solid var(--md-error); }
 .crash-report-head { justify-content: space-between; align-items: center; margin-top: 0; }

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0] - 2026-07-24
+M3-Redesign auf die verbleibenden Screens ausgeweitet:
+- Erfolge: Kartenraster statt Liste; freigeschaltete Erfolge in Primary-Container mit gefüllter Icon-Kachel und Häkchen-Symbol, gesperrte hell mit entsättigtem Icon und Schloss-Symbol
+- Portfolio: Stat-Kacheln als helle Karten mit Versalien-Label und Kennzahl in der Display-Schrift; Health Check als umrandete Karte mit Akzentrahmen (neue Variante `card-outlined`)
+- Tabellen im Design-Stil: kleinere Versalien-Kopfzeile, Zeilentrenner oben (keine Linie unter der letzten Zeile), durchgängig Tabellenziffern
+- Tabellen scrollen unter 640 px horizontal in ihrem Container, statt die Seite zu verbreitern
+- Stat-Kacheln auf 150 px Basisbreite, damit auch fünf Kennzahlen in einer Zeile bleiben
+
 ## [2.0.0] - 2026-07-24
 Material-Design-3-Redesign umgesetzt (Quelle: Claude-Design-Projekt „Börsenschule M3 Redesign"):
 - Neue Farbpalette: Indigo-Primary statt Teal, vollständiges oklch-Token-Set (Primary/Secondary/Tertiary/Success/Error, Surface-Container-Stufen, Outline); dunkler Modus konsistent daraus abgeleitet
