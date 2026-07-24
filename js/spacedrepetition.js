@@ -2,8 +2,10 @@ const KEY = "boersenschule:leitner";
 const MAX_BOX = 5;
 // Leitner-Intervalle in Tagen je Box (Index = Box-Nummer 1..5); Box 1 = sofort wieder fällig.
 const BOX_INTERVAL_DAYS = [0, 0, 2, 4, 8, 16];
+/** Heutiges Kalenderdatum in der lokalen Zeitzone des Nutzers (nicht UTC). */
 function todayStr() {
-    return new Date().toISOString().slice(0, 10);
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 function addDays(date, delta) {
     const d = new Date(`${date}T00:00:00Z`);

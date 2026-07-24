@@ -6,7 +6,7 @@ import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
 import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus, isStreakAtRisk } from "../gamification.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
-import { dueCardCount } from "../spacedrepetition.js";
+import { dueCardCount, resetLeitner } from "../spacedrepetition.js";
 
 export function renderDashboard(): HTMLElement {
   const progress = loadProgress();
@@ -96,6 +96,7 @@ export function renderDashboard(): HTMLElement {
     if (confirm("Gesamten Lernfortschritt zurücksetzen? Alle als gelesen markierten Lektionen und Quiz-Ergebnisse gehen verloren.")) {
       resetProgress();
       resetAchievements();
+      resetLeitner();
       const appRoot = document.getElementById("app");
       if (appRoot) mount(appRoot, renderDashboard());
     }

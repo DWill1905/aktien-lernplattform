@@ -1,4 +1,4 @@
-import { STOCKS, stockById, currentPrice } from "./market.js";
+import { STOCKS, stockById, currentPrice, priceHistory } from "./market.js";
 const TRADING_DAYS_PER_YEAR = 252;
 const RISK_FREE_ANNUAL = 0.02; // Platzhalter, z. B. Rendite kurzlaufender Staatsanleihen
 export const MIN_HISTORY_DAYS = 5;
@@ -54,25 +54,33 @@ function diversificationLabel(hhi) {
  * historischen Kursverlauf an (inkl. konstantem Barguthaben). Das ist eine bewusste
  * didaktische Vereinfachung – ohne vollständige Transaktions-Replay-Engine lässt sich sonst
  * keine Historie rekonstruieren –, liefert aber realistische Kennzahlen für die aktuelle Struktur.
+ *
+ * Holt je gehaltener Aktie EINMAL den vollen (gecachten) Kursverlauf und indiziert dann nur noch
+ * hinein – ein currentPrice(stock, d)-Aufruf pro Tag würde priceHistory für jedes d neu aufbauen
+ * (O(Tage²) statt O(Tage)) und bei langen Spielständen die Portfolio-Seite spürbar verlangsamen.
  */
 function syntheticValueSeries(state) {
     const days = state.day;
+    const holdingHistories = Object.entries(state.positions)
+        .map(([stockId, position]) => {
+        const stock = stockById(stockId);
+        return stock ? { shares: position.shares, history: priceHistory(stock, days) } : null;
+    })
+        .filter((h) => h !== null);
     const series = [];
     for (let d = 0; d <= days; d++) {
         let value = state.cash;
-        for (const [stockId, position] of Object.entries(state.positions)) {
-            const stock = stockById(stockId);
-            if (stock)
-                value += position.shares * currentPrice(stock, d);
-        }
+        for (const { shares, history } of holdingHistories)
+            value += shares * history[d];
         series.push(value);
     }
     return series;
 }
 function marketIndexSeries(days) {
+    const histories = STOCKS.map((s) => ({ basePrice: s.basePrice, history: priceHistory(s, days) }));
     const series = [];
     for (let d = 0; d <= days; d++) {
-        const avgReturn = mean(STOCKS.map((s) => currentPrice(s, d) / s.basePrice));
+        const avgReturn = mean(histories.map(({ basePrice, history }) => history[d] / basePrice));
         series.push(avgReturn);
     }
     return series;

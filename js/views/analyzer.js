@@ -203,7 +203,9 @@ export function renderAnalyzer() {
             }
         }
         activeCall = null;
-        if (revealCount < fullCandles.length) {
+        // Nur eine neue Entscheidung öffnen, wenn für die Auswertung noch genug Tage übrig sind –
+        // sonst bliebe die letzte Entscheidung eines Durchlaufs für immer unausgewertet hängen.
+        if (revealCount + EVALUATION_WINDOW <= fullCandles.length) {
             openDecision = { entryIndex: revealCount - 1, entryPrice: fullCandles[revealCount - 1].close };
         }
     }
@@ -235,6 +237,10 @@ export function renderAnalyzer() {
             return;
         playing = true;
         playTimer = window.setInterval(() => {
+            if (!container.isConnected) {
+                stopPlaying();
+                return;
+            }
             advance();
             afterTick();
         }, PLAY_INTERVAL_MS);

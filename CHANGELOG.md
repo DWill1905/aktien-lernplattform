@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.55.1] - 2026-07-24
+- Fix: Chart-Analyzer fror gegen Ende eines Replays ein, wenn für die letzte Entscheidung nicht mehr genug Handelstage zur Auswertung übrig waren – jetzt wird in diesem Fall keine unauswertbare Entscheidung mehr geöffnet
+- Fix: Autoplay-Timer im Chart-Analyzer lief nach Verlassen der Seite unbemerkt weiter (Ressourcen-Leck)
+- Fix: Streak/Tagesziel/Wiederholungs-Fälligkeiten wurden anhand von UTC statt der lokalen Zeitzone berechnet – konnte um Mitternacht zu falschen Tagesgrenzen führen
+- Fix: „Lernfortschritt zurücksetzen" setzte die Karteikarten der Spaced-Repetition-Engine nicht mit zurück
+- Performance: Portfolio Health Check berechnete die historische Kursreihe pro Tag neu (O(Tage²)); jetzt wird die Kurshistorie je Aktie einmal geladen und nur noch indiziert
+
 ## [1.55.0] - 2026-07-24
 - Neue Spaced-Repetition-Quiz-Engine: jede beantwortete Quizfrage wird in ein Leitner-Karteikastensystem einsortiert (richtig → längeres Wiederholungsintervall, falsch → zurück auf Stufe 1). Neue Seite „Tägliche Wiederholung" (#/wiederholung) präsentiert bis zu 3 fällige Fragen; Dashboard zeigt die Anzahl fälliger Wiederholungen an.
 

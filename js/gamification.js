@@ -23,8 +23,11 @@ export const PERFECT_STREAK_MILESTONE = 3;
 export const XP_DAILY_GOAL_BONUS = 15;
 export const DAILY_GOAL = 3;
 export const XP_REVIEW_CORRECT = 3;
+/** Heutiges Kalenderdatum in der lokalen Zeitzone des Nutzers (nicht UTC – sonst verschieben
+ * sich Streak/Tagesziel für Nutzer abseits von UTC um die Stunden bis zur lokalen Mitternacht). */
 function todayStr() {
-    return new Date().toISOString().slice(0, 10);
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 function daysBetween(a, b) {
     const da = new Date(`${a}T00:00:00Z`).getTime();
