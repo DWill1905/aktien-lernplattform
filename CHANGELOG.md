@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.53.0] - 2026-07-24
+- Portfolio-Simulator: neuer Börsen-Stresstest – schickt das aktuelle Depot per Klick durch 4 historische Krisenszenarien (Dotcom-Bubble 2000, Finanzkrise 2008, Corona-Shock 2020, Zins-/Inflationswende 2022) mit branchenspezifischen Verlusten, Schadensbericht pro Position und automatischen Absicherungs-Empfehlungen; reine Simulation, das echte Depot bleibt unverändert
+
 ## [1.52.0] - 2026-07-24
 - Portfolio-Simulator: „Aufteilung nach Branchen" zum Portfolio Health Check ausgebaut – Diversifikations-Score (Herfindahl-Hirschman-Index), automatische Warnungen bei Klumpenrisiko/hohem Kassenbestand/Einzelposition sowie Sharpe Ratio, Portfolio-Beta und Max Drawdown (auf Basis der aktuellen Depot-Struktur, angewendet auf den bisherigen Kursverlauf)
 

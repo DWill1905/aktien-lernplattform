@@ -654,6 +654,12 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 
 .health-warning + .health-warning { margin-top: 0.5rem; }
 
+.crash-report { border: 1px solid var(--md-error); }
+.crash-report-head { justify-content: space-between; align-items: center; margin-top: 0; }
+.crash-report-head h3 { margin: 0; }
+.crash-recommendations { margin: 0.5rem 0 0; padding-left: 1.2rem; }
+.crash-recommendations li { margin-bottom: 0.4rem; font-size: 0.9rem; }
+
 /* ==========================================================================
    Toasts (Level-up / Erfolge)
    ========================================================================== */

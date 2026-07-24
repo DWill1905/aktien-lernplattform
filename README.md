@@ -24,7 +24,7 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   seeded Random-Walk-Kursen, Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
   Limit-/Stop-Orders, Positionsgrößen-Rechner, Positionsübersicht, Zeit-Vorspulen, Charts,
   Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Sharpe Ratio,
-  Portfolio-Beta, Max Drawdown)
+  Portfolio-Beta, Max Drawdown), Börsen-Stresstest durch 4 historische Krisenszenarien
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
   Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten

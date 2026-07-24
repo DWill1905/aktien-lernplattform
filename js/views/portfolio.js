@@ -8,6 +8,7 @@ import { loadGamification } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 import { computeHealthCheck, MIN_HISTORY_DAYS } from "../risk.js";
+import { CRASH_SCENARIOS, simulateCrash } from "../crashtest.js";
 function checkAchievements(portfolioState) {
     evaluateAchievements({
         progress: loadProgress(),
@@ -89,6 +90,7 @@ function allocationRow(label, part, total) {
 export function renderPortfolio() {
     let state = loadPortfolio();
     let selectedStockId = STOCKS[0].id;
+    let crashResult = null;
     const container = el("div", {});
     function refresh() {
         state = loadPortfolio();
@@ -117,19 +119,23 @@ export function renderPortfolio() {
             el("div", { class: "actions" }, [
                 makeButton("+1 Tag", "secondary", () => {
                     checkAchievements(advanceDay(1));
+                    crashResult = null;
                     refresh();
                 }),
                 makeButton("+5 Tage", "secondary", () => {
                     checkAchievements(advanceDay(5));
+                    crashResult = null;
                     refresh();
                 }),
                 makeButton("+20 Tage", "secondary", () => {
                     checkAchievements(advanceDay(20));
+                    crashResult = null;
                     refresh();
                 }),
                 makeButton("Depot zurücksetzen", "danger", () => {
                     if (confirm("Depot wirklich auf Startkapital zurücksetzen? Alle Positionen und Transaktionen gehen verloren.")) {
                         resetPortfolio();
+                        crashResult = null;
                         refresh();
                     }
                 }),
@@ -207,6 +213,7 @@ export function renderPortfolio() {
             message.className = `trade-message ${result.ok ? "ok" : "error"}`;
             if (result.ok) {
                 checkAchievements(loadPortfolio());
+                crashResult = null;
                 refresh();
             }
         };
@@ -403,7 +410,82 @@ export function renderPortfolio() {
                         : `Noch nicht genug Handelstage für Sharpe Ratio, Beta und Max Drawdown (mindestens ${MIN_HISTORY_DAYS} Handelstage Historie nötig – nutze „+Tage vorspulen").`,
                 ]),
             ]);
-        const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, calcCard, ordersCard, holdingsCard, healthCard, txCard]);
+        // --- Börsen-Stresstest & Crash-Simulator ---
+        const scenarioButtons = CRASH_SCENARIOS.map((scenario) => makeButton(`📉 ${scenario.name} (${scenario.period})`, "secondary", () => {
+            crashResult = simulateCrash(state, scenario);
+            refresh();
+        }));
+        const crashReport = crashResult
+            ? el("div", { class: "card crash-report" }, [
+                el("div", { class: "actions crash-report-head" }, [
+                    el("h3", {}, [`📉 ${crashResult.scenario.name} (${crashResult.scenario.period})`]),
+                    makeButton("✕ Schließen", "secondary", () => {
+                        crashResult = null;
+                        refresh();
+                    }),
+                ]),
+                el("p", { class: "muted" }, [crashResult.scenario.description]),
+                el("div", { class: "stat-row" }, [
+                    el("div", { class: "stat" }, [el("div", { class: "label" }, ["Depotwert vorher"]), el("div", { class: "value" }, [formatCurrency(crashResult.valueBefore)])]),
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, ["Tiefstwert"]),
+                        el("div", { class: "value neg" }, [formatCurrency(crashResult.valueAtTrough)]),
+                    ]),
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, ["Max. Buchverlust"]),
+                        el("div", { class: "value neg" }, [`${formatCurrency(crashResult.troughLossAmount)} (${formatPercent(-crashResult.troughLossPct)})`]),
+                    ]),
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, [`Wert ${crashResult.scenario.recoveryLabel}`]),
+                        el("div", { class: `value ${crashResult.recoveryLossAmount <= 0 ? "pos" : "neg"}` }, [
+                            `${formatCurrency(crashResult.valueAfterRecovery)} (${formatPercent(-crashResult.recoveryLossPct)})`,
+                        ]),
+                    ]),
+                ]),
+                crashResult.positionImpacts.length === 0
+                    ? null
+                    : el("table", {}, [
+                        el("thead", {}, [
+                            el("tr", {}, [
+                                el("th", {}, ["Aktie"]),
+                                el("th", {}, ["Branche"]),
+                                el("th", { class: "num" }, ["Wert vorher"]),
+                                el("th", { class: "num" }, ["Am Tiefpunkt"]),
+                                el("th", { class: "num" }, ["Verlust"]),
+                            ]),
+                        ]),
+                        el("tbody", {}, crashResult.positionImpacts.map((p) => el("tr", {}, [
+                            el("td", {}, [p.name]),
+                            el("td", {}, [p.sector]),
+                            el("td", { class: "num" }, [formatCurrency(p.valueBefore)]),
+                            el("td", { class: "num" }, [formatCurrency(p.valueAtTrough)]),
+                            el("td", { class: "num neg" }, [`${formatCurrency(p.lossAmount)} (${formatPercent(-p.lossPct)})`]),
+                        ]))),
+                    ]),
+                el("h4", {}, ["Empfehlungen"]),
+                el("ul", { class: "crash-recommendations" }, crashResult.recommendations.map((r) => el("li", {}, [r]))),
+            ])
+            : null;
+        const crashCard = el("div", { class: "card" }, [
+            el("h2", {}, ["🧨 Börsen-Stresstest"]),
+            el("p", { class: "muted" }, [
+                "Schicke dein aktuelles Depot durch eine historische Krise: reine Simulation auf Basis deiner jetzigen Positionen – dein echtes Depot bleibt unverändert.",
+            ]),
+            el("div", { class: "actions" }, scenarioButtons),
+        ]);
+        const wrapper = el("div", {}, [
+            header,
+            chartCard,
+            marketCard,
+            tradeCard,
+            calcCard,
+            ordersCard,
+            holdingsCard,
+            healthCard,
+            crashCard,
+            crashReport,
+            txCard,
+        ]);
         queueMicrotask(() => drawChart(canvas, history));
         return wrapper;
     }
