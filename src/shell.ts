@@ -28,6 +28,7 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const MORE_ITEMS: { label: string; icon: string; href: string }[] = [
+  { label: "Aktien-Screener", icon: "filter_alt", href: "#/screener" },
   { label: "Chart-Analyzer", icon: "candlestick_chart", href: "#/chart-analyse" },
   { label: "Event-Trading", icon: "bolt", href: "#/news-simulator" },
   { label: "Tägliche Wiederholung", icon: "history", href: "#/wiederholung" },
@@ -38,6 +39,7 @@ const MORE_ITEMS: { label: string; icon: string; href: string }[] = [
 /** Statische Seitentitel für Routen ohne dynamischen Inhalt. */
 const STATIC_TITLES: Record<string, string> = {
   "#/portfolio": "Portfolio-Simulator",
+  "#/screener": "Aktien-Screener",
   "#/erfolge": "Erfolge",
   "#/chart-analyse": "Chart-Analyzer",
   "#/news-simulator": "Event-Trading",

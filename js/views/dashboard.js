@@ -158,6 +158,13 @@ export function renderDashboard() {
                     ]),
                 ]),
             ]),
+            el("a", { class: "card module-card", href: "#/screener" }, [
+                el("div", { class: "icon" }, [symbol("filter_alt")]),
+                el("h3", {}, ["Aktien-Screener"]),
+                el("p", { class: "muted" }, [
+                    "KGV, PEG, KBV, ROE, Dividende und Burggraben aller 8 AGs live vergleichen – Fundamentalanalyse praktisch angewendet.",
+                ]),
+            ]),
             el("a", { class: "card module-card", href: "#/chart-analyse" }, [
                 el("div", { class: "icon" }, [symbol("candlestick_chart")]),
                 el("h3", {}, ["Chart-Analyzer"]),

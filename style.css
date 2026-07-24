@@ -991,6 +991,54 @@ canvas.chart-tall { height: 260px; }
 /* Kennzahlen-Zeile unter dem Chart */
 .metric-row .stat { flex: 1 1 130px; }
 
+/* ==========================================================================
+   Aktien-Screener
+   ========================================================================== */
+.filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.75rem 0 0.5rem; }
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-sm);
+  background: transparent;
+  color: var(--md-on-surface-variant);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+.filter-chip .msym { font-size: 1rem; }
+.filter-chip:hover { background: var(--md-surface-container-high); }
+.filter-chip.active {
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+th.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+th.sortable .msym { font-size: 0.9rem; vertical-align: text-bottom; }
+th.sortable:hover { color: var(--md-on-surface); }
+th.sortable.sorted { color: var(--md-primary); }
+.row-sub { font-size: 0.72rem; }
+
+/* Ampel-Einordnung der Fundamentalkennzahlen */
+.rating-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.6rem; margin-top: 0.9rem; }
+.rating-item {
+  border-radius: var(--md-shape-md);
+  padding: 0.6rem 0.75rem;
+  background: var(--md-surface-container-high);
+  border-left: 4px solid var(--md-outline-variant);
+}
+.rating-item.rating-good { border-left-color: var(--md-success); background: var(--md-success-container); color: var(--md-on-success-container); }
+.rating-item.rating-bad { border-left-color: var(--md-error); background: var(--md-error-container); color: var(--md-on-error-container); }
+.rating-item.rating-ok { border-left-color: var(--md-tertiary); }
+.rating-head { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; }
+.rating-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.85; }
+.rating-value { font-weight: 700; font-variant-numeric: tabular-nums; }
+.rating-hint { margin: 0.25rem 0 0; font-size: 0.78rem; line-height: 1.35; opacity: 0.9; }
+
 /* Live-Kostenvorschau im Order-Ticket */
 .trade-preview {
   display: flex;

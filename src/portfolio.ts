@@ -330,9 +330,10 @@ function applyDividends(state: PortfolioState): void {
   for (const [stockId, position] of Object.entries(state.positions)) {
     if (position.shares <= 0) continue;
     const stock = stockById(stockId);
-    if (!stock || stock.dividendYield <= 0) continue;
-    // Quartalsdividende je Aktie auf Basis des aktuellen Kurses (konstante Rendite p.a.).
-    const perShare = Math.round(currentPrice(stock, state.day) * (stock.dividendYield / 4) * 100) / 100;
+    if (!stock || stock.fundamentals.dividendPerShare <= 0) continue;
+    // Quartalsdividende: ein Viertel der festen Jahresdividende je Aktie – wie bei echten
+    // Unternehmen ist der Betrag fix, die Rendite ergibt sich aus dem aktuellen Kurs.
+    const perShare = Math.round((stock.fundamentals.dividendPerShare / 4) * 100) / 100;
     if (perShare <= 0) continue;
     const amount = Math.round(perShare * position.shares * 100) / 100;
     state.cash += amount;

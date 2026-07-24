@@ -26,6 +26,7 @@ import { showToast } from "../toast.js";
 import { PortfolioState } from "../types.js";
 import { computeHealthCheck, MIN_HISTORY_DAYS, marketIndexSeries } from "../risk.js";
 import { CRASH_SCENARIOS, CrashResult, simulateCrash } from "../crashtest.js";
+import { deriveMetrics } from "../fundamentals.js";
 import { symbol } from "../shell.js";
 
 function checkAchievements(portfolioState: PortfolioState): void {
@@ -357,6 +358,7 @@ export function renderPortfolio(): HTMLElement {
     const rsiValues = rsi(history);
     const rsiNow = rsiValues[rsiValues.length - 1];
     const rsiLabel = rsiNow === null ? "" : rsiNow >= 70 ? " · überkauft" : rsiNow <= 30 ? " · überverkauft" : " · neutral";
+    const fund = deriveMetrics(selectedStock, lastPrice);
     const sma20Now = sma20Full[sma20Full.length - 1];
     const sma50Now = sma50Full[sma50Full.length - 1];
     const trendLabel =
@@ -390,7 +392,13 @@ export function renderPortfolio(): HTMLElement {
         metricStat("Volatilität p.a.", stockVola !== null ? formatPercent(stockVola).replace("+", "") : "–"),
         metricStat("RSI (14)", rsiNow !== null ? `${rsiNow}${rsiLabel}` : "–", rsiNow !== null && (rsiNow >= 70 || rsiNow <= 30) ? "neg" : ""),
         metricStat("Trend (SMA 20/50)", trendLabel, trendLabel === "Aufwärtstrend" ? "pos" : trendLabel === "Abwärtstrend" ? "neg" : ""),
-        metricStat("Div.-Rendite p.a.", selectedStock.dividendYield > 0 ? formatPercent(selectedStock.dividendYield).replace("+", "") : "keine"),
+        metricStat("KGV", fund.kgv !== null ? fund.kgv.toFixed(1) : "–"),
+        metricStat("Div.-Rendite", fund.dividendYield > 0 ? formatPercent(fund.dividendYield).replace("+", "") : "keine"),
+      ]),
+      el("p", { class: "muted" }, [
+        "Alle Fundamentalkennzahlen und ihre Einordnung findest du im ",
+        el("a", { href: "#/screener" }, ["Aktien-Screener"]),
+        ".",
       ]),
     ]);
 

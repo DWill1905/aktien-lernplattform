@@ -8,6 +8,7 @@ import { renderPortfolio } from "./views/portfolio.js";
 import { renderGlossary } from "./views/glossary.js";
 import { renderAchievements } from "./views/achievements.js";
 import { renderChecklist } from "./views/checklist.js";
+import { renderScreener } from "./views/screener.js";
 import { renderAnalyzer } from "./views/analyzer.js";
 import { renderNewsSimulator } from "./views/newssim.js";
 import { renderDailyReview } from "./views/dailyreview.js";
@@ -20,6 +21,7 @@ route("/modul/:moduleId", (params) => mount(app, renderModule(params.moduleId)))
 route("/lektion/:moduleId/:lessonId", (params) => mount(app, renderLesson(params.moduleId, params.lessonId)));
 route("/quiz/:moduleId/:lessonId", (params) => mount(app, renderQuiz(params.moduleId, params.lessonId)));
 route("/portfolio", () => mount(app, renderPortfolio()));
+route("/screener", () => mount(app, renderScreener()));
 route("/chart-analyse", () => mount(app, renderAnalyzer()));
 route("/news-simulator", () => mount(app, renderNewsSimulator()));
 route("/wiederholung", () => mount(app, renderDailyReview()));

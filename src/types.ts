@@ -33,6 +33,26 @@ export interface LearningModule {
   lessons: Lesson[];
 }
 
+/** Fiktive, aber in sich konsistente Fundamentaldaten einer AG (Basis für KGV, KUV, KBV, ROE …). */
+export interface Fundamentals {
+  /** Ausstehende Aktien in Millionen (für Marktkapitalisierung und Gewinn je Aktie). */
+  sharesMio: number;
+  /** Jahresumsatz in Mio. €. */
+  revenueMio: number;
+  /** Erwartetes Umsatzwachstum in % p.a. (Proxy für Gewinnwachstum, u. a. für den PEG). */
+  revenueGrowthPct: number;
+  /** Nettomarge in % – Gewinn = Umsatz × Marge, daraus ergibt sich der Gewinn je Aktie. */
+  netMarginPct: number;
+  /** Buchwert (Eigenkapital) je Aktie in € (für KBV und ROE). */
+  equityPerShare: number;
+  /** Nettoverschuldung ÷ EBITDA (unter 1 = solide, über 3 = hoch). */
+  netDebtToEbitda: number;
+  /** Jahresdividende je Aktie in € – fix wie bei echten Unternehmen, die Rendite schwankt mit dem Kurs. */
+  dividendPerShare: number;
+  /** Wettbewerbsvorteil im Sinne der Burggraben-Lektion. */
+  moat: "breit" | "schmal" | "keiner";
+}
+
 export interface Stock {
   id: string;
   name: string;
@@ -40,10 +60,12 @@ export interface Stock {
   sector: string;
   basePrice: number;
   drift: number;
+  /** Idiosynkratische (unternehmensspezifische) Tagesvolatilität – zusätzlich zum Marktfaktor. */
   volatility: number;
   seed: number;
-  /** Dividendenrendite p.a. auf den aktuellen Kurs (0 = zahlt keine Dividende). */
-  dividendYield: number;
+  /** Sensitivität gegenüber dem gemeinsamen Marktfaktor (1 = wie der Markt, >1 = zyklisch/offensiv). */
+  marketBeta: number;
+  fundamentals: Fundamentals;
 }
 
 export interface Position {

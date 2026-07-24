@@ -13,6 +13,7 @@ const NAV_ITEMS = [
     { label: "Erfolge", icon: "emoji_events", href: "#/erfolge", matches: (h) => h.startsWith("#/erfolge") },
 ];
 const MORE_ITEMS = [
+    { label: "Aktien-Screener", icon: "filter_alt", href: "#/screener" },
     { label: "Chart-Analyzer", icon: "candlestick_chart", href: "#/chart-analyse" },
     { label: "Event-Trading", icon: "bolt", href: "#/news-simulator" },
     { label: "Tägliche Wiederholung", icon: "history", href: "#/wiederholung" },
@@ -22,6 +23,7 @@ const MORE_ITEMS = [
 /** Statische Seitentitel für Routen ohne dynamischen Inhalt. */
 const STATIC_TITLES = {
     "#/portfolio": "Portfolio-Simulator",
+    "#/screener": "Aktien-Screener",
     "#/erfolge": "Erfolge",
     "#/chart-analyse": "Chart-Analyzer",
     "#/news-simulator": "Event-Trading",

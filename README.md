@@ -20,9 +20,11 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Drawdown & Risk of Ruin
 - **Profi-Analyse** – DCF-Bewertung, Profi-Kennzahlen (ROE/ROIC/EV/EBITDA/PEG), Makro & Zinsen,
   Chartmuster, Divergenzen, Portfolio-Kennzahlen, Leerverkauf & Derivate, Anlagestrategien
-- **Portfolio-Simulator** – virtuelles Startkapital von 10.000 €, 8 fiktive Aktien mit
-  seeded Random-Walk-Kursen und branchentypischen Dividendenrenditen (quartalsweise
-  Ausschüttung), Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
+- **Portfolio-Simulator** – virtuelles Startkapital von 10.000 €, 8 fiktive Aktien, deren
+  Kurse über ein Ein-Faktor-Marktmodell realistisch korreliert sind (gemeinsamer Marktfaktor
+  mit Bullen-/Bärenphasen plus unternehmensspezifischem Zufall, jede Aktie mit eigenem Beta)
+  und die branchentypische feste Dividenden je Aktie quartalsweise ausschütten,
+  Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
   Limit-/Stop-/Trailing-Stop-Orders, Order-Ticket mit Live-Kostenvorschau und Max-Stückzahl,
   Positionsgrößen-Rechner, Merkliste, Positionsübersicht mit Tagesänderung, Depotgewicht,
   realisiertem und unrealisiertem Gewinn/Verlust, Zeit-Vorspulen,
@@ -33,6 +35,11 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Rendite und
   Volatilität p.a., Sharpe und Sortino Ratio, Portfolio-Beta, Max Drawdown),
   Börsen-Stresstest durch 4 historische Krisenszenarien
+- **Aktien-Screener** – alle Kennzahlen des Fundamentalanalyse-Moduls live auf die 8 AGs
+  angewendet: KGV, PEG, KBV, ROE, Dividendenrendite, Ausschüttungsquote, Marge, Wachstum,
+  Verschuldung und Burggraben aus fiktiven, in sich konsistenten Geschäftszahlen; sortierbar,
+  mit Strategie-Filtern (Value, Dividende, Wachstum, Qualität) und Ampel-Einordnung je
+  Kennzahl nach den Faustregeln aus den Lektionen
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
   Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten

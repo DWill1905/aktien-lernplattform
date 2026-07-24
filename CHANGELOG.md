@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.4.0] - 2026-07-24
+Fundamentaldaten samt Aktien-Screener und ein korreliertes Marktmodell – die beiden größten fachlichen Lücken geschlossen:
+- Jede der 8 AGs hat jetzt fiktive, in sich konsistente Geschäftszahlen (ausstehende Aktien, Umsatz, Wachstum, Nettomarge, Buchwert je Aktie, Nettoverschuldung/EBITDA, Dividende je Aktie, Burggraben-Einstufung); Gewinn je Aktie und ROE werden daraus abgeleitet statt frei erfunden
+- Neuer Aktien-Screener (#/screener, im „Mehr"-Menü und als Dashboard-Kachel): KGV, PEG, KBV, Dividendenrendite, ROE, Wachstum, Marge und Verschuldung live aus Kurs × Geschäftszahlen berechnet, per Klick sortierbar, mit Strategie-Filtern (KGV < 18, Dividende > 3 %, Wachstum > 10 %, breiter Burggraben)
+- Detail-Ansicht je Unternehmen mit Ampel-Einordnung jeder Kennzahl nach den Faustregeln aus den Lektionen (z. B. PEG < 1 günstig, Nettoschulden/EBITDA > 3 hoch) inkl. Begründungssatz – Fundamentalanalyse-Modul und Simulator sind damit erstmals verzahnt
+- Dividenden fachlich korrigiert: feste Jahresdividende je Aktie (wie bei echten Unternehmen) statt konstanter Rendite auf den Tageskurs – die Dividendenrendite schwankt jetzt mit dem Kurs, die Ausschüttungsquote (Dividende ÷ Gewinn) ist ausweisbar
+- Ein-Faktor-Marktmodell: Alle Kurse hängen an einem gemeinsamen Marktfaktor (Aktienrendite = Drift + Beta × Marktrendite + eigener Zufall, jede Aktie mit branchentypischem Beta von 0,5 bis 1,4); durchschnittliche Paarkorrelation steigt von ~0 auf ~0,33 – Diversifikation reduziert nur noch das unternehmensspezifische Risiko, das Portfolio-Beta im Health Check hat jetzt echte Aussagekraft
+- Der Marktfaktor durchläuft deterministische Bullen- und Bärenphasen (Bullenphasen häufiger und länger, wie empirisch an echten Börsen) – Markttrends und Drawdowns entstehen jetzt marktweit statt je Aktie isoliert
+- KGV und (live berechnete) Dividendenrendite zusätzlich im Kennzahlen-Panel des Portfolio-Charts, mit Verweis auf den Screener
+- Hinweis: Durch das neue Kursmodell ändern sich alle simulierten Kursverläufe; bestehende Depots werden zu den neuen Kursen bewertet
+
 ## [2.3.0] - 2026-07-24
 Fachlicher Ausbau des Portfolio-Simulators in Richtung Profi-Trading (10 Verbesserungen):
 - Kerzenchart (Candlesticks) mit SMA(20)- und SMA(50)-Overlay, umschaltbarem Zeitfenster (1M/3M/6M/Max) und Preis-Gitterlinien statt einfacher Linien-Darstellung; Kopfzeile zeigt aktuellen Kurs und Gesamtveränderung
