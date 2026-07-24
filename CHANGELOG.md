@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.59.0] - 2026-07-24
+- Neue interaktive Profi-Checkliste (#/checkliste): 13 Punkte zu Setup, Risiko/Positionsgröße und Journal, die vor jedem Trade abgehakt werden – mit Live-Fortschritt und Zurücksetzen; vom Dashboard unter „Übungswerkzeuge" verlinkt
+
 ## [1.58.1] - 2026-07-24
 - README aktualisiert: Merkliste und realisierter Gewinn/Verlust im Simulator ergänzt, Glossar-Umfang auf rund 90 Begriffe korrigiert
 

@@ -166,6 +166,13 @@ export function renderDashboard(): HTMLElement {
           "Simulierte Eilmeldungen, 30 Sekunden Reaktionszeit: Kaufen, Verkaufen oder Halten – und verstehen, warum der Markt so reagiert.",
         ]),
       ]),
+      el("a", { class: "card module-card", href: "#/checkliste" }, [
+        el("div", { class: "icon" }, ["✅"]),
+        el("h3", {}, ["Profi-Checkliste"]),
+        el("p", { class: "muted" }, [
+          "13 Punkte zu Setup, Risiko und Journal, die du vor jedem Trade abhakst – Disziplin statt Bauchgefühl.",
+        ]),
+      ]),
     ]),
   ]);
 }

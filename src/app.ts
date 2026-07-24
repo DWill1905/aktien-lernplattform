@@ -7,6 +7,7 @@ import { renderQuiz } from "./views/quiz.js";
 import { renderPortfolio } from "./views/portfolio.js";
 import { renderGlossary } from "./views/glossary.js";
 import { renderAchievements } from "./views/achievements.js";
+import { renderChecklist } from "./views/checklist.js";
 import { renderAnalyzer } from "./views/analyzer.js";
 import { renderNewsSimulator } from "./views/newssim.js";
 import { renderDailyReview } from "./views/dailyreview.js";
@@ -24,6 +25,7 @@ route("/news-simulator", () => mount(app, renderNewsSimulator()));
 route("/wiederholung", () => mount(app, renderDailyReview()));
 route("/glossar", () => mount(app, renderGlossary()));
 route("/erfolge", () => mount(app, renderAchievements()));
+route("/checkliste", () => mount(app, renderChecklist()));
 
 notFound(() => mount(app, renderDashboard()));
 

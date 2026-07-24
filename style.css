@@ -397,6 +397,20 @@ main#app {
   color: var(--md-on-surface-variant);
   border-radius: var(--md-shape-sm);
 }
+.checklist { display: flex; flex-direction: column; gap: 0.15rem; }
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.55rem 0.5rem;
+  border-radius: var(--md-shape-sm);
+  cursor: pointer;
+  font-size: 0.9375rem;
+}
+.checklist-item:hover { background: var(--md-secondary-container); }
+.checklist-item input { margin-top: 0.15rem; flex-shrink: 0; width: 1.05rem; height: 1.05rem; accent-color: var(--md-primary); }
+.checklist-item input:checked + span { color: var(--md-on-surface-variant); text-decoration: line-through; }
+
 .btn-star.watched { color: #e0a325; }
 .btn-star:hover { color: var(--md-primary); }
 .btn-star:focus-visible { outline: 2px solid var(--md-primary); outline-offset: 2px; }
