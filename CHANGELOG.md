@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.55.2] - 2026-07-24
+- Fix (kritisch): Die „Modul: Perfekt"-Erfolge für alle 5 Module schalteten sich fälschlich schon beim ersten Auslöser von Erfolgs-Prüfungen frei, ganz ohne je eine Lektion oder ein Quiz geöffnet zu haben (`entry?.quizScore !== null` ist für nie besuchte Lektionen `undefined !== null` = true). Per visueller Kontrolle entdeckt: ein einzelner Aktienkauf schaltete 6 Erfolge auf einmal frei. Jetzt wird zuerst geprüft, ob überhaupt ein Fortschritts-Eintrag existiert.
+
 ## [1.55.1] - 2026-07-24
 - Fix: Chart-Analyzer fror gegen Ende eines Replays ein, wenn für die letzte Entscheidung nicht mehr genug Handelstage zur Auswertung übrig waren – jetzt wird in diesem Fall keine unauswertbare Entscheidung mehr geöffnet
 - Fix: Autoplay-Timer im Chart-Analyzer lief nach Verlassen der Seite unbemerkt weiter (Ressourcen-Leck)

@@ -17,7 +17,9 @@ const moduleMasteryAchievements = MODULES.flatMap((mod) => [
         check: (ctx) => mod.lessons.length > 0 &&
             mod.lessons.every((lesson) => {
                 const entry = ctx.progress.lessons[lesson.id];
-                return entry?.quizScore !== null && entry?.quizTotal !== null && entry?.quizScore === entry?.quizTotal;
+                // entry kann undefined sein (Lektion nie geöffnet) – `undefined?.x !== null` ist dann
+                // fälschlich true, daher zuerst explizit auf Vorhandensein prüfen.
+                return entry != null && entry.quizScore !== null && entry.quizTotal !== null && entry.quizScore === entry.quizTotal;
             }),
     },
 ]);
