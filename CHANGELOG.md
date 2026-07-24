@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.52.0] - 2026-07-24
+- Portfolio-Simulator: „Aufteilung nach Branchen" zum Portfolio Health Check ausgebaut – Diversifikations-Score (Herfindahl-Hirschman-Index), automatische Warnungen bei Klumpenrisiko/hohem Kassenbestand/Einzelposition sowie Sharpe Ratio, Portfolio-Beta und Max Drawdown (auf Basis der aktuellen Depot-Struktur, angewendet auf den bisherigen Kursverlauf)
+
 ## [1.51.0] - 2026-07-24
 - Neuer Chart-Analyzer (#/chart-analyse): historische Kursverläufe werden Kerze für Kerze abgespielt, mit einzeichenbaren Unterstützungs-/Widerstandslinien, SMA(20)- und RSI(14)-Indikator; an regelmäßigen Entscheidungspunkten schätzt man Kauf/Verkauf/Halten ein und erhält direktes Feedback samt Trefferquote. Verlinkt vom Dashboard und aus dem Modul „Technische Analyse".
 

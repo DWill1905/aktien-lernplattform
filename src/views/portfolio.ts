@@ -8,6 +8,7 @@ import { loadGamification } from "../gamification.js";
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 import { PortfolioState } from "../types.js";
+import { computeHealthCheck, MIN_HISTORY_DAYS } from "../risk.js";
 
 function checkAchievements(portfolioState: PortfolioState): void {
   evaluateAchievements({
@@ -403,30 +404,47 @@ export function renderPortfolio(): HTMLElement {
           ]),
     ]);
 
-    // --- Aufteilung nach Branchen (Diversifikation) ---
-    const investedBySector: Record<string, number> = {};
-    for (const [stockId, pos] of holdingEntries) {
-      const stock = stockById(stockId);
-      if (!stock) continue;
-      investedBySector[stock.sector] = (investedBySector[stock.sector] ?? 0) + pos.shares * currentPrice(stock, state.day);
-    }
-    const allocationCard =
+    // --- Portfolio Health Check (Diversifikation & Risikokennzahlen) ---
+    const health = computeHealthCheck(state);
+    const healthCard =
       holdingEntries.length === 0
         ? null
         : el("div", { class: "card" }, [
-            el("h2", {}, ["Aufteilung nach Branchen"]),
+            el("h2", {}, ["🩺 Portfolio Health Check"]),
+            el("div", { class: "level-row" }, [
+              el("span", { class: "level-chip" }, [`Diversifikations-Score: ${health.diversificationScore} / 100`]),
+              el("span", { class: "muted" }, [`${health.diversificationLabel} · HHI ${health.hhi}`]),
+            ]),
             el("p", { class: "muted" }, [
               "So ist dein Kapital gestreut – je breiter über Branchen und Barguthaben verteilt, desto geringer das Klumpenrisiko.",
             ]),
             el("div", { class: "allocation" }, [
-              ...Object.entries(investedBySector)
-                .sort((a, b) => b[1] - a[1])
-                .map(([sector, part]) => allocationRow(sector, part, value)),
+              ...health.sectorWeights.map((s) => allocationRow(s.sector, s.value, value)),
               allocationRow("Barguthaben", state.cash, value),
+            ]),
+            ...health.warnings.map((w) => el("p", { class: "streak-warning health-warning" }, [`⚠️ ${w}`])),
+            el("div", { class: "stat-row" }, [
+              el("div", { class: "stat" }, [
+                el("div", { class: "label" }, ["Sharpe Ratio"]),
+                el("div", { class: "value" }, [health.sharpeRatio !== null ? health.sharpeRatio.toFixed(2) : "–"]),
+              ]),
+              el("div", { class: "stat" }, [
+                el("div", { class: "label" }, ["Portfolio-Beta"]),
+                el("div", { class: "value" }, [health.beta !== null ? health.beta.toFixed(2) : "–"]),
+              ]),
+              el("div", { class: "stat" }, [
+                el("div", { class: "label" }, ["Max Drawdown"]),
+                el("div", { class: "value neg" }, [health.maxDrawdownPct !== null ? formatPercent(-health.maxDrawdownPct) : "–"]),
+              ]),
+            ]),
+            el("p", { class: "muted" }, [
+              health.hasHistory
+                ? "Kennzahlen basieren auf deiner aktuellen Depot-Zusammensetzung, angewendet auf den bisherigen Kursverlauf (didaktische Näherung; annualisiert auf 252 Handelstage, risikofreier Zins 2 % p.a., Vergleichsindex = Durchschnitt aller 8 Aktien)."
+                : `Noch nicht genug Handelstage für Sharpe Ratio, Beta und Max Drawdown (mindestens ${MIN_HISTORY_DAYS} Handelstage Historie nötig – nutze „+Tage vorspulen").`,
             ]),
           ]);
 
-    const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, calcCard, ordersCard, holdingsCard, allocationCard, txCard]);
+    const wrapper = el("div", {}, [header, chartCard, marketCard, tradeCard, calcCard, ordersCard, holdingsCard, healthCard, txCard]);
     queueMicrotask(() => drawChart(canvas, history));
     return wrapper;
   }

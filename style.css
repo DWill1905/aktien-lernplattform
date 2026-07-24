@@ -652,6 +652,8 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 .analyzer-result p:last-child { margin-bottom: 0; }
 .analyzer-callout { margin: 1rem 0 1.25rem; max-width: 420px; }
 
+.health-warning + .health-warning { margin-top: 0.5rem; }
+
 /* ==========================================================================
    Toasts (Level-up / Erfolge)
    ========================================================================== */

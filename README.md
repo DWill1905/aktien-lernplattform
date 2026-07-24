@@ -22,8 +22,9 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Chartmuster, Divergenzen, Portfolio-Kennzahlen, Leerverkauf & Derivate, Anlagestrategien
 - **Portfolio-Simulator** – virtuelles Startkapital von 10.000 €, 8 fiktive Aktien mit
   seeded Random-Walk-Kursen, Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
-  Limit-/Stop-Orders, Positionsgrößen-Rechner, Positionsübersicht, Aufteilung nach Branchen,
-  Zeit-Vorspulen, Charts
+  Limit-/Stop-Orders, Positionsgrößen-Rechner, Positionsübersicht, Zeit-Vorspulen, Charts,
+  Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Sharpe Ratio,
+  Portfolio-Beta, Max Drawdown)
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
   Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten
