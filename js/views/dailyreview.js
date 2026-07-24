@@ -6,6 +6,7 @@ import { awardXp, XP_REVIEW_CORRECT, levelForXp, loadGamification, registerDaily
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 import { burstConfetti } from "../confetti.js";
+import { symbol } from "../shell.js";
 export function renderDailyReview() {
     const items = dueCards(3)
         .map((card) => {
@@ -21,7 +22,7 @@ export function renderDailyReview() {
     if (items.length === 0) {
         return el("div", {}, [
             breadcrumb,
-            el("h1", {}, ["🔁 Tägliche Wiederholung"]),
+            el("h1", { class: "page-title" }, [symbol("history"), "Tägliche Wiederholung"]),
             el("div", { class: "empty-state" }, [
                 "Aktuell sind keine Fragen zur Wiederholung fällig. Beantworte weitere Quizzes, damit hier Karteikarten entstehen.",
                 el("p", {}, [el("a", { href: "#/" }, ["Zurück zur Übersicht"])]),
@@ -96,27 +97,27 @@ export function renderDailyReview() {
             const result = awardXp(score * XP_REVIEW_CORRECT);
             if (result.leveledUp) {
                 const info = levelForXp(result.state.xp);
-                showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
                 burstConfetti();
             }
         }
         const goal = registerDailyGoalProgress();
         if (goal.justCompleted) {
             const bonusResult = awardXp(XP_DAILY_GOAL_BONUS);
-            showToast(`✅ Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level");
+            showToast(`Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level", "check_circle");
             if (bonusResult.leveledUp) {
                 const info = levelForXp(bonusResult.state.xp);
-                showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
                 burstConfetti();
             }
         }
-        evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+        evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`Erfolg freigeschaltet: ${a.title}`, "achievement", a.icon));
         evaluateBtn.setAttribute("disabled", "true");
         resultBox.replaceChildren(el("p", { class: "quiz-score" }, [`Ergebnis: ${score} von ${items.length} richtig`]), el("div", { class: "actions" }, [el("a", { class: "btn", href: "#/" }, ["Zurück zur Übersicht"])]));
     });
     return el("div", {}, [
         breadcrumb,
-        el("h1", {}, ["🔁 Tägliche Wiederholung"]),
+        el("h1", { class: "page-title" }, [symbol("history"), "Tägliche Wiederholung"]),
         el("p", { class: "muted" }, [
             "Diese Fragen sind laut Karteikastensystem fällig – richtig beantwortete Karten wandern in ein längeres Wiederholungsintervall, falsch beantwortete kommen sofort zurück auf die erste Stufe.",
         ]),

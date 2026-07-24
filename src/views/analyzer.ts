@@ -2,6 +2,7 @@ import { el } from "../dom.js";
 import { STOCKS, stockById } from "../market.js";
 import { Candle, generateCandles, sma, rsi } from "../indicators.js";
 import { formatCurrency, formatPercent } from "../util.js";
+import { symbol } from "../shell.js";
 
 const TOTAL_DAYS = 180;
 const INITIAL_WINDOW = 40;
@@ -216,7 +217,7 @@ export function renderAnalyzer(): HTMLElement {
     const change = (evalCandle.close - call.entryPrice) / call.entryPrice;
     const pct = formatPercent(change);
     if (call.side === "hold") {
-      feedback = `✋ Gehalten – der Kurs bewegte sich in der Zeit um ${pct}.`;
+      feedback = `Gehalten – der Kurs bewegte sich in der Zeit um ${pct}.`;
     } else {
       const wentUp = change > FLAT_TOLERANCE;
       const wentDown = change < -FLAT_TOLERANCE;
@@ -225,9 +226,9 @@ export function renderAnalyzer(): HTMLElement {
       if (correct || wrong) stats.calls++;
       if (correct) {
         stats.correct++;
-        feedback = `✅ Richtig eingeschätzt! Kurs ${pct} in die erwartete Richtung bewegt.`;
+        feedback = `Richtig eingeschätzt! Kurs ${pct} in die erwartete Richtung bewegt.`;
       } else if (wrong) {
-        feedback = `❌ Leider daneben: Kurs hat sich um ${pct} bewegt – Gegenteil der Erwartung.`;
+        feedback = `Leider daneben: Kurs hat sich um ${pct} bewegt – Gegenteil der Erwartung.`;
       } else {
         feedback = `Kurs blieb nahezu unverändert (${pct}) – kein klarer Ausgang.`;
       }
@@ -348,13 +349,13 @@ export function renderAnalyzer(): HTMLElement {
     const lineModeBtn = el(
       "button",
       { class: `btn secondary${lineDrawMode ? " active" : ""}`, "aria-pressed": String(lineDrawMode) },
-      ["📏 Linie zeichnen"]
+      ["Linie zeichnen"]
     ) as HTMLButtonElement;
     lineModeBtn.addEventListener("click", () => {
       lineDrawMode = !lineDrawMode;
       refresh();
     });
-    const clearLinesBtn = makeButton("🧹 Linien löschen", "secondary", () => {
+    const clearLinesBtn = makeButton("Linien löschen", "secondary", () => {
       lines = [];
       renderCanvas();
     });
@@ -393,9 +394,9 @@ export function renderAnalyzer(): HTMLElement {
             `Aktueller Kurs: ${formatCurrency(openDecision.entryPrice)} an Tag ${openDecision.entryIndex + 1}. Was passiert in den nächsten ${EVALUATION_WINDOW} Handelstagen?`,
           ]),
           el("div", { class: "actions" }, [
-            makeButton("📈 Steigt (Kaufen)", "", () => chooseSide("buy")),
-            makeButton("📉 Fällt (Verkaufen)", "secondary", () => chooseSide("sell")),
-            makeButton("✋ Seitwärts (Halten)", "secondary", () => chooseSide("hold")),
+            makeButton("Steigt (Kaufen)", "", () => chooseSide("buy")),
+            makeButton("Fällt (Verkaufen)", "secondary", () => chooseSide("sell")),
+            makeButton("Seitwärts (Halten)", "secondary", () => chooseSide("hold")),
           ]),
         ])
       : null;
@@ -409,13 +410,13 @@ export function renderAnalyzer(): HTMLElement {
         : null;
     const finishedEl = finished
       ? el("p", { class: "analyzer-feedback done" }, [
-          "🏁 Replay beendet! Starte neu, um es erneut zu versuchen oder eine andere Aktie zu analysieren.",
+          "Replay beendet! Starte neu, um es erneut zu versuchen oder eine andere Aktie zu analysieren.",
         ])
       : null;
 
     const wrapper = el("div", {}, [
       el("div", { class: "card" }, [
-        el("h1", {}, ["📊 Chart-Analyzer"]),
+        el("h1", { class: "page-title" }, [symbol("candlestick_chart"), "Chart-Analyzer"]),
         el("p", { class: "muted" }, [
           "Ein historischer Kursverlauf wird Kerze für Kerze abgespielt. Zeichne Unterstützungs-/Widerstandslinien ein, beobachte SMA und RSI – und triff an jedem Entscheidungspunkt eine Einschätzung: Steigt der Kurs, fällt er, oder bewegt er sich seitwärts?",
         ]),

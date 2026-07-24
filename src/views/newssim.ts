@@ -2,6 +2,7 @@ import { el } from "../dom.js";
 import { stockById } from "../market.js";
 import { NEWS_EVENTS, NewsDecision, NewsEvent, pickRandomEvent, resolveNews } from "../news.js";
 import { formatPercent } from "../util.js";
+import { symbol } from "../shell.js";
 
 const ROUND_SECONDS = 30;
 
@@ -82,7 +83,7 @@ export function renderNewsSimulator(): HTMLElement {
     const resolved = currentEvent !== null && decision !== null;
 
     const headerCard = el("div", { class: "card" }, [
-      el("h1", {}, ["📰 Event-Trading-Simulator"]),
+      el("h1", { class: "page-title" }, [symbol("bolt"), "Event-Trading-Simulator"]),
       el("p", { class: "muted" }, [
         "Eine simulierte Eilmeldung erscheint – du hast 30 Sekunden Zeit, um zu entscheiden: Kaufen, Verkaufen oder Halten. Danach zeigt dir der Markt, wie er reagiert hat, und erklärt warum.",
       ]),
@@ -93,7 +94,7 @@ export function renderNewsSimulator(): HTMLElement {
         headerCard,
         el("div", { class: "card" }, [
           el("p", { class: "muted" }, [`${NEWS_EVENTS.length} mögliche Eilmeldungen im Pool – jede Runde ist zufällig.`]),
-          makeButton("🚀 Erste Meldung starten", "", startRound),
+          makeButton("Erste Meldung starten", "", startRound),
         ]),
       ]);
     }
@@ -109,9 +110,9 @@ export function renderNewsSimulator(): HTMLElement {
       el("p", { class: "muted" }, [`Betroffene Aktie: ${stockById(currentEvent.stockId)?.name ?? currentEvent.stockId}`]),
       roundActive
         ? el("div", { class: "actions" }, [
-            makeButton("📈 Kaufen (steigt)", "", () => respond("buy")),
-            makeButton("📉 Verkaufen (fällt)", "secondary", () => respond("sell")),
-            makeButton("✋ Halten", "secondary", () => respond("hold")),
+            makeButton("Kaufen (steigt)", "", () => respond("buy")),
+            makeButton("Verkaufen (fällt)", "secondary", () => respond("sell")),
+            makeButton("Halten", "secondary", () => respond("hold")),
           ])
         : null,
     ]);
@@ -120,10 +121,10 @@ export function renderNewsSimulator(): HTMLElement {
     if (resolved && outcomePct !== null) {
       const verdict =
         outcomeCorrect === null
-          ? `✋ Gehalten – der Kurs bewegte sich um ${formatPercent(outcomePct)}.`
+          ? `Gehalten – der Kurs bewegte sich um ${formatPercent(outcomePct)}.`
           : outcomeCorrect
-          ? `✅ Richtig eingeschätzt! Kurs bewegte sich um ${formatPercent(outcomePct)}.`
-          : `❌ Leider daneben: Kurs bewegte sich um ${formatPercent(outcomePct)} – Gegenteil deiner Erwartung.`;
+          ? `Richtig eingeschätzt! Kurs bewegte sich um ${formatPercent(outcomePct)}.`
+          : `Leider daneben: Kurs bewegte sich um ${formatPercent(outcomePct)} – Gegenteil deiner Erwartung.`;
       outcomeCard = el("div", { class: "card news-outcome" }, [
         el("p", { class: "analyzer-feedback" }, [verdict]),
         el("p", { class: "muted" }, [currentEvent.explanation]),
@@ -132,7 +133,7 @@ export function renderNewsSimulator(): HTMLElement {
               `Trefferquote: ${stats.correct} / ${stats.calls} richtige Einschätzungen (${Math.round((stats.correct / stats.calls) * 100)} %)`,
             ])
           : null,
-        makeButton("🚀 Nächste Meldung", "", startRound),
+        makeButton("Nächste Meldung", "", startRound),
       ]);
     }
 

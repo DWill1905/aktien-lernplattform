@@ -1,7 +1,7 @@
 export const grundlagen = {
     id: "grundlagen",
     title: "Grundlagen",
-    icon: "🎓",
+    icon: "school",
     description: "Das Fundament: Was Aktien überhaupt sind, wie die Börse funktioniert und wie du dein Risiko sinnvoll streust.",
     lessons: [
         {

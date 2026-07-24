@@ -3,7 +3,7 @@ import { LearningModule } from "../types.js";
 export const risikomanagement: LearningModule = {
   id: "risikomanagement",
   title: "Risiko & Trading",
-  icon: "🛡️",
+  icon: "shield",
   description: "Der wichtigste Unterschied zwischen Profi und Zocker: konsequentes Risiko- und Money-Management, das dich langfristig im Spiel hält.",
   lessons: [
     {

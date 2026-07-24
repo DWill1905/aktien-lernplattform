@@ -1,7 +1,7 @@
 export const fundamentalanalyse = {
     id: "fundamentalanalyse",
     title: "Fundamentalanalyse",
-    icon: "📊",
+    icon: "analytics",
     description: "Unternehmen anhand von Bilanzen, Kennzahlen und Geschäftsmodell bewerten – die Basis für langfristige Investment-Entscheidungen.",
     lessons: [
         {

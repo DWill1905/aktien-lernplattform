@@ -17,21 +17,21 @@ export function renderLesson(moduleId, lessonId) {
         const result = awardXp(XP_LESSON);
         if (result.leveledUp) {
             const info = levelForXp(result.state.xp);
-            showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+            showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
             burstConfetti();
         }
         const goal = registerDailyGoalProgress();
         if (goal.justCompleted) {
             const bonusResult = awardXp(XP_DAILY_GOAL_BONUS);
-            showToast(`✅ Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level");
+            showToast(`Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level", "check_circle");
             if (bonusResult.leveledUp) {
                 const info = levelForXp(bonusResult.state.xp);
-                showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+                showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
                 burstConfetti();
             }
         }
     }
-    evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+    evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) => showToast(`Erfolg freigeschaltet: ${a.title}`, "achievement", a.icon));
     const paragraphs = lesson.content.map((p) => html(`<p>${p}</p>`));
     const index = mod.lessons.findIndex((l) => l.id === lesson.id);
     const next = mod.lessons[index + 1];

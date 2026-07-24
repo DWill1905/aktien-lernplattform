@@ -3,7 +3,7 @@ import { LearningModule } from "../types.js";
 export const technischeAnalyse: LearningModule = {
   id: "technische-analyse",
   title: "Technische Analyse",
-  icon: "📉",
+  icon: "candlestick_chart",
   description: "Kursverläufe, Charts und Indikatoren lesen, um Handelssignale und Marktstimmung besser einzuschätzen.",
   lessons: [
     {

@@ -118,32 +118,32 @@ export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
       const result = awardXp(score * XP_QUIZ_CORRECT + (perfect ? XP_QUIZ_PERFECT_BONUS : 0));
       if (result.leveledUp) {
         const info = levelForXp(result.state.xp);
-        showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+        showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
         burstConfetti();
       }
       const streakResult = registerQuizAttempt(perfect);
       if (streakResult.bonusXp > 0) {
         const bonusResult = awardXp(streakResult.bonusXp);
-        showToast(`🔥 ${streakResult.streak} perfekte Quizzes in Folge! +${streakResult.bonusXp} Bonus-XP`, "level");
+        showToast(`${streakResult.streak} perfekte Quizzes in Folge! +${streakResult.bonusXp} Bonus-XP`, "level", "local_fire_department");
         if (bonusResult.leveledUp) {
           const info = levelForXp(bonusResult.state.xp);
-          showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+          showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
           burstConfetti();
         }
       }
       const goal = registerDailyGoalProgress();
       if (goal.justCompleted) {
         const goalBonusResult = awardXp(XP_DAILY_GOAL_BONUS);
-        showToast(`✅ Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level");
+        showToast(`Tagesziel erreicht! +${XP_DAILY_GOAL_BONUS} Bonus-XP`, "level", "check_circle");
         if (goalBonusResult.leveledUp) {
           const info = levelForXp(goalBonusResult.state.xp);
-          showToast(`🎉 Level ${info.level} erreicht: ${info.title}!`, "level");
+          showToast(`Level ${info.level} erreicht: ${info.title}!`, "level", "celebration");
           burstConfetti();
         }
       }
     }
     evaluateAchievements({ progress: loadProgress(), modules: MODULES, gamification: loadGamification() }).forEach((a) =>
-      showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement")
+      showToast(`Erfolg freigeschaltet: ${a.title}`, "achievement", a.icon)
     );
     evaluateBtn.setAttribute("disabled", "true");
 

@@ -167,6 +167,33 @@ p { font-size: 1rem; line-height: 1.6; color: var(--md-on-background); }
 }
 .msym.filled { font-variation-settings: "FILL" 1, "wght" 500, "GRAD" 0, "opsz" 24; }
 
+/* Symbol + Text nebeneinander (Überschriften, Chips, Hinweiszeilen) */
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.page-title .msym { font-size: 1.5rem; color: var(--md-primary); flex-shrink: 0; }
+h2.page-title .msym { font-size: 1.25rem; }
+h3.page-title .msym { font-size: 1.1rem; }
+.with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.with-icon .msym { font-size: 1.05em; flex-shrink: 0; }
+
+/* Symbole in Icon-Kacheln und Badges erben die Kachelgröße */
+.module-card .icon .msym,
+.achievement-card-icon .msym { font-size: 1.4rem; }
+.achievement-icon .msym { font-size: 1rem; }
+.streak-day-dot .msym { font-size: 1rem; color: var(--md-on-tertiary-container); }
+.quiz-stars { display: inline-flex; gap: 1px; align-items: center; }
+.quiz-stars .msym { font-size: 1rem; color: var(--md-outline-variant); }
+.quiz-stars .msym.filled { color: var(--md-star); }
+.toast { display: flex; align-items: center; gap: 0.5rem; }
+.toast .msym { font-size: 1.15rem; flex-shrink: 0; }
+
 .skip-link {
   position: absolute;
   left: 0.5rem;

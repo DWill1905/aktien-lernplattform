@@ -10,6 +10,7 @@ import { showToast } from "../toast.js";
 import { PortfolioState } from "../types.js";
 import { computeHealthCheck, MIN_HISTORY_DAYS } from "../risk.js";
 import { CRASH_SCENARIOS, CrashResult, simulateCrash } from "../crashtest.js";
+import { symbol } from "../shell.js";
 
 function checkAchievements(portfolioState: PortfolioState): void {
   evaluateAchievements({
@@ -17,7 +18,7 @@ function checkAchievements(portfolioState: PortfolioState): void {
     modules: MODULES,
     gamification: loadGamification(),
     portfolio: portfolioState,
-  }).forEach((a) => showToast(`🏆 Erfolg freigeschaltet: ${a.icon} ${a.title}`, "achievement"));
+  }).forEach((a) => showToast(`Erfolg freigeschaltet: ${a.title}`, "achievement", a.icon));
 }
 
 function drawChart(canvas: HTMLCanvasElement, prices: number[]): void {
@@ -116,7 +117,7 @@ export function renderPortfolio(): HTMLElement {
 
     // --- Stat header ---
     const header = el("div", { class: "card" }, [
-      el("h1", {}, ["💼 Portfolio-Simulator"]),
+      el("h1", { class: "page-title" }, [symbol("account_balance_wallet"), "Portfolio-Simulator"]),
       el("p", { class: "muted" }, [
         "Virtuelles Startkapital von ",
         formatCurrency(STARTKAPITAL),
@@ -190,7 +191,7 @@ export function renderPortfolio(): HTMLElement {
         title: watched ? "Von der Merkliste entfernen" : "Zur Merkliste hinzufügen",
         "aria-label": watched ? "Von der Merkliste entfernen" : "Zur Merkliste hinzufügen",
         "aria-pressed": String(watched),
-      }, [watched ? "★" : "☆"]) as HTMLButtonElement;
+      }, [symbol("star", watched)]) as HTMLButtonElement;
       btn.addEventListener("click", () => {
         toggleWatchlist(stockId);
         container.replaceChildren(build());
@@ -227,10 +228,10 @@ export function renderPortfolio(): HTMLElement {
     // --- Merkliste (Watchlist) ---
     const watchedStocks = STOCKS.filter((s) => watchlist.includes(s.id));
     const watchCard = el("div", { class: "card" }, [
-      el("h2", {}, ["★ Merkliste"]),
+      el("h2", { class: "page-title" }, [symbol("star", true), "Merkliste"]),
       watchedStocks.length === 0
         ? el("p", { class: "muted" }, [
-            "Noch keine Aktie gemerkt. Markiere in der Marktübersicht Kandidaten mit ☆, um sie hier im Blick zu behalten – so beobachtest du Titel, bevor du handelst.",
+            "Noch keine Aktie gemerkt. Markiere in der Marktübersicht Kandidaten mit dem Stern, um sie hier im Blick zu behalten – so beobachtest du Titel, bevor du handelst.",
           ])
         : el("table", {}, [
             el("thead", {}, [
@@ -481,7 +482,7 @@ export function renderPortfolio(): HTMLElement {
       holdingEntries.length === 0
         ? null
         : el("div", { class: "card card-outlined health-card" }, [
-            el("h2", {}, ["🩺 Portfolio Health Check"]),
+            el("h2", { class: "page-title" }, [symbol("monitor_heart"), "Portfolio Health Check"]),
             el("div", { class: "level-row" }, [
               el("span", { class: "level-chip" }, [`Diversifikations-Score: ${health.diversificationScore} / 100`]),
               el("span", { class: "muted" }, [`${health.diversificationLabel} · HHI ${health.hhi}`]),
@@ -493,7 +494,7 @@ export function renderPortfolio(): HTMLElement {
               ...health.sectorWeights.map((s) => allocationRow(s.sector, s.value, value)),
               allocationRow("Barguthaben", state.cash, value),
             ]),
-            ...health.warnings.map((w) => el("p", { class: "streak-warning health-warning" }, [`⚠️ ${w}`])),
+            ...health.warnings.map((w) => el("p", { class: "streak-warning health-warning with-icon" }, [symbol("warning", true), w])),
             el("div", { class: "stat-row" }, [
               el("div", { class: "stat" }, [
                 el("div", { class: "label" }, ["Sharpe Ratio"]),
@@ -517,7 +518,7 @@ export function renderPortfolio(): HTMLElement {
 
     // --- Börsen-Stresstest & Crash-Simulator ---
     const scenarioButtons = CRASH_SCENARIOS.map((scenario) =>
-      makeButton(`📉 ${scenario.name} (${scenario.period})`, "secondary", () => {
+      makeButton(`${scenario.name} (${scenario.period})`, "secondary", () => {
         crashResult = simulateCrash(state, scenario);
         refresh();
       })
@@ -526,8 +527,8 @@ export function renderPortfolio(): HTMLElement {
     const crashReport = crashResult
       ? el("div", { class: "card crash-report" }, [
           el("div", { class: "actions crash-report-head" }, [
-            el("h3", {}, [`📉 ${crashResult.scenario.name} (${crashResult.scenario.period})`]),
-            makeButton("✕ Schließen", "secondary", () => {
+            el("h3", { class: "page-title" }, [symbol("trending_down"), `${crashResult.scenario.name} (${crashResult.scenario.period})`]),
+            makeButton("Schließen", "secondary", () => {
               crashResult = null;
               refresh();
             }),
@@ -586,7 +587,7 @@ export function renderPortfolio(): HTMLElement {
       : null;
 
     const crashCard = el("div", { class: "card" }, [
-      el("h2", {}, ["🧨 Börsen-Stresstest"]),
+      el("h2", { class: "page-title" }, [symbol("crisis_alert"), "Börsen-Stresstest"]),
       el("p", { class: "muted" }, [
         "Schicke dein aktuelles Depot durch eine historische Krise: reine Simulation auf Basis deiner jetzigen Positionen – dein echtes Depot bleibt unverändert.",
       ]),

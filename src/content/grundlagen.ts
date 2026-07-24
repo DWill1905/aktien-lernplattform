@@ -3,7 +3,7 @@ import { LearningModule } from "../types.js";
 export const grundlagen: LearningModule = {
   id: "grundlagen",
   title: "Grundlagen",
-  icon: "🎓",
+  icon: "school",
   description: "Das Fundament: Was Aktien überhaupt sind, wie die Börse funktioniert und wie du dein Risiko sinnvoll streust.",
   lessons: [
     {

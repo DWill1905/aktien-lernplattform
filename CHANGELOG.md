@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.0] - 2026-07-24
+Emojis durchgängig gegen Material Symbols ersetzt (passend zum M3-Redesign, keine zweite Icon-Font nötig):
+- Modul-Icons in den Inhaltsdaten auf Symbolnamen umgestellt (school, analytics, candlestick_chart, shield, calculate) – wirkt zugleich auf die Modul-Erfolge
+- Alle 21 Erfolgs-Icons auf Material Symbols umgestellt
+- Seitenüberschriften, Dashboard-Kacheln, Streak-/Tagesziel-/Wiederholungs-Zeilen, Health-Check- und Stresstest-Titel, Checklisten-Gruppen sowie das „gelesen"-Badge nutzen jetzt Symbole
+- Quiz-Sterne und Merklisten-Stern als `star`-Symbol (gefüllt/ungefüllt); die Textform ★★☆ bleibt als Tooltip für Screenreader erhalten
+- `showToast()` akzeptiert einen optionalen Symbolnamen; Toasts tragen das Icon jetzt als Glyph statt als Emoji im Text
+- Emoji aus Button-Beschriftungen und Feedback-Texten in Chart-Analyzer und Event-Trading-Simulator entfernt
+
 ## [2.1.0] - 2026-07-24
 M3-Redesign auf die verbleibenden Screens ausgeweitet:
 - Erfolge: Kartenraster statt Liste; freigeschaltete Erfolge in Primary-Container mit gefüllter Icon-Kachel und Häkchen-Symbol, gesperrte hell mit entsättigtem Icon und Schloss-Symbol

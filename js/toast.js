@@ -8,10 +8,17 @@ function getContainer() {
     document.body.append(container);
     return container;
 }
-export function showToast(text, variant = "default", duration = 4000) {
+export function showToast(text, variant = "default", icon, duration = 4000) {
     const toast = document.createElement("div");
     toast.className = `toast toast-${variant}`;
-    toast.textContent = text;
+    if (icon) {
+        const glyph = document.createElement("span");
+        glyph.className = "msym filled";
+        glyph.setAttribute("aria-hidden", "true");
+        glyph.textContent = icon;
+        toast.append(glyph);
+    }
+    toast.append(document.createTextNode(text));
     getContainer().append(toast);
     requestAnimationFrame(() => toast.classList.add("show"));
     setTimeout(() => {

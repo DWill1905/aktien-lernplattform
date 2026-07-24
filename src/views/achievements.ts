@@ -8,7 +8,7 @@ export function renderAchievements(): HTMLElement {
   const items = ACHIEVEMENTS.map((a) => {
     const done = unlocked.has(a.id);
     return el("li", { class: `achievement-card${done ? " unlocked" : ""}` }, [
-      el("div", { class: "achievement-card-icon" }, [a.icon]),
+      el("div", { class: "achievement-card-icon" }, [symbol(a.icon, done)]),
       el("div", { class: "achievement-card-text" }, [
         el("h3", {}, [a.title]),
         el("p", { class: "muted" }, [a.description]),
@@ -23,7 +23,7 @@ export function renderAchievements(): HTMLElement {
 
   return el("div", {}, [
     el("div", { class: "breadcrumb" }, [el("a", { href: "#/" }, ["Übersicht"]), " / ", "Erfolge"]),
-    el("h1", {}, ["🏆 Deine Erfolge"]),
+    el("h1", { class: "page-title" }, [symbol("emoji_events"), "Deine Erfolge"]),
     el("div", { class: "card overall-progress achievements-progress" }, [
       el("div", { class: "label" }, [`${unlocked.size} von ${ACHIEVEMENTS.length} Erfolgen freigeschaltet (${pct} %)`]),
       el("div", { class: "progress-bar" }, [el("span", { style: `width:${pct}%` }, [])]),

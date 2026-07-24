@@ -1,5 +1,6 @@
 import { el } from "../dom.js";
 import { GLOSSAR } from "../content/glossar.js";
+import { symbol } from "../shell.js";
 
 export function renderGlossary(): HTMLElement {
   const sorted = [...GLOSSAR].sort((a, b) => a.term.localeCompare(b.term, "de"));
@@ -40,7 +41,7 @@ export function renderGlossary(): HTMLElement {
 
   return el("div", {}, [
     el("div", { class: "breadcrumb" }, [el("a", { href: "#/" }, ["Übersicht"]), " / ", "Glossar"]),
-    el("h1", {}, ["📖 Glossar"]),
+    el("h1", { class: "page-title" }, [symbol("menu_book"), "Glossar"]),
     el("p", { class: "muted" }, ["Die wichtigsten Begriffe rund um Aktien, Analyse und Börse – kompakt erklärt."]),
     el("div", { class: "card" }, [search, count, dl]),
   ]);

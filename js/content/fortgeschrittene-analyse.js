@@ -1,7 +1,7 @@
 export const fortgeschritteneAnalyse = {
     id: "fortgeschrittene-analyse",
     title: "Profi-Analyse",
-    icon: "🧮",
+    icon: "calculate",
     description: "Für Fortgeschrittene: Unternehmensbewertung mit DCF, Profi-Kennzahlen, Makro und Zinsen, Chartmuster, Portfolio-Metriken und Anlagestrategien.",
     lessons: [
         {

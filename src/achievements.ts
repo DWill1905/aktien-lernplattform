@@ -30,7 +30,7 @@ const moduleMasteryAchievements: Achievement[] = MODULES.flatMap((mod) => [
     id: `modul-${mod.id}-perfekt`,
     title: `${mod.title}: Perfekt`,
     description: `Alle Quizzes im Modul „${mod.title}" mit 100 % abgeschlossen.`,
-    icon: "💎",
+    icon: "diamond",
     check: (ctx: AchievementContext) =>
       mod.lessons.length > 0 &&
       mod.lessons.every((lesson) => {
@@ -47,14 +47,14 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: "erste-lektion",
     title: "Erste Schritte",
     description: "Deine erste Lektion abgeschlossen.",
-    icon: "📘",
+    icon: "menu_book",
     check: (ctx) => Object.values(ctx.progress.lessons).some((entry) => entry.completed),
   },
   {
     id: "perfektes-quiz",
     title: "Volltreffer",
     description: "Ein Quiz mit 100 % richtigen Antworten abgeschlossen.",
-    icon: "🎯",
+    icon: "verified",
     check: (ctx) =>
       Object.values(ctx.progress.lessons).some(
         (entry) => entry.quizScore !== null && entry.quizTotal !== null && entry.quizScore === entry.quizTotal
@@ -64,7 +64,7 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: "modul-komplett",
     title: "Modul gemeistert",
     description: "Ein komplettes Lernmodul abgeschlossen.",
-    icon: "🏅",
+    icon: "workspace_premium",
     check: (ctx) =>
       ctx.modules.some((mod) => mod.lessons.length > 0 && mod.lessons.every((lesson) => ctx.progress.lessons[lesson.id]?.completed)),
   },
@@ -72,28 +72,28 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: "perfekte-serie",
     title: "Auf Serie",
     description: `${PERFECT_STREAK_MILESTONE} perfekte Quizzes in Folge.`,
-    icon: "🔥",
+    icon: "local_fire_department",
     check: (ctx) => (ctx.gamification?.perfectQuizStreak ?? 0) >= PERFECT_STREAK_MILESTONE,
   },
   {
     id: "fruehaufsteher",
     title: "Frühaufsteher",
     description: "Vor 7 Uhr morgens gelernt.",
-    icon: "🌅",
+    icon: "wb_twilight",
     check: () => new Date().getHours() < 7,
   },
   {
     id: "nachteule",
     title: "Nachteule",
     description: "Nach 23 Uhr noch gelernt.",
-    icon: "🦉",
+    icon: "bedtime",
     check: () => new Date().getHours() >= 23,
   },
   {
     id: "comeback",
     title: "Comeback",
     description: "Nach einer Pause die Lernserie neu gestartet.",
-    icon: "🔄",
+    icon: "restart_alt",
     check: (ctx) =>
       !!ctx.gamification && ctx.gamification.streak >= 2 && ctx.gamification.longestStreak > ctx.gamification.streak,
   },
@@ -101,28 +101,28 @@ export const ACHIEVEMENTS: Achievement[] = [
     id: "wissensdurst",
     title: "Wissensdurst",
     description: "5 Lektionen oder Quizzes an einem einzigen Tag abgeschlossen.",
-    icon: "📚",
+    icon: "local_library",
     check: (ctx) => (ctx.gamification?.dailyGoalCount ?? 0) >= 5,
   },
   {
     id: "erster-trade",
     title: "Erster Trade",
     description: "Deine erste Order im Portfolio-Simulator ausgeführt.",
-    icon: "💱",
+    icon: "swap_horiz",
     check: (ctx) => (ctx.portfolio?.transactions.length ?? 0) > 0,
   },
   {
     id: "diversifiziert",
     title: "Gut diversifiziert",
     description: "Positionen in mindestens 3 verschiedenen Branchen gehalten.",
-    icon: "🧺",
+    icon: "pie_chart",
     check: (ctx) => ctx.portfolio != null && sectorsHeld(ctx.portfolio) >= 3,
   },
   {
     id: "erster-gewinn",
     title: "Erster Gewinn",
     description: "Einen Trade mit realisiertem Gewinn abgeschlossen.",
-    icon: "💰",
+    icon: "trending_up",
     check: (ctx) => ctx.portfolio != null && realizedProfitTotal(ctx.portfolio) > 0,
   },
   ...moduleMasteryAchievements,
