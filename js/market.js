@@ -6,42 +6,42 @@
 export const STOCKS = [
     {
         id: "nwe", name: "NordWind Energie AG", ticker: "NWE", sector: "Erneuerbare Energien",
-        basePrice: 42, drift: 0.0004, volatility: 0.019, seed: 1001, marketBeta: 1.1,
+        basePrice: 42, drift: 0.0004, volatility: 0.019, seed: 1001, marketBeta: 1.1, spreadPct: 0.0018,
         fundamentals: { sharesMio: 120, revenueMio: 3800, revenueGrowthPct: 9, netMarginPct: 7, equityPerShare: 18, netDebtToEbitda: 2.8, dividendPerShare: 1.05, moat: "schmal" },
     },
     {
         id: "bsr", name: "BlauSee Robotics AG", ticker: "BSR", sector: "Technologie",
-        basePrice: 88, drift: 0.0007, volatility: 0.025, seed: 2002, marketBeta: 1.4,
+        basePrice: 88, drift: 0.0007, volatility: 0.025, seed: 2002, marketBeta: 1.4, spreadPct: 0.002,
         fundamentals: { sharesMio: 80, revenueMio: 2100, revenueGrowthPct: 18, netMarginPct: 12, equityPerShare: 14, netDebtToEbitda: 0.3, dividendPerShare: 0, moat: "breit" },
     },
     {
         id: "alp", name: "Alpin Pharma AG", ticker: "ALP", sector: "Pharma",
-        basePrice: 63, drift: 0.0003, volatility: 0.013, seed: 3003, marketBeta: 0.7,
+        basePrice: 63, drift: 0.0003, volatility: 0.013, seed: 3003, marketBeta: 0.7, spreadPct: 0.0012,
         fundamentals: { sharesMio: 220, revenueMio: 5200, revenueGrowthPct: 5, netMarginPct: 18, equityPerShare: 21, netDebtToEbitda: 1.2, dividendPerShare: 1.76, moat: "breit" },
     },
     {
         id: "fkh", name: "FrischKauf Handels AG", ticker: "FKH", sector: "Einzelhandel",
-        basePrice: 24, drift: 0.0002, volatility: 0.011, seed: 4004, marketBeta: 0.8,
+        basePrice: 24, drift: 0.0002, volatility: 0.011, seed: 4004, marketBeta: 0.8, spreadPct: 0.0015,
         fundamentals: { sharesMio: 140, revenueMio: 8900, revenueGrowthPct: 2, netMarginPct: 2.5, equityPerShare: 9, netDebtToEbitda: 1.8, dividendPerShare: 0.91, moat: "keiner" },
     },
     {
         id: "sbb", name: "SolidBau Baustoffe AG", ticker: "SBB", sector: "Industrie",
-        basePrice: 51, drift: 0.0002, volatility: 0.015, seed: 5005, marketBeta: 1.2,
+        basePrice: 51, drift: 0.0002, volatility: 0.015, seed: 5005, marketBeta: 1.2, spreadPct: 0.0015,
         fundamentals: { sharesMio: 90, revenueMio: 4100, revenueGrowthPct: 4, netMarginPct: 8, equityPerShare: 26, netDebtToEbitda: 2.2, dividendPerShare: 1.63, moat: "schmal" },
     },
     {
         id: "mnt", name: "MobilNetz Telekom AG", ticker: "MNT", sector: "Telekommunikation",
-        basePrice: 33, drift: 0.0002, volatility: 0.009, seed: 6006, marketBeta: 0.5,
+        basePrice: 33, drift: 0.0002, volatility: 0.009, seed: 6006, marketBeta: 0.5, spreadPct: 0.001,
         fundamentals: { sharesMio: 300, revenueMio: 9800, revenueGrowthPct: 1, netMarginPct: 9, equityPerShare: 26, netDebtToEbitda: 3.4, dividendPerShare: 1.49, moat: "schmal" },
     },
     {
         id: "gfa", name: "GrünFeld Agrar AG", ticker: "GFA", sector: "Landwirtschaft",
-        basePrice: 19, drift: 0.0002, volatility: 0.014, seed: 7007, marketBeta: 0.9,
+        basePrice: 19, drift: 0.0002, volatility: 0.014, seed: 7007, marketBeta: 0.9, spreadPct: 0.003,
         fundamentals: { sharesMio: 70, revenueMio: 1600, revenueGrowthPct: 6, netMarginPct: 5, equityPerShare: 8, netDebtToEbitda: 1.9, dividendPerShare: 0.57, moat: "keiner" },
     },
     {
         id: "css", name: "CyberSchild Systeme AG", ticker: "CSS", sector: "Cybersicherheit",
-        basePrice: 76, drift: 0.0006, volatility: 0.022, seed: 8008, marketBeta: 1.3,
+        basePrice: 76, drift: 0.0006, volatility: 0.022, seed: 8008, marketBeta: 1.3, spreadPct: 0.0025,
         fundamentals: { sharesMio: 60, revenueMio: 950, revenueGrowthPct: 24, netMarginPct: 10, equityPerShare: 7, netDebtToEbitda: 0.1, dividendPerShare: 0, moat: "breit" },
     },
 ];
@@ -116,6 +116,20 @@ export function priceHistory(stock, days) {
 export function currentPrice(stock, day) {
     const history = priceHistory(stock, day);
     return history[history.length - 1];
+}
+/**
+ * Geld-/Briefkurs um den Mittelkurs: Market- und Stop-Orders handeln zur schlechteren
+ * Seite der Spanne (implizite Kosten über die Ordergebühr hinaus), Limit-Orders nicht –
+ * genau der Unterschied, den die Ordertypen-Lektion lehrt.
+ */
+export function quote(stock, day) {
+    const mid = currentPrice(stock, day);
+    const half = stock.spreadPct / 2;
+    return {
+        mid,
+        bid: Math.round(mid * (1 - half) * 100) / 100,
+        ask: Math.round(mid * (1 + half) * 100) / 100,
+    };
 }
 export function stockById(id) {
     return STOCKS.find((s) => s.id === id);

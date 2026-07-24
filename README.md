@@ -24,8 +24,11 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Kurse über ein Ein-Faktor-Marktmodell realistisch korreliert sind (gemeinsamer Marktfaktor
   mit Bullen-/Bärenphasen plus unternehmensspezifischem Zufall, jede Aktie mit eigenem Beta)
   und die branchentypische feste Dividenden je Aktie quartalsweise ausschütten,
-  Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
-  Limit-/Stop-/Trailing-Stop-Orders, Order-Ticket mit Live-Kostenvorschau und Max-Stückzahl,
+  Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €) und aktienspezifischer
+  Geld-Brief-Spanne (Market- und Stop-Orders zahlen die schlechtere Seite – Slippage –,
+  Limit-Orders nicht), Limit-/Stop-/Trailing-Stop-Orders sowie OCO-Brackets (Stop-Loss +
+  Take-Profit, eine Ausführung storniert die andere), Order-Gültigkeit wählbar
+  (GTC oder Tagesorder), Order-Ticket mit Live-Kostenvorschau (Geld-/Briefkurs) und Max-Stückzahl,
   Positionsgrößen-Rechner, Merkliste, Positionsübersicht mit Tagesänderung, Depotgewicht,
   realisiertem und unrealisiertem Gewinn/Verlust, Zeit-Vorspulen,
   Kerzenchart mit SMA(20/50) und Zeitfensterwahl samt Kennzahlen-Panel je Aktie

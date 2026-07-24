@@ -1,7 +1,7 @@
 import { el } from "../dom.js";
-import { STOCKS, currentPrice, priceHistory, stockById } from "../market.js";
+import { STOCKS, currentPrice, priceHistory, stockById, quote } from "../market.js";
 import { loadPortfolio, loadProgress, resetPortfolio, STARTKAPITAL, loadWatchlist, toggleWatchlist } from "../state.js";
-import { advanceDay, buy, sell, portfolioValue, placeOrder, placeTrailingStop, cancelPendingOrder, pendingOrders, computeTradeStats, equityCurve, orderFee, ORDER_FEE_RATE, CAPITAL_GAINS_TAX_RATE, SAVER_ALLOWANCE, } from "../portfolio.js";
+import { advanceDay, buy, sell, portfolioValue, placeOrder, placeTrailingStop, placeBracketOrder, cancelPendingOrder, pendingOrders, computeTradeStats, equityCurve, orderFee, ORDER_FEE_RATE, CAPITAL_GAINS_TAX_RATE, SAVER_ALLOWANCE, } from "../portfolio.js";
 import { generateCandles, sma, rsi } from "../indicators.js";
 import { formatCurrency, formatPercent } from "../util.js";
 import { MODULES } from "../content/index.js";
@@ -205,7 +205,7 @@ export function renderPortfolio() {
             el("p", { class: "muted" }, [
                 "Virtuelles Startkapital von ",
                 formatCurrency(STARTKAPITAL),
-                " · Kurse sind fiktiv und lokal generiert, ohne echtes Marktrisiko · pro Order fällt eine Gebühr von 0,25 % (mind. 1 €) an.",
+                " · Kurse sind fiktiv und lokal generiert, ohne echtes Marktrisiko · pro Order fällt eine Gebühr von 0,25 % (mind. 1 €) an, dazu handeln Market- und Stop-Orders zur schlechteren Seite der Geld-Brief-Spanne.",
             ]),
             el("div", { class: "stat-row" }, [
                 el("div", { class: "stat" }, [el("div", { class: "label" }, ["Barguthaben"]), el("div", { class: "value" }, [formatCurrency(state.cash)])]),
@@ -432,14 +432,25 @@ export function renderPortfolio() {
             el("option", { value: "limit" }, ["Limit"]),
             el("option", { value: "stop" }, ["Stop / Stop-Loss"]),
             el("option", { value: "trailing" }, ["Trailing-Stop (Verkauf)"]),
+            el("option", { value: "bracket" }, ["OCO-Bracket: Stop + Ziel (Verkauf)"]),
         ]);
         const triggerInput = el("input", { type: "number", min: "0", step: "0.01", placeholder: "z. B. 45,00", id: "trade-trigger" });
         const triggerText = el("span", {}, ["Auslösekurs (€)"]);
         const triggerLabel = el("label", { class: "trigger-field" }, [triggerText, triggerInput]);
+        const takeProfitInput = el("input", { type: "number", min: "0", step: "0.01", placeholder: "z. B. 55,00", id: "trade-takeprofit" });
+        const takeProfitLabel = el("label", { class: "trigger-field" }, ["Ziel-Kurs / Take-Profit (€)", takeProfitInput]);
+        const tifSelect = el("select", { id: "trade-tif" }, [
+            el("option", { value: "gtc", selected: true }, ["Bis auf Widerruf (GTC)"]),
+            el("option", { value: "day" }, ["Nur nächster Handelstag"]),
+        ]);
+        const tifLabel = el("label", {}, ["Gültigkeit", tifSelect]);
         const syncTrigger = () => {
             const kind = orderKindSelect.value;
             triggerLabel.style.display = kind === "market" ? "none" : "";
-            triggerText.textContent = kind === "trailing" ? "Abstand zur Hochmarke (%)" : "Auslösekurs (€)";
+            takeProfitLabel.style.display = kind === "bracket" ? "" : "none";
+            // Trailing-Stops bleiben bewusst GTC: eine nachziehende Absicherung nur für einen Tag ergäbe keinen Sinn.
+            tifLabel.style.display = kind === "market" || kind === "trailing" ? "none" : "";
+            triggerText.textContent = kind === "trailing" ? "Abstand zur Hochmarke (%)" : kind === "bracket" ? "Stop-Kurs (€)" : "Auslösekurs (€)";
             triggerInput.placeholder = kind === "trailing" ? "z. B. 8" : "z. B. 45,00";
         };
         orderKindSelect.addEventListener("change", syncTrigger);
@@ -450,7 +461,8 @@ export function renderPortfolio() {
             const stock = stockById(stockSelect.value);
             if (!stock)
                 return;
-            const price = currentPrice(stock, state.day);
+            // Käufe laufen zum Briefkurs (Ask) – der Max-Rechner muss dieselbe Seite nutzen.
+            const price = quote(stock, state.day).ask;
             // Größte Stückzahl, deren Gesamtkosten (inkl. Gebühr) ins Barguthaben passen.
             let n = Math.floor(state.cash / (price * (1 + ORDER_FEE_RATE)));
             while (n > 0 && price * n + orderFee(price * n) > state.cash)
@@ -465,11 +477,11 @@ export function renderPortfolio() {
                 preview.textContent = "";
                 return;
             }
-            const price = currentPrice(stock, state.day);
-            const volume = price * shares;
-            const fee = orderFee(volume);
+            const q = quote(stock, state.day);
+            const buyVolume = q.ask * shares;
+            const fee = orderFee(buyVolume);
             const held = state.positions[stock.id]?.shares ?? 0;
-            preview.replaceChildren(el("span", {}, [`Kurs ${formatCurrency(price)}`]), el("span", {}, [`Volumen ${formatCurrency(volume)}`]), el("span", {}, [`Gebühr ${formatCurrency(fee)}`]), el("span", { class: volume + fee > state.cash ? "neg" : "" }, [`Kauf gesamt ${formatCurrency(volume + fee)}`]), el("span", {}, [`Kaufkraft ${formatCurrency(state.cash)}`]), el("span", {}, [`Im Depot: ${held} Stk.`]));
+            preview.replaceChildren(el("span", {}, [`Geld/Brief ${q.bid.toFixed(2)} / ${q.ask.toFixed(2)} €`]), el("span", {}, [`Kaufvolumen ${formatCurrency(buyVolume)}`]), el("span", {}, [`Gebühr ${formatCurrency(fee)}`]), el("span", { class: buyVolume + fee > state.cash ? "neg" : "" }, [`Kauf gesamt ${formatCurrency(buyVolume + fee)}`]), el("span", {}, [`Kaufkraft ${formatCurrency(state.cash)}`]), el("span", {}, [`Im Depot: ${held} Stk.`]));
         };
         stockSelect.addEventListener("change", updatePreview);
         sharesInput.addEventListener("input", updatePreview);
@@ -479,6 +491,7 @@ export function renderPortfolio() {
         const submit = (side) => {
             const shares = sharesInput.valueAsNumber;
             const kind = orderKindSelect.value;
+            const tif = tifSelect.value;
             const result = kind === "market"
                 ? side === "buy"
                     ? buy(stockSelect.value, shares)
@@ -487,7 +500,11 @@ export function renderPortfolio() {
                     ? side === "sell"
                         ? placeTrailingStop(stockSelect.value, shares, triggerInput.valueAsNumber)
                         : { ok: false, message: "Trailing-Stops gibt es nur als Verkaufsorder – sie sichern eine bestehende Position ab." }
-                    : placeOrder(stockSelect.value, side, kind, shares, triggerInput.valueAsNumber);
+                    : kind === "bracket"
+                        ? side === "sell"
+                            ? placeBracketOrder(stockSelect.value, shares, triggerInput.valueAsNumber, takeProfitInput.valueAsNumber, tif)
+                            : { ok: false, message: "Ein OCO-Bracket gibt es nur als Verkaufspaar – es sichert eine bestehende Position mit Stop-Loss und Take-Profit ab." }
+                        : placeOrder(stockSelect.value, side, kind, shares, triggerInput.valueAsNumber, tif);
             message.textContent = result.message;
             message.className = `trade-message ${result.ok ? "ok" : "error"}`;
             if (result.ok) {
@@ -505,6 +522,8 @@ export function renderPortfolio() {
                 el("label", { class: "shares-field" }, ["Stückzahl", el("div", { class: "shares-row" }, [sharesInput, maxBtn])]),
                 el("label", {}, ["Orderart", orderKindSelect]),
                 triggerLabel,
+                takeProfitLabel,
+                tifLabel,
                 buyBtn,
                 sellBtn,
             ]),
@@ -567,7 +586,7 @@ export function renderPortfolio() {
             : el("div", { class: "card" }, [
                 el("h2", {}, ["Offene Orders"]),
                 el("p", { class: "muted" }, [
-                    "Diese Orders werden beim Vorspulen der Zeit ausgeführt, sobald der Auslösekurs erreicht wird.",
+                    "Diese Orders werden beim Vorspulen der Zeit ausgeführt, sobald der Auslösekurs erreicht wird. Stop- und Trailing-Orders handeln dann zur schlechteren Seite der Geld-Brief-Spanne (Slippage), Limit-Orders nicht. OCO-Paare werden gemeinsam storniert.",
                 ]),
                 el("table", {}, [
                     el("thead", {}, [
@@ -577,6 +596,7 @@ export function renderPortfolio() {
                             el("th", {}, ["Seite"]),
                             el("th", { class: "num" }, ["Stück"]),
                             el("th", { class: "num" }, ["Auslösekurs"]),
+                            el("th", {}, ["Gültigkeit"]),
                             el("th", {}, [""]),
                         ]),
                     ]),
@@ -587,13 +607,22 @@ export function renderPortfolio() {
                             cancelPendingOrder(o.id);
                             refresh();
                         });
-                        const kindLabel = o.kind === "limit" ? "Limit" : o.kind === "stop" ? "Stop" : `Trailing (${o.trailPct} %)`;
+                        const kindLabel = o.kind === "trailing"
+                            ? `Trailing (${o.trailPct} %)`
+                            : o.ocoGroup
+                                ? o.kind === "stop"
+                                    ? "Stop-Loss (OCO)"
+                                    : "Take-Profit (OCO)"
+                                : o.kind === "limit"
+                                    ? "Limit"
+                                    : "Stop";
                         return el("tr", {}, [
                             el("td", {}, [stock ? `${stock.name} (${stock.ticker})` : o.stockId]),
                             el("td", {}, [kindLabel]),
                             el("td", {}, [o.side === "buy" ? "Kauf" : "Verkauf"]),
                             el("td", { class: "num" }, [String(o.shares)]),
                             el("td", { class: "num" }, [formatCurrency(o.triggerPrice)]),
+                            el("td", {}, [o.tif === "day" ? "Tagesorder" : "GTC"]),
                             el("td", {}, [cancelBtn]),
                         ]);
                     })),

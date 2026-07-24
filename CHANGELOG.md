@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.5.0] - 2026-07-24
+Profi-Orderhandwerk: OCO-Brackets, Order-Gültigkeit und Geld-Brief-Spanne mit Slippage:
+- OCO-Bracket-Order (One Cancels the Other) als neue Orderart: sichert eine bestehende Position gleichzeitig mit Stop-Loss (unter dem Kurs) und Take-Profit-Limit (über dem Kurs) ab; wird eine Seite ausgeführt, verfällt die andere automatisch – Plausibilitätsprüfung (Stop < Kurs < Ziel) inklusive, Stornieren entfernt wie beim echten Broker immer das ganze Paar
+- Order-Gültigkeit wählbar für Limit-, Stop- und Bracket-Orders: „Bis auf Widerruf (GTC)" oder „Nur nächster Handelstag" (Tagesorder verfällt, wenn sie am Folgetag nicht ausgeführt wurde); Trailing-Stops bleiben bewusst GTC
+- Jede Aktie hat eine liquiditätsabhängige Geld-Brief-Spanne (0,1 % beim Telekom-Schwergewicht bis 0,3 % beim Nebenwert): Market-Orders kaufen zum Briefkurs und verkaufen zum Geldkurs, ausgelöste Stop- und Trailing-Orders werden zu Market-Orders und zahlen ebenfalls die schlechtere Seite (Slippage) – Limit-Orders handeln ohne Abschlag, womit der Kernunterschied der Ordertypen-Lektion jetzt spürbar ist
+- Live-Kostenvorschau im Order-Ticket zeigt Geld-/Briefkurs, der Max-Rechner rechnet mit dem Briefkurs; Tabelle „Offene Orders" weist Art (inkl. „Stop-Loss (OCO)"/„Take-Profit (OCO)"), Gültigkeit und aktuellen Auslösekurs aus
+- Depotbewertung, Charts und Kennzahlen rechnen weiterhin mit dem Mittelkurs
+- Glossar um OCO-Order, Slippage und GTC-Order ergänzt
+
 ## [2.4.0] - 2026-07-24
 Fundamentaldaten samt Aktien-Screener und ein korreliertes Marktmodell – die beiden größten fachlichen Lücken geschlossen:
 - Jede der 8 AGs hat jetzt fiktive, in sich konsistente Geschäftszahlen (ausstehende Aktien, Umsatz, Wachstum, Nettomarge, Buchwert je Aktie, Nettoverschuldung/EBITDA, Dividende je Aktie, Burggraben-Einstufung); Gewinn je Aktie und ROE werden daraus abgeleitet statt frei erfunden

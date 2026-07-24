@@ -65,6 +65,8 @@ export interface Stock {
   seed: number;
   /** Sensitivität gegenüber dem gemeinsamen Marktfaktor (1 = wie der Markt, >1 = zyklisch/offensiv). */
   marketBeta: number;
+  /** Geld-Brief-Spanne als Anteil vom Kurs (z. B. 0,002 = 0,2 %) – liquide Titel handeln enger. */
+  spreadPct: number;
   fundamentals: Fundamentals;
 }
 
@@ -96,6 +98,10 @@ export interface PendingOrder {
   trailPct?: number;
   /** Trailing-Stop: höchster seit Orderaufgabe gesehener Kurs (wird beim Vorspulen nachgezogen). */
   highWatermark?: number;
+  /** Gültigkeit: "gtc" = bis auf Widerruf, "day" = nur der nächste Handelstag. Fehlend = GTC (ältere Spielstände). */
+  tif?: "gtc" | "day";
+  /** OCO-Verbund (Bracket): Wird eine Order der Gruppe ausgeführt, verfallen die übrigen automatisch. */
+  ocoGroup?: string;
 }
 
 export interface PortfolioState {
