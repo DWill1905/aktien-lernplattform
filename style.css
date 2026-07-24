@@ -387,6 +387,19 @@ main#app {
 .glossar dd { margin: 0.15rem 0 0; color: var(--md-on-surface-variant); }
 
 .btn-inline { font-size: 0.75rem; padding: 0.3rem 0.7rem; }
+.btn-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.15rem 0.3rem;
+  color: var(--md-on-surface-variant);
+  border-radius: var(--md-shape-sm);
+}
+.btn-star.watched { color: #e0a325; }
+.btn-star:hover { color: var(--md-primary); }
+.btn-star:focus-visible { outline: 2px solid var(--md-primary); outline-offset: 2px; }
 .allocation-row { margin-bottom: 0.7rem; }
 .allocation-head {
   display: flex;

@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.57.0] - 2026-07-24
+- Portfolio-Simulator: Merkliste (Watchlist) – Aktien in der Marktübersicht per ☆ merken, eigene Karte mit Kurs und Tagesänderung, lokal gespeichert
+
 ## [1.56.0] - 2026-07-24
 - Portfolio-Simulator: realisierter Gewinn/Verlust aus abgeschlossenen Verkäufen wird kumuliert erfasst und in der Kopf-Statistik ausgewiesen (inkl. Kauf- und Verkaufsgebühren) – ergänzt die bisher nur unrealisierten Buchgewinne
 

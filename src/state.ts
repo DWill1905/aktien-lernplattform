@@ -2,6 +2,7 @@ import { PortfolioState, ProgressState } from "./types.js";
 
 const PROGRESS_KEY = "boersenschule:progress";
 const PORTFOLIO_KEY = "boersenschule:portfolio";
+const WATCHLIST_KEY = "boersenschule:watchlist";
 export const STARTKAPITAL = 10_000;
 
 export function loadProgress(): ProgressState {
@@ -54,6 +55,30 @@ export function loadPortfolio(): PortfolioState {
 
 export function savePortfolio(state: PortfolioState): void {
   localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(state));
+}
+
+/** Beobachtungsliste: IDs der gemerkten Aktien (rein lokal, unabhängig vom Depot). */
+export function loadWatchlist(): string[] {
+  const raw = localStorage.getItem(WATCHLIST_KEY);
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+export function isWatched(stockId: string): boolean {
+  return loadWatchlist().includes(stockId);
+}
+
+/** Schaltet eine Aktie in der Merkliste um und liefert den neuen Zustand. */
+export function toggleWatchlist(stockId: string): boolean {
+  const list = loadWatchlist();
+  const next = list.includes(stockId) ? list.filter((id) => id !== stockId) : [...list, stockId];
+  localStorage.setItem(WATCHLIST_KEY, JSON.stringify(next));
+  return next.includes(stockId);
 }
 
 export function resetPortfolio(): PortfolioState {

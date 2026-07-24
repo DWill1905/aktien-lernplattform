@@ -1,5 +1,6 @@
 const PROGRESS_KEY = "boersenschule:progress";
 const PORTFOLIO_KEY = "boersenschule:portfolio";
+const WATCHLIST_KEY = "boersenschule:watchlist";
 export const STARTKAPITAL = 10000;
 export function loadProgress() {
     const raw = localStorage.getItem(PROGRESS_KEY);
@@ -49,6 +50,29 @@ export function loadPortfolio() {
 }
 export function savePortfolio(state) {
     localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(state));
+}
+/** Beobachtungsliste: IDs der gemerkten Aktien (rein lokal, unabhängig vom Depot). */
+export function loadWatchlist() {
+    const raw = localStorage.getItem(WATCHLIST_KEY);
+    if (!raw)
+        return [];
+    try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed.filter((id) => typeof id === "string") : [];
+    }
+    catch {
+        return [];
+    }
+}
+export function isWatched(stockId) {
+    return loadWatchlist().includes(stockId);
+}
+/** Schaltet eine Aktie in der Merkliste um und liefert den neuen Zustand. */
+export function toggleWatchlist(stockId) {
+    const list = loadWatchlist();
+    const next = list.includes(stockId) ? list.filter((id) => id !== stockId) : [...list, stockId];
+    localStorage.setItem(WATCHLIST_KEY, JSON.stringify(next));
+    return next.includes(stockId);
 }
 export function resetPortfolio() {
     const state = { cash: STARTKAPITAL, day: 0, positions: {}, transactions: [] };

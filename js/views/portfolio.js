@@ -1,6 +1,6 @@
 import { el } from "../dom.js";
 import { STOCKS, currentPrice, priceHistory, stockById } from "../market.js";
-import { loadPortfolio, loadProgress, resetPortfolio, STARTKAPITAL } from "../state.js";
+import { loadPortfolio, loadProgress, resetPortfolio, STARTKAPITAL, loadWatchlist, toggleWatchlist } from "../state.js";
 import { advanceDay, buy, sell, portfolioValue, placeOrder, cancelPendingOrder, pendingOrders } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
 import { MODULES } from "../content/index.js";
@@ -161,12 +161,30 @@ export function renderPortfolio() {
             canvas,
         ]);
         // --- Market table ---
-        const marketRows = STOCKS.map((stock) => {
+        const watchlist = loadWatchlist();
+        const priceInfo = (stock) => {
             const hist = priceHistory(stock, state.day);
             const price = hist[hist.length - 1];
             const prevPrice = hist.length > 1 ? hist[hist.length - 2] : price;
-            const change = prevPrice ? (price - prevPrice) / prevPrice : 0;
+            return { price, change: prevPrice ? (price - prevPrice) / prevPrice : 0 };
+        };
+        const starButton = (stockId, watched) => {
+            const btn = el("button", {
+                class: `btn-star${watched ? " watched" : ""}`,
+                title: watched ? "Von der Merkliste entfernen" : "Zur Merkliste hinzufügen",
+                "aria-label": watched ? "Von der Merkliste entfernen" : "Zur Merkliste hinzufügen",
+                "aria-pressed": String(watched),
+            }, [watched ? "★" : "☆"]);
+            btn.addEventListener("click", () => {
+                toggleWatchlist(stockId);
+                container.replaceChildren(build());
+            });
+            return btn;
+        };
+        const marketRows = STOCKS.map((stock) => {
+            const { price, change } = priceInfo(stock);
             const row = el("tr", { class: stock.id === selectedStockId ? "selected-row" : undefined }, [
+                el("td", {}, [starButton(stock.id, watchlist.includes(stock.id))]),
                 el("td", {}, [el("a", { href: "#" }, [`${stock.name} (${stock.ticker})`])]),
                 el("td", {}, [stock.sector]),
                 el("td", { class: "num" }, [formatCurrency(price)]),
@@ -183,9 +201,44 @@ export function renderPortfolio() {
         const marketCard = el("div", { class: "card" }, [
             el("h2", {}, ["Marktübersicht"]),
             el("table", {}, [
-                el("thead", {}, [el("tr", {}, [el("th", {}, ["Unternehmen"]), el("th", {}, ["Branche"]), el("th", { class: "num" }, ["Kurs"]), el("th", { class: "num" }, ["Tagesänd."])])]),
+                el("thead", {}, [el("tr", {}, [el("th", {}, [""]), el("th", {}, ["Unternehmen"]), el("th", {}, ["Branche"]), el("th", { class: "num" }, ["Kurs"]), el("th", { class: "num" }, ["Tagesänd."])])]),
                 el("tbody", {}, marketRows),
             ]),
+        ]);
+        // --- Merkliste (Watchlist) ---
+        const watchedStocks = STOCKS.filter((s) => watchlist.includes(s.id));
+        const watchCard = el("div", { class: "card" }, [
+            el("h2", {}, ["★ Merkliste"]),
+            watchedStocks.length === 0
+                ? el("p", { class: "muted" }, [
+                    "Noch keine Aktie gemerkt. Markiere in der Marktübersicht Kandidaten mit ☆, um sie hier im Blick zu behalten – so beobachtest du Titel, bevor du handelst.",
+                ])
+                : el("table", {}, [
+                    el("thead", {}, [
+                        el("tr", {}, [
+                            el("th", {}, [""]),
+                            el("th", {}, ["Unternehmen"]),
+                            el("th", { class: "num" }, ["Kurs"]),
+                            el("th", { class: "num" }, ["Tagesänd."]),
+                            el("th", {}, [""]),
+                        ]),
+                    ]),
+                    el("tbody", {}, watchedStocks.map((stock) => {
+                        const { price, change } = priceInfo(stock);
+                        const selectBtn = el("button", { class: "btn secondary btn-inline" }, ["Auswählen"]);
+                        selectBtn.addEventListener("click", () => {
+                            selectedStockId = stock.id;
+                            container.replaceChildren(build());
+                        });
+                        return el("tr", {}, [
+                            el("td", {}, [starButton(stock.id, true)]),
+                            el("td", {}, [`${stock.name} (${stock.ticker})`]),
+                            el("td", { class: "num" }, [formatCurrency(price)]),
+                            el("td", { class: `num ${change >= 0 ? "pos" : "neg"}` }, [formatPercent(change)]),
+                            el("td", {}, [selectBtn]),
+                        ]);
+                    })),
+                ]),
         ]);
         // --- Trade form ---
         const stockSelect = el("select", { id: "trade-stock" }, STOCKS.map((s) => el("option", { value: s.id, selected: s.id === selectedStockId }, [`${s.name} (${s.ticker})`])));
@@ -482,6 +535,7 @@ export function renderPortfolio() {
             header,
             chartCard,
             marketCard,
+            watchCard,
             tradeCard,
             calcCard,
             ordersCard,
