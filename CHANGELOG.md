@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.56.0] - 2026-07-24
+- Portfolio-Simulator: realisierter Gewinn/Verlust aus abgeschlossenen Verkäufen wird kumuliert erfasst und in der Kopf-Statistik ausgewiesen (inkl. Kauf- und Verkaufsgebühren) – ergänzt die bisher nur unrealisierten Buchgewinne
+
 ## [1.55.2] - 2026-07-24
 - Fix (kritisch): Die „Modul: Perfekt"-Erfolge für alle 5 Module schalteten sich fälschlich schon beim ersten Auslöser von Erfolgs-Prüfungen frei, ganz ohne je eine Lektion oder ein Quiz geöffnet zu haben (`entry?.quizScore !== null` ist für nie besuchte Lektionen `undefined !== null` = true). Per visueller Kontrolle entdeckt: ein einzelner Aktienkauf schaltete 6 Erfolge auf einmal frei. Jetzt wird zuerst geprüft, ob überhaupt ein Fortschritts-Eintrag existiert.
 

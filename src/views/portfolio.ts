@@ -112,6 +112,7 @@ export function renderPortfolio(): HTMLElement {
   function build(): HTMLElement {
     const value = portfolioValue(state);
     const totalReturn = (value - STARTKAPITAL) / STARTKAPITAL;
+    const realizedPnl = state.realizedPnl ?? 0;
 
     // --- Stat header ---
     const header = el("div", { class: "card" }, [
@@ -127,6 +128,10 @@ export function renderPortfolio(): HTMLElement {
         el("div", { class: "stat" }, [
           el("div", { class: "label" }, ["Gesamtrendite"]),
           el("div", { class: `value ${totalReturn >= 0 ? "pos" : "neg"}` }, [formatPercent(totalReturn)]),
+        ]),
+        el("div", { class: "stat" }, [
+          el("div", { class: "label" }, ["Realisierter G/V"]),
+          el("div", { class: `value ${realizedPnl >= 0 ? "pos" : "neg"}` }, [formatCurrency(realizedPnl)]),
         ]),
         el("div", { class: "stat" }, [el("div", { class: "label" }, ["Handelstag"]), el("div", { class: "value" }, [String(state.day)])]),
       ]),

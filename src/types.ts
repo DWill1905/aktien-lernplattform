@@ -74,6 +74,8 @@ export interface PortfolioState {
   positions: Record<string, Position>;
   transactions: Transaction[];
   pendingOrders?: PendingOrder[];
+  /** Kumulierter realisierter Gewinn/Verlust aus abgeschlossenen Verkäufen (inkl. Gebühren). */
+  realizedPnl?: number;
 }
 
 export interface ProgressEntry {

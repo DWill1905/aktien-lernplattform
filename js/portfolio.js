@@ -78,6 +78,10 @@ function applySell(state, stock, shares, price) {
     }
     const proceeds = price * shares;
     const fee = orderFee(proceeds);
+    // Realisierter Gewinn/Verlust der verkauften Anteile: Nettoerlös minus Einstandswert.
+    // Der Einstandskurs (avgPrice) enthält bereits die Kaufgebühr, der Nettoerlös ist um
+    // die Verkaufsgebühr gemindert – der Wert bildet die Handelskosten also vollständig ab.
+    state.realizedPnl = (state.realizedPnl ?? 0) + (proceeds - fee - position.avgPrice * shares);
     position.shares -= shares;
     state.cash += proceeds - fee;
     if (position.shares === 0)
