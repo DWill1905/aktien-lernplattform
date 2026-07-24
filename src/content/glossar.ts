@@ -45,4 +45,67 @@ export const GLOSSAR: GlossarEntry[] = [
   { term: "TER", definition: "Total Expense Ratio: laufende Gesamtkostenquote eines Fonds oder ETFs." },
   { term: "Volatilität", definition: "Maß für die Schwankungsbreite eines Kurses; ein Indikator für Risiko." },
   { term: "Volumen", definition: "Anzahl der in einem Zeitraum gehandelten Aktien; misst die Marktbeteiligung." },
+
+  // --- Risiko & Trading ---
+  { term: "Positionsgröße", definition: "Stückzahl eines Trades; ergibt sich aus dem erlaubten Risiko geteilt durch den Abstand zum Stop-Loss." },
+  { term: "1-%-Regel", definition: "Money-Management-Faustregel: pro Trade höchstens 1 % des Gesamtkapitals riskieren." },
+  { term: "Chancen-Risiko-Verhältnis (CRV)", definition: "Verhältnis von möglichem Gewinn zu möglichem Verlust eines Trades, z. B. 3:1." },
+  { term: "R-Multiple", definition: "Ergebnis eines Trades als Vielfaches des riskierten Kapitals (1 R = das Risiko pro Trade)." },
+  { term: "Erwartungswert", definition: "Trefferquote × Ø-Gewinn − Verlustquote × Ø-Verlust; muss über viele Trades positiv sein." },
+  { term: "Trailing Stop", definition: "Nachziehender Stop, der mit steigendem Kurs mitwandert, aber nie zurückfällt." },
+  { term: "ATR", definition: "Average True Range: durchschnittliche Schwankungsbreite, oft zur volatilitätsbasierten Stop-Platzierung genutzt." },
+  { term: "Handelsplan", definition: "Schriftliches Regelwerk für Setups, Ein- und Ausstieg sowie Risiko pro Trade." },
+  { term: "Trading-Journal", definition: "Dokumentation jedes Trades (Setup, Ergebnis in R, Fehler), um systematisch auszuwerten." },
+  { term: "Profit-Faktor", definition: "Summe aller Gewinne geteilt durch die Summe aller Verluste; über 1 bedeutet netto profitabel." },
+  { term: "Drawdown", definition: "Rückgang des Kontos vom bisherigen Höchststand; der maximale Drawdown ist der größte solche Rückgang." },
+  { term: "Risk of Ruin", definition: "Wahrscheinlichkeit, das Konto oder einen kritischen Teil davon zu verlieren; steigt stark mit dem Risiko pro Trade." },
+
+  // --- Bewertung & Kennzahlen ---
+  { term: "DCF", definition: "Discounted Cash Flow: Bewertung über die auf heute abgezinsten künftigen Free Cashflows." },
+  { term: "Innerer Wert", definition: "Geschätzter fundamentaler Wert eines Unternehmens, unabhängig vom aktuellen Börsenkurs." },
+  { term: "Sicherheitsmarge", definition: "Abstand zwischen innerem Wert und niedrigerem Kaufpreis; Puffer gegen Schätzfehler." },
+  { term: "Diskontsatz", definition: "Zinssatz, mit dem künftige Zahlungen auf den heutigen Wert abgezinst werden; höher bedeutet niedrigerer Barwert." },
+  { term: "Terminal Value", definition: "Im DCF der zusammengefasste Wert aller Cashflows nach dem expliziten Prognosezeitraum." },
+  { term: "WACC", definition: "Gewichtete durchschnittliche Kapitalkosten aus Eigen- und Fremdkapital; typischer Diskontsatz im DCF." },
+  { term: "ROE", definition: "Eigenkapitalrendite: Nettogewinn geteilt durch Eigenkapital; durch hohe Verschuldung verzerrbar." },
+  { term: "ROIC", definition: "Kapitalrendite auf das gesamte investierte Kapital; über den Kapitalkosten bedeutet echte Wertschöpfung." },
+  { term: "Enterprise Value", definition: "Unternehmenswert aus Marktkapitalisierung plus Nettoverschuldung; der faktische Übernahmepreis." },
+  { term: "EV/EBITDA", definition: "Enterprise Value geteilt durch EBITDA; kapitalstruktur-neutraler Bewertungsvergleich." },
+  { term: "PEG-Ratio", definition: "KGV geteilt durch die erwartete Gewinnwachstumsrate; setzt Bewertung ins Verhältnis zum Wachstum." },
+
+  // --- Makro ---
+  { term: "Leitzins", definition: "Von der Notenbank gesetzter Zinssatz; wichtigster übergeordneter Treiber für Aktienbewertungen." },
+  { term: "Zinskurve", definition: "Verlauf der Zinsen über die Laufzeiten; eine inverse Kurve galt oft als Rezessionsvorbote." },
+  { term: "Konjunkturzyklus", definition: "Abfolge von Aufschwung, Boom, Abschwung und Rezession; der Aktienmarkt läuft ihm meist voraus." },
+  { term: "Sektorrotation", definition: "Umschichtung zwischen zyklischen und defensiven Branchen je nach Konjunkturphase." },
+
+  // --- Fortgeschrittene Charttechnik ---
+  { term: "Kopf-Schulter-Formation", definition: "Umkehrmuster aus drei Hochs mit höherem mittlerem Hoch; Bruch der Nackenlinie gilt als Signal." },
+  { term: "Nackenlinie", definition: "Verbindungslinie der Zwischentiefs einer Kopf-Schulter-Formation; ihr Bruch bestätigt das Muster." },
+  { term: "Ausbruch", definition: "Breakout: Verlassen einer Formation oder Kurszone, idealerweise durch hohes Volumen bestätigt." },
+  { term: "Fehlausbruch", definition: "Ausbruch, der sofort wieder zurückläuft; ein Hauptgrund, Muster nie ohne Stop zu handeln." },
+  { term: "Divergenz", definition: "Kurs und Indikator laufen auseinander (z. B. neues Kurstief, aber höheres RSI-Tief) – Hinweis auf nachlassende Dynamik." },
+  { term: "Konfluenz", definition: "Zusammentreffen mehrerer unabhängiger Signale an derselben Stelle; erhöht die Qualität eines Setups." },
+  { term: "Multi-Timeframe-Analyse", definition: "Trendbestimmung im größeren Zeitrahmen, Einstiegssuche im kleineren." },
+
+  // --- Portfolio-Kennzahlen ---
+  { term: "Sharpe Ratio", definition: "Überrendite geteilt durch Volatilität; misst die Rendite je Einheit eingegangenen Risikos." },
+  { term: "Beta", definition: "Sensitivität einer Aktie gegenüber dem Gesamtmarkt; über 1 bedeutet stärkere Ausschläge als der Markt." },
+  { term: "Alpha", definition: "Über- oder Unterrendite gegenüber dem, was das Beta erwarten ließe; Maß für echten Mehrwert." },
+  { term: "Korrelation", definition: "Maß von −1 bis +1, wie stark sich zwei Anlagen gemeinsam bewegen; echte Diversifikation braucht geringe Werte." },
+
+  // --- Derivate & Leerverkauf ---
+  { term: "Leerverkauf", definition: "Short: Verkauf geliehener Aktien, um von fallenden Kursen zu profitieren; Verlustrisiko theoretisch unbegrenzt." },
+  { term: "Short Squeeze", definition: "Starker Kursanstieg, der Leerverkäufer zu Eindeckungskäufen zwingt und die Bewegung weiter verstärkt." },
+  { term: "Hebel", definition: "Leverage: Steuerung einer großen Position mit wenig Kapital; vervielfacht Gewinne und Verluste gleichermaßen." },
+  { term: "Derivat", definition: "Finanzinstrument, dessen Wert von einem Basiswert abgeleitet ist (Option, Future, Zertifikat, CFD)." },
+  { term: "Call-Option", definition: "Recht, aber nicht Pflicht, einen Basiswert zum Basispreis zu kaufen." },
+  { term: "Put-Option", definition: "Recht, aber nicht Pflicht, einen Basiswert zum Basispreis zu verkaufen; oft zur Absicherung genutzt." },
+  { term: "Zeitwertverfall", definition: "Wertverlust einer Option mit fortschreitender Zeit bis zum Verfallstag." },
+
+  // --- Anlagestile ---
+  { term: "Value-Investing", definition: "Kauf unterbewerteter Aktien mit Sicherheitsmarge zwischen Preis und innerem Wert." },
+  { term: "Growth-Investing", definition: "Fokus auf stark wachsende Unternehmen unter Inkaufnahme hoher Bewertungen." },
+  { term: "Momentum", definition: "Strategie, die auf relative Stärke setzt: jüngste Gewinner kaufen, Verlierer meiden." },
+  { term: "Faktorprämie", definition: "Empirisch belegte Mehrrendite systematischer Merkmale wie Value, Momentum, Quality oder Size." },
 ];
