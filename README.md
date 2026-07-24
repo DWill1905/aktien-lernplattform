@@ -21,11 +21,18 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
 - **Profi-Analyse** – DCF-Bewertung, Profi-Kennzahlen (ROE/ROIC/EV/EBITDA/PEG), Makro & Zinsen,
   Chartmuster, Divergenzen, Portfolio-Kennzahlen, Leerverkauf & Derivate, Anlagestrategien
 - **Portfolio-Simulator** – virtuelles Startkapital von 10.000 €, 8 fiktive Aktien mit
-  seeded Random-Walk-Kursen, Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
-  Limit-/Stop-Orders, Positionsgrößen-Rechner, Merkliste, Positionsübersicht mit realisiertem
-  und unrealisiertem Gewinn/Verlust, Zeit-Vorspulen, Charts,
-  Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Sharpe Ratio,
-  Portfolio-Beta, Max Drawdown), Börsen-Stresstest durch 4 historische Krisenszenarien
+  seeded Random-Walk-Kursen und branchentypischen Dividendenrenditen (quartalsweise
+  Ausschüttung), Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
+  Limit-/Stop-/Trailing-Stop-Orders, Order-Ticket mit Live-Kostenvorschau und Max-Stückzahl,
+  Positionsgrößen-Rechner, Merkliste, Positionsübersicht mit Tagesänderung, Depotgewicht,
+  realisiertem und unrealisiertem Gewinn/Verlust, Zeit-Vorspulen,
+  Kerzenchart mit SMA(20/50) und Zeitfensterwahl samt Kennzahlen-Panel je Aktie
+  (52-Tage-Hoch/Tief, Volatilität p.a., RSI, Trendsignal), echte Equity-Kurve per
+  Transaktions-Replay im Vergleich zum Marktindex, Trade-Statistik (Win-Rate, Profit-Faktor,
+  Payoff-Ratio) mit Abgeltungsteuer-Merker,
+  Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Rendite und
+  Volatilität p.a., Sharpe und Sortino Ratio, Portfolio-Beta, Max Drawdown),
+  Börsen-Stresstest durch 4 historische Krisenszenarien
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
   Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten

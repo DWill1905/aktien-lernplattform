@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.0] - 2026-07-24
+Fachlicher Ausbau des Portfolio-Simulators in Richtung Profi-Trading (10 Verbesserungen):
+- Kerzenchart (Candlesticks) mit SMA(20)- und SMA(50)-Overlay, umschaltbarem Zeitfenster (1M/3M/6M/Max) und Preis-Gitterlinien statt einfacher Linien-Darstellung; Kopfzeile zeigt aktuellen Kurs und Gesamtveränderung
+- Kennzahlen-Panel zur ausgewählten Aktie: 52-Tage-Hoch/Tief, Abstand vom Hoch, annualisierte Volatilität, RSI(14) mit Überkauft/Überverkauft-Einordnung, SMA-20/50-Trendsignal und Dividendenrendite
+- Trailing-Stop-Order als dritter Ordertyp (nur Verkauf): Stop-Marke folgt der Hochmarke im festen Prozentabstand und zieht beim Vorspulen automatisch nach; offene Orders zeigen Art und aktuellen Auslösekurs
+- Dividenden: jede Aktie hat eine branchentypische Dividendenrendite (0–4,5 % p.a., Wachstumswerte zahlen nichts), Ausschüttung quartalsweise (alle 63 Handelstage) als eigene Transaktionsart; Summe als Kopf-Statistik
+- Echte Equity-Kurve per Transaktions-Replay: Barbestand und Stückzahlen werden Tag für Tag exakt aus der Order-Historie rekonstruiert – ersetzt die bisherige synthetische Näherung (aktuelle Positionen rückwirkend angewendet)
+- Neue Karte „Depotentwicklung vs. Markt": Depotwert-Verlauf gegen den gleichgewichteten 8-Aktien-Index inkl. Out-/Underperformance-Ausweis (Benchmark-Denken)
+- Portfolio Health Check rechnet jetzt auf der echten Depot-Historie (ab dem ersten Trade, die reine Cash-Phase verwässert nicht mehr) und weist zusätzlich Rendite p.a., Volatilität p.a. und Sortino Ratio aus
+- Trade-Statistik über abgeschlossene Trades: Win-Rate, Profit-Faktor, Payoff-Ratio, bester/schlechtester Trade – die Kennzahlen, an denen Profis ihr Trading messen
+- Order-Ticket mit Live-Kostenvorschau (Kurs, Ordervolumen, Gebühr, Gesamtkosten, Kaufkraft, Depotbestand) und „Max."-Button für die größte finanzierbare Stückzahl
+- Positionsübersicht mit Tagesänderung und Depotgewicht je Position; Steuer-Merker in der Trade-Statistik schätzt die Abgeltungsteuer (26,375 % inkl. Soli, nach Sparerpauschbetrag) auf realisierte Gewinne und Dividenden
+
 ## [2.2.0] - 2026-07-24
 Emojis durchgängig gegen Material Symbols ersetzt (passend zum M3-Redesign, keine zweite Icon-Font nötig):
 - Modul-Icons in den Inhaltsdaten auf Symbolnamen umgestellt (school, analytics, candlestick_chart, shield, calculate) – wirkt zugleich auf die Modul-Erfolge

@@ -1,5 +1,6 @@
 import { PortfolioState } from "./types.js";
 import { STOCKS, stockById, currentPrice, priceHistory } from "./market.js";
+import { equityCurve } from "./portfolio.js";
 
 const TRADING_DAYS_PER_YEAR = 252;
 const RISK_FREE_ANNUAL = 0.02; // Platzhalter, z. B. Rendite kurzlaufender Staatsanleihen
@@ -21,8 +22,14 @@ export interface HealthCheckResult {
   warnings: string[];
   hasHistory: boolean;
   sharpeRatio: number | null;
+  /** Sortino Ratio: wie Sharpe, bestraft aber nur Abwärtsschwankungen (Downside Deviation). */
+  sortinoRatio: number | null;
   beta: number | null;
   maxDrawdownPct: number | null;
+  /** Annualisierte Rendite der echten Depot-Historie (geometrisch). */
+  annualReturn: number | null;
+  /** Annualisierte Volatilität (Standardabweichung der Tagesrenditen × √252). */
+  annualVolatility: number | null;
 }
 
 function mean(values: number[]): number {
@@ -72,35 +79,20 @@ function diversificationLabel(hhi: number): string {
   return "stark konzentriert";
 }
 
-/**
- * Synthetische Depotwert-Reihe: wendet die AKTUELLE Positionsgrößen rückwirkend auf den
- * historischen Kursverlauf an (inkl. konstantem Barguthaben). Das ist eine bewusste
- * didaktische Vereinfachung – ohne vollständige Transaktions-Replay-Engine lässt sich sonst
- * keine Historie rekonstruieren –, liefert aber realistische Kennzahlen für die aktuelle Struktur.
- *
- * Holt je gehaltener Aktie EINMAL den vollen (gecachten) Kursverlauf und indiziert dann nur noch
- * hinein – ein currentPrice(stock, d)-Aufruf pro Tag würde priceHistory für jedes d neu aufbauen
- * (O(Tage²) statt O(Tage)) und bei langen Spielständen die Portfolio-Seite spürbar verlangsamen.
- */
-function syntheticValueSeries(state: PortfolioState): number[] {
-  const days = state.day;
-  const holdingHistories = Object.entries(state.positions)
-    .map(([stockId, position]) => {
-      const stock = stockById(stockId);
-      return stock ? { shares: position.shares, history: priceHistory(stock, days) } : null;
-    })
-    .filter((h): h is { shares: number; history: number[] } => h !== null);
-
-  const series: number[] = [];
-  for (let d = 0; d <= days; d++) {
-    let value = state.cash;
-    for (const { shares, history } of holdingHistories) value += shares * history[d];
-    series.push(value);
-  }
-  return series;
+/** Downside Deviation: Standardabweichung nur der Renditen unterhalb der Zielrendite. */
+function downsideDeviation(returns: number[], target: number): number {
+  const shortfalls = returns.map((r) => Math.min(0, r - target));
+  return Math.sqrt(mean(shortfalls.map((s) => s ** 2)));
 }
 
-function marketIndexSeries(days: number): number[] {
+/** Erster Handelstag mit Transaktion – davor liegt das Kapital nur als Cash herum. */
+function firstTradeDay(state: PortfolioState): number | null {
+  if (state.transactions.length === 0) return null;
+  return Math.min(...state.transactions.map((tx) => tx.day));
+}
+
+/** Gleichgewichteter Vergleichsindex aller 8 Aktien, normiert auf 1 am Tag 0. */
+export function marketIndexSeries(days: number): number[] {
   const histories = STOCKS.map((s) => ({ basePrice: s.basePrice, history: priceHistory(s, days) }));
   const series: number[] = [];
   for (let d = 0; d <= days; d++) {
@@ -141,21 +133,32 @@ export function computeHealthCheck(state: PortfolioState): HealthCheckResult {
     warnings.push("Nur eine einzige Position im Depot – keine Streuung über mehrere Aktien.");
   }
 
-  const hasHistory = state.day >= MIN_HISTORY_DAYS && holdings.length > 0;
+  // Kennzahlen auf Basis der ECHTEN Depot-Historie (Transaktions-Replay), gerechnet
+  // ab dem ersten Handelstag – die reine Cash-Phase davor würde Volatilität und
+  // Sharpe künstlich verwässern.
+  const tradeStart = firstTradeDay(state);
   let sharpeRatio: number | null = null;
+  let sortinoRatio: number | null = null;
   let beta: number | null = null;
   let maxDrawdownPct: number | null = null;
+  let annualReturn: number | null = null;
+  let annualVolatility: number | null = null;
 
-  if (hasHistory) {
-    const values = syntheticValueSeries(state);
+  if (tradeStart !== null && state.day - tradeStart >= MIN_HISTORY_DAYS) {
+    const values = equityCurve(state).slice(tradeStart);
     const returns = dailyReturns(values);
-    const indexValues = marketIndexSeries(state.day);
+    const indexValues = marketIndexSeries(state.day).slice(tradeStart);
     const indexReturns = dailyReturns(indexValues);
 
     if (returns.length >= MIN_HISTORY_DAYS) {
-      const annualReturn = mean(returns) * TRADING_DAYS_PER_YEAR;
-      const annualVol = stdDev(returns) * Math.sqrt(TRADING_DAYS_PER_YEAR);
-      sharpeRatio = annualVol > 0 ? (annualReturn - RISK_FREE_ANNUAL) / annualVol : null;
+      const meanDaily = mean(returns);
+      annualReturn = (1 + meanDaily) ** TRADING_DAYS_PER_YEAR - 1;
+      annualVolatility = stdDev(returns) * Math.sqrt(TRADING_DAYS_PER_YEAR);
+      sharpeRatio = annualVolatility > 0 ? (meanDaily * TRADING_DAYS_PER_YEAR - RISK_FREE_ANNUAL) / annualVolatility : null;
+
+      const riskFreeDaily = RISK_FREE_ANNUAL / TRADING_DAYS_PER_YEAR;
+      const downside = downsideDeviation(returns, riskFreeDaily) * Math.sqrt(TRADING_DAYS_PER_YEAR);
+      sortinoRatio = downside > 0 ? (meanDaily * TRADING_DAYS_PER_YEAR - RISK_FREE_ANNUAL) / downside : null;
 
       const indexVariance = mean(indexReturns.map((r) => (r - mean(indexReturns)) ** 2));
       beta = indexVariance > 0 ? covariance(returns, indexReturns) / indexVariance : null;
@@ -172,7 +175,10 @@ export function computeHealthCheck(state: PortfolioState): HealthCheckResult {
     warnings,
     hasHistory: sharpeRatio !== null,
     sharpeRatio,
+    sortinoRatio,
     beta,
     maxDrawdownPct,
+    annualReturn,
+    annualVolatility,
   };
 }

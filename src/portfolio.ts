@@ -1,6 +1,6 @@
-import { PortfolioState, PendingOrder, Stock } from "./types.js";
-import { stockById, currentPrice } from "./market.js";
-import { loadPortfolio, savePortfolio } from "./state.js";
+import { PortfolioState, PendingOrder, Stock, Transaction } from "./types.js";
+import { stockById, currentPrice, priceHistory } from "./market.js";
+import { loadPortfolio, savePortfolio, STARTKAPITAL } from "./state.js";
 
 export interface TradeResult {
   ok: boolean;
@@ -10,6 +10,14 @@ export interface TradeResult {
 /** Ordergebühr: 0,25 % des Ordervolumens, mindestens 1,00 €. */
 export const ORDER_FEE_RATE = 0.0025;
 export const ORDER_FEE_MIN = 1.0;
+
+/** Abgeltungsteuer inkl. Solidaritätszuschlag (25 % × 1,055), ohne Kirchensteuer. */
+export const CAPITAL_GAINS_TAX_RATE = 0.26375;
+/** Sparerpauschbetrag pro Person und Jahr (didaktische Vereinfachung: einmalig angesetzt). */
+export const SAVER_ALLOWANCE = 1000;
+
+/** Dividenden werden quartalsweise ausgeschüttet (252 Handelstage / 4). */
+export const DIVIDEND_INTERVAL_DAYS = 63;
 
 export function orderFee(volume: number): number {
   return Math.round(Math.max(ORDER_FEE_MIN, volume * ORDER_FEE_RATE) * 100) / 100;
@@ -40,12 +48,12 @@ export function sectorsHeld(state: PortfolioState): number {
   return sectors.size;
 }
 
-/** Summe des bereits realisierten Gewinns/Verlusts über alle Verkäufe (Wiederaufbau des Einstandspreises aus der Historie). */
-export function realizedProfitTotal(state: PortfolioState): number {
-  const chronological = [...state.transactions].reverse();
+/** Spielt die Transaktionshistorie chronologisch ab und ruft für jeden Verkauf den realisierten G/V auf. */
+function replaySells(transactions: Transaction[], onSell: (realized: number) => void): void {
+  const chronological = [...transactions].reverse();
   const cost: Record<string, { shares: number; avgPrice: number }> = {};
-  let realized = 0;
   for (const tx of chronological) {
+    if (tx.type === "dividend") continue;
     const pos = cost[tx.stockId] ?? { shares: 0, avgPrice: 0 };
     if (tx.type === "buy") {
       const total = tx.price * tx.shares + (tx.fee ?? 0);
@@ -54,12 +62,101 @@ export function realizedProfitTotal(state: PortfolioState): number {
       pos.shares = totalShares;
     } else {
       const proceeds = tx.price * tx.shares - (tx.fee ?? 0);
-      realized += proceeds - pos.avgPrice * tx.shares;
+      onSell(proceeds - pos.avgPrice * tx.shares);
       pos.shares -= tx.shares;
     }
     cost[tx.stockId] = pos;
   }
+}
+
+/** Summe des bereits realisierten Gewinns/Verlusts über alle Verkäufe (Wiederaufbau des Einstandspreises aus der Historie). */
+export function realizedProfitTotal(state: PortfolioState): number {
+  let realized = 0;
+  replaySells(state.transactions, (r) => (realized += r));
   return realized;
+}
+
+/** Kennzahlen abgeschlossener Trades (jeder Verkauf gilt als abgeschlossener Trade). */
+export interface TradeStats {
+  closedTrades: number;
+  wins: number;
+  losses: number;
+  /** Anteil der Gewinn-Trades (0–1); null ohne abgeschlossene Trades. */
+  winRate: number | null;
+  /** Bruttogewinne ÷ Bruttoverluste; null, wenn (noch) keine Verluste angefallen sind. */
+  profitFactor: number | null;
+  /** Ø Gewinn ÷ Ø Verlust (Chance-Risiko der Praxis); null ohne Gewinne oder Verluste. */
+  payoffRatio: number | null;
+  avgWin: number | null;
+  avgLoss: number | null;
+  best: number | null;
+  worst: number | null;
+}
+
+export function computeTradeStats(state: PortfolioState): TradeStats {
+  const results: number[] = [];
+  replaySells(state.transactions, (r) => results.push(r));
+  const wins = results.filter((r) => r > 0);
+  const losses = results.filter((r) => r <= 0);
+  const grossProfit = wins.reduce((s, r) => s + r, 0);
+  const grossLoss = -losses.reduce((s, r) => s + r, 0);
+  const avgWin = wins.length ? grossProfit / wins.length : null;
+  const avgLoss = losses.length ? grossLoss / losses.length : null;
+  return {
+    closedTrades: results.length,
+    wins: wins.length,
+    losses: losses.length,
+    winRate: results.length ? wins.length / results.length : null,
+    profitFactor: grossLoss > 0 ? grossProfit / grossLoss : null,
+    payoffRatio: avgWin !== null && avgLoss !== null && avgLoss > 0 ? avgWin / avgLoss : null,
+    avgWin,
+    avgLoss,
+    best: results.length ? Math.max(...results) : null,
+    worst: results.length ? Math.min(...results) : null,
+  };
+}
+
+/**
+ * Echte Depotwert-Historie durch chronologisches Replay aller Transaktionen:
+ * Barbestand und Stückzahlen werden Tag für Tag exakt rekonstruiert und mit den
+ * (gecachten) Kursverläufen bewertet. Liefert einen Wert je Handelstag 0..state.day.
+ */
+export function equityCurve(state: PortfolioState): number[] {
+  const days = state.day;
+  const chronological = [...state.transactions].reverse();
+  const histories = new Map<string, number[]>();
+  const shares: Record<string, number> = {};
+  let cash = STARTKAPITAL;
+  let txIndex = 0;
+  const series: number[] = [];
+  for (let d = 0; d <= days; d++) {
+    while (txIndex < chronological.length && chronological[txIndex].day <= d) {
+      const tx = chronological[txIndex++];
+      if (tx.type === "buy") {
+        cash -= tx.price * tx.shares + (tx.fee ?? 0);
+        shares[tx.stockId] = (shares[tx.stockId] ?? 0) + tx.shares;
+      } else if (tx.type === "sell") {
+        cash += tx.price * tx.shares - (tx.fee ?? 0);
+        shares[tx.stockId] = (shares[tx.stockId] ?? 0) - tx.shares;
+      } else {
+        cash += tx.price * tx.shares; // Dividende
+      }
+    }
+    let value = cash;
+    for (const [stockId, count] of Object.entries(shares)) {
+      if (count <= 0) continue;
+      const stock = stockById(stockId);
+      if (!stock) continue;
+      let history = histories.get(stockId);
+      if (!history) {
+        history = priceHistory(stock, days);
+        histories.set(stockId, history);
+      }
+      value += count * history[d];
+    }
+    series.push(value);
+  }
+  return series;
 }
 
 // --- Interne Ausführung (mutiert den State, ohne zu laden/speichern) ---
@@ -136,8 +233,16 @@ function isTriggered(order: PendingOrder, price: number): boolean {
     // Limit-Kauf: bei oder unter dem Limit; Stop-Kauf: bei oder über der Stop-Marke.
     return order.kind === "limit" ? price <= order.triggerPrice : price >= order.triggerPrice;
   }
-  // Verkauf – Limit-Verkauf: bei oder über dem Limit; Stop-Loss-Verkauf: bei oder unter der Stop-Marke.
+  // Verkauf – Limit-Verkauf: bei oder über dem Limit; Stop-Loss/Trailing-Stop: bei oder unter der Stop-Marke.
   return order.kind === "limit" ? price >= order.triggerPrice : price <= order.triggerPrice;
+}
+
+/** Zieht die Stop-Marke eines Trailing-Stops nach, wenn der Kurs eine neue Hochmarke erreicht. */
+function updateTrailingStop(order: PendingOrder, price: number): void {
+  if (order.kind !== "trailing" || !order.trailPct) return;
+  const high = Math.max(order.highWatermark ?? price, price);
+  order.highWatermark = high;
+  order.triggerPrice = Math.round(high * (1 - order.trailPct / 100) * 100) / 100;
 }
 
 export function placeOrder(
@@ -173,10 +278,67 @@ export function placeOrder(
   return { ok: true, message: `${label}-${sideLabel} über ${shares} ${stock.ticker} bei ${triggerPrice.toFixed(2)} € vorgemerkt. Ausführung beim Vorspulen der Zeit.` };
 }
 
+/**
+ * Trailing-Stop-Verkauf: Die Stop-Marke folgt dem Kurs im festen Prozentabstand
+ * nach oben, fällt aber nie zurück – Gewinne werden abgesichert, ohne den Ausstieg
+ * bei laufendem Trend zu erzwingen.
+ */
+export function placeTrailingStop(stockId: string, shares: number, trailPct: number): TradeResult {
+  if (!Number.isInteger(shares) || shares <= 0) {
+    return { ok: false, message: "Bitte eine gültige Stückzahl (ganze Zahl > 0) eingeben." };
+  }
+  if (!(trailPct > 0) || trailPct >= 100) {
+    return { ok: false, message: "Bitte einen gültigen Abstand in Prozent (0–100) eingeben." };
+  }
+  const stock = stockById(stockId);
+  if (!stock) return { ok: false, message: "Aktie nicht gefunden." };
+
+  const state = loadPortfolio();
+  const held = state.positions[stockId]?.shares ?? 0;
+  if (held < shares) {
+    return { ok: false, message: "Trailing-Stops sichern bestehende Positionen ab – nicht genug Aktien im Depot." };
+  }
+  const price = currentPrice(stock, state.day);
+  const order: PendingOrder = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    stockId,
+    side: "sell",
+    kind: "trailing",
+    shares,
+    trailPct,
+    highWatermark: price,
+    triggerPrice: Math.round(price * (1 - trailPct / 100) * 100) / 100,
+    createdDay: state.day,
+  };
+  state.pendingOrders = [...pendingOrders(state), order];
+  savePortfolio(state);
+  return {
+    ok: true,
+    message: `Trailing-Stop über ${shares} ${stock.ticker} mit ${trailPct} % Abstand gesetzt (aktuelle Stop-Marke: ${order.triggerPrice.toFixed(2)} €). Die Marke zieht beim Vorspulen automatisch nach.`,
+  };
+}
+
 export function cancelPendingOrder(id: string): void {
   const state = loadPortfolio();
   state.pendingOrders = pendingOrders(state).filter((o) => o.id !== id);
   savePortfolio(state);
+}
+
+/** Schreibt an Quartalsstichtagen (alle 63 Handelstage) Dividenden für gehaltene Positionen gut. */
+function applyDividends(state: PortfolioState): void {
+  if (state.day <= 0 || state.day % DIVIDEND_INTERVAL_DAYS !== 0) return;
+  for (const [stockId, position] of Object.entries(state.positions)) {
+    if (position.shares <= 0) continue;
+    const stock = stockById(stockId);
+    if (!stock || stock.dividendYield <= 0) continue;
+    // Quartalsdividende je Aktie auf Basis des aktuellen Kurses (konstante Rendite p.a.).
+    const perShare = Math.round(currentPrice(stock, state.day) * (stock.dividendYield / 4) * 100) / 100;
+    if (perShare <= 0) continue;
+    const amount = Math.round(perShare * position.shares * 100) / 100;
+    state.cash += amount;
+    state.dividendsReceived = (state.dividendsReceived ?? 0) + amount;
+    state.transactions.unshift({ day: state.day, stockId, type: "dividend", shares: position.shares, price: perShare });
+  }
 }
 
 export function advanceDay(days = 1): PortfolioState {
@@ -188,6 +350,7 @@ export function advanceDay(days = 1): PortfolioState {
       const stock = stockById(order.stockId);
       if (!stock) continue; // unbekannte Aktie -> Order verwerfen
       const price = currentPrice(stock, state.day);
+      updateTrailingStop(order, price);
       if (!isTriggered(order, price)) {
         remaining.push(order);
         continue;
@@ -198,6 +361,7 @@ export function advanceDay(days = 1): PortfolioState {
       else applySell(state, stock, order.shares, price);
     }
     state.pendingOrders = remaining;
+    applyDividends(state);
   }
   savePortfolio(state);
   return state;

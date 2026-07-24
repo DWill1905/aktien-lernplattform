@@ -1,12 +1,14 @@
+// Dividendenrenditen p.a. sind branchentypisch gewählt: Wachstumswerte (Technologie,
+// Cybersicherheit) schütten nichts aus, defensive Sektoren (Telekom, Einzelhandel) mehr.
 export const STOCKS = [
-    { id: "nwe", name: "NordWind Energie AG", ticker: "NWE", sector: "Erneuerbare Energien", basePrice: 42, drift: 0.0006, volatility: 0.022, seed: 1001 },
-    { id: "bsr", name: "BlauSee Robotics AG", ticker: "BSR", sector: "Technologie", basePrice: 88, drift: 0.0010, volatility: 0.030, seed: 2002 },
-    { id: "alp", name: "Alpin Pharma AG", ticker: "ALP", sector: "Pharma", basePrice: 63, drift: 0.0004, volatility: 0.015, seed: 3003 },
-    { id: "fkh", name: "FrischKauf Handels AG", ticker: "FKH", sector: "Einzelhandel", basePrice: 24, drift: 0.0002, volatility: 0.012, seed: 4004 },
-    { id: "sbb", name: "SolidBau Baustoffe AG", ticker: "SBB", sector: "Industrie", basePrice: 51, drift: 0.0003, volatility: 0.018, seed: 5005 },
-    { id: "mnt", name: "MobilNetz Telekom AG", ticker: "MNT", sector: "Telekommunikation", basePrice: 33, drift: 0.0002, volatility: 0.010, seed: 6006 },
-    { id: "gfa", name: "GrünFeld Agrar AG", ticker: "GFA", sector: "Landwirtschaft", basePrice: 19, drift: 0.0003, volatility: 0.016, seed: 7007 },
-    { id: "css", name: "CyberSchild Systeme AG", ticker: "CSS", sector: "Cybersicherheit", basePrice: 76, drift: 0.0009, volatility: 0.026, seed: 8008 },
+    { id: "nwe", name: "NordWind Energie AG", ticker: "NWE", sector: "Erneuerbare Energien", basePrice: 42, drift: 0.0006, volatility: 0.022, seed: 1001, dividendYield: 0.025 },
+    { id: "bsr", name: "BlauSee Robotics AG", ticker: "BSR", sector: "Technologie", basePrice: 88, drift: 0.0010, volatility: 0.030, seed: 2002, dividendYield: 0 },
+    { id: "alp", name: "Alpin Pharma AG", ticker: "ALP", sector: "Pharma", basePrice: 63, drift: 0.0004, volatility: 0.015, seed: 3003, dividendYield: 0.028 },
+    { id: "fkh", name: "FrischKauf Handels AG", ticker: "FKH", sector: "Einzelhandel", basePrice: 24, drift: 0.0002, volatility: 0.012, seed: 4004, dividendYield: 0.038 },
+    { id: "sbb", name: "SolidBau Baustoffe AG", ticker: "SBB", sector: "Industrie", basePrice: 51, drift: 0.0003, volatility: 0.018, seed: 5005, dividendYield: 0.032 },
+    { id: "mnt", name: "MobilNetz Telekom AG", ticker: "MNT", sector: "Telekommunikation", basePrice: 33, drift: 0.0002, volatility: 0.010, seed: 6006, dividendYield: 0.045 },
+    { id: "gfa", name: "GrünFeld Agrar AG", ticker: "GFA", sector: "Landwirtschaft", basePrice: 19, drift: 0.0003, volatility: 0.016, seed: 7007, dividendYield: 0.03 },
+    { id: "css", name: "CyberSchild Systeme AG", ticker: "CSS", sector: "Cybersicherheit", basePrice: 76, drift: 0.0009, volatility: 0.026, seed: 8008, dividendYield: 0 },
 ];
 function mulberry32(seed) {
     let a = seed;
