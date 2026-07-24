@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Börsenschule – Aktien verstehen und üben</title>
 <meta name="description" content="Interaktive Lernplattform für Aktien-Investment: Grundlagen, Fundamentalanalyse, technische Analyse und ein risikofreier Portfolio-Simulator.">
-<meta name="theme-color" content="#fbfdf9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#101413" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafbfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111318" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://dwill1905.github.io/aktien-lernplattform/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Börsenschule – Aktien verstehen und üben">
@@ -15,33 +15,33 @@
 <meta property="og:locale" content="de_DE">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip-link" href="#app">Zum Inhalt springen</a>
-<header class="topbar">
-  <div class="topbar-left">
-    <a class="brand" href="#/">📈 Börsenschule</a>
-    <a id="topbar-level" class="topbar-level" href="#/erfolge"></a>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Hauptnavigation"></nav>
+
+  <div class="shell-main">
+    <header class="appbar" id="appbar"></header>
+    <div class="shell-content">
+      <main id="app" tabindex="-1"></main>
+      <footer class="footer">
+        <p>Lernplattform zu Bildungszwecken. Keine Anlageberatung. Alle Kurse im Portfolio-Simulator sind fiktiv und werden lokal generiert.</p>
+      </footer>
+    </div>
   </div>
-  <nav class="topnav">
-    <a href="#/modul/grundlagen">Grundlagen</a>
-    <a href="#/modul/fundamentalanalyse">Fundamentalanalyse</a>
-    <a href="#/modul/technische-analyse">Technische Analyse</a>
-    <a href="#/chart-analyse">Chart-Analyzer</a>
-    <a href="#/modul/risikomanagement">Risiko &amp; Trading</a>
-    <a href="#/modul/fortgeschrittene-analyse">Profi-Analyse</a>
-    <a href="#/portfolio">Portfolio-Simulator</a>
-    <a href="#/news-simulator">Event-Trading</a>
-    <a href="#/wiederholung">Wiederholung</a>
-    <a href="#/erfolge">Erfolge</a>
-    <a href="#/glossar">Glossar</a>
-  </nav>
-</header>
-<main id="app" tabindex="-1"></main>
-<footer class="footer">
-  <p>Lernplattform zu Bildungszwecken. Keine Anlageberatung. Alle Kurse im Portfolio-Simulator sind fiktiv und werden lokal generiert.</p>
-</footer>
+</div>
+
+<div class="more-scrim" id="more-scrim" hidden></div>
+<div class="more-sheet" id="more-sheet" role="menu" aria-label="Weitere Werkzeuge" hidden></div>
+
+<nav class="bottomnav" id="bottomnav" aria-label="Hauptnavigation"></nav>
+
 <script type="module" src="js/app.js"></script>
 </body>
 </html>

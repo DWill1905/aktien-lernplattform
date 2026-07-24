@@ -11,7 +11,7 @@ import { renderChecklist } from "./views/checklist.js";
 import { renderAnalyzer } from "./views/analyzer.js";
 import { renderNewsSimulator } from "./views/newssim.js";
 import { renderDailyReview } from "./views/dailyreview.js";
-import { loadGamification, levelForXp } from "./gamification.js";
+import { initShell, updateShell } from "./shell.js";
 
 const app = document.getElementById("app")!;
 
@@ -29,37 +29,9 @@ route("/checkliste", () => mount(app, renderChecklist()));
 
 notFound(() => mount(app, renderDashboard()));
 
-function updateActiveNav(): void {
-  const hash = location.hash || "#/";
-  document.querySelectorAll<HTMLAnchorElement>(".topnav a").forEach((a) => {
-    const key = (a.getAttribute("href") ?? "").replace(/^#\//, "");
-    let active: boolean;
-    if (key.includes("/")) {
-      const moduleId = key.split("/")[1] ?? "";
-      active = new RegExp(`(?:modul|lektion|quiz)/${moduleId}(?:/|$)`).test(hash);
-    } else {
-      // Einzelsegment-Links wie #/portfolio oder #/glossar
-      active = hash.startsWith(`#/${key}`);
-    }
-    a.classList.toggle("active", active);
-    if (active) a.setAttribute("aria-current", "page");
-    else a.removeAttribute("aria-current");
-  });
-}
-
-window.addEventListener("hashchange", updateActiveNav);
-updateActiveNav();
-
-const topbarLevel = document.getElementById("topbar-level");
-function updateTopbarLevel(): void {
-  if (!topbarLevel) return;
-  const { xp } = loadGamification();
-  const info = levelForXp(xp);
-  topbarLevel.textContent = `Lvl ${info.level}`;
-  topbarLevel.title = `${info.title} · ${xp} XP – zu deinen Erfolgen`;
-}
-window.addEventListener("gamification:changed", updateTopbarLevel);
-updateTopbarLevel();
+// Navigation-Rail, Bottom-Navigation und App-Bar (M3-Redesign)
+initShell();
+window.addEventListener("gamification:changed", updateShell);
 
 // Skip-Link fokussiert den Inhalt, ohne den Hash zu ändern (sonst würde der Router feuern).
 document.querySelector<HTMLAnchorElement>(".skip-link")?.addEventListener("click", (e) => {

@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.0.0] - 2026-07-24
+Material-Design-3-Redesign umgesetzt (Quelle: Claude-Design-Projekt „Börsenschule M3 Redesign"):
+- Neue Farbpalette: Indigo-Primary statt Teal, vollständiges oklch-Token-Set (Primary/Secondary/Tertiary/Success/Error, Surface-Container-Stufen, Outline); dunkler Modus konsistent daraus abgeleitet
+- Neue Typografie: Space Grotesk für Überschriften und Kennzahlen, Roboto für Fließtext, Material Symbols als Icon-Font
+- Navigationsumbau: linke Navigation-Rail (Desktop) und Bottom-Navigation (Mobil, < 840 px) mit vier Hauptzielen (Start, Lernen, Portfolio, Erfolge) statt der bisherigen elfgliedrigen Topnav; die übrigen Werkzeuge liegen in einem „Mehr"-Menü
+- Neue Top-App-Bar mit Seitentitel, Elternebene, Zurück-Pfeil sowie Streak- und Level-Chip; auf dem Dashboard stattdessen Markenkopf mit Claim
+- Routenabhängige Lesebreiten (Lektion/Quiz schmaler als Dashboard/Portfolio)
+- Karten auf 16 px Radius und Elevation umgestellt, Modul-Icons als abgerundete Kacheln, Fortschrittsbalken 6 px, Level-Chip in Indigo und Streak in Amber (Farbrollen korrigiert)
+- In-Content-Breadcrumb visuell entfernt (Dopplung zur App-Bar), bleibt für Screenreader erhalten
+
 ## [1.60.0] - 2026-07-24
 UX-Audit umgesetzt (Dashboard):
 - Reset-Button entschärft: aus dem Hauptfluss entfernt (jetzt dezenter Link am Seitenende, per Trennlinie abgesetzt), Bestätigung erfordert jetzt das Eintippen von „ZURÜCKSETZEN" statt eines einfachen OK/Abbrechen-Dialogs
