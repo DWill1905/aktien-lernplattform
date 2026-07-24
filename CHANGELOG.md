@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.58.1] - 2026-07-24
+- README aktualisiert: Merkliste und realisierter Gewinn/Verlust im Simulator ergänzt, Glossar-Umfang auf rund 90 Begriffe korrigiert
+
 ## [1.58.0] - 2026-07-24
 - Glossar von 41 auf 90 Begriffe erweitert: Risiko- und Trading-Vokabular (CRV, R-Multiple, Drawdown, Risk of Ruin), Bewertung (DCF, WACC, ROIC, EV/EBITDA, PEG), Makro (Zinskurve, Sektorrotation), Charttechnik (Divergenz, Konfluenz, Fehlausbruch), Portfolio-Kennzahlen (Sharpe, Beta, Alpha) sowie Derivate und Anlagestile
 

@@ -22,7 +22,8 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Chartmuster, Divergenzen, Portfolio-Kennzahlen, Leerverkauf & Derivate, Anlagestrategien
 - **Portfolio-Simulator** – virtuelles Startkapital von 10.000 €, 8 fiktive Aktien mit
   seeded Random-Walk-Kursen, Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
-  Limit-/Stop-Orders, Positionsgrößen-Rechner, Positionsübersicht, Zeit-Vorspulen, Charts,
+  Limit-/Stop-Orders, Positionsgrößen-Rechner, Merkliste, Positionsübersicht mit realisiertem
+  und unrealisiertem Gewinn/Verlust, Zeit-Vorspulen, Charts,
   Portfolio Health Check (Diversifikations-Score, Klumpenrisiko-Warnungen, Sharpe Ratio,
   Portfolio-Beta, Max Drawdown), Börsen-Stresstest durch 4 historische Krisenszenarien
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
@@ -32,7 +33,8 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Reaktionszeit für Kaufen/Verkaufen/Halten, danach Auswertung mit Erklärung der Kursreaktion
 - **Tägliche Wiederholung** – Leitner-Karteikastensystem für Quizfragen (richtig → längeres
   Intervall, falsch → zurück auf Stufe 1), bis zu 3 fällige Fragen pro Tag
-- **Glossar** – durchsuchbare Sammlung von ~40 Fachbegriffen
+- **Glossar** – durchsuchbare Sammlung von rund 90 Fachbegriffen, von den Grundlagen bis zum
+  Profi-Vokabular (CRV, R-Multiple, Drawdown, DCF, ROIC, Sharpe, Beta, Konfluenz, Hebel …)
 
 Jede Lektion enthält ein Quiz mit direktem Feedback. Fortschritt und Portfolio werden lokal
 im Browser gespeichert (`localStorage`) – keine Anmeldung, kein Backend, keine echten
