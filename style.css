@@ -661,6 +661,21 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 .crash-recommendations li { margin-bottom: 0.4rem; font-size: 0.9rem; }
 
 /* ==========================================================================
+   Event-Trading-Simulator
+   ========================================================================== */
+.news-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+.news-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--md-shape-full);
+  background: var(--md-surface-container-high);
+}
+.news-timer.urgent { background: var(--md-error-container); color: var(--md-on-error-container); }
+.news-card h2 { margin-top: 0; }
+.news-outcome { border: 1px solid var(--md-outline-variant); }
+
+/* ==========================================================================
    Toasts (Level-up / Erfolge)
    ========================================================================== */
 #toast-container {

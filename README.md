@@ -28,6 +28,8 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
 - **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
   Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten
+- **Event-Trading-Simulator** – simulierte Eilmeldungen zu den bestehenden Aktien, 30 Sekunden
+  Reaktionszeit für Kaufen/Verkaufen/Halten, danach Auswertung mit Erklärung der Kursreaktion
 - **Glossar** – durchsuchbare Sammlung von ~40 Fachbegriffen
 
 Jede Lektion enthält ein Quiz mit direktem Feedback. Fortschritt und Portfolio werden lokal

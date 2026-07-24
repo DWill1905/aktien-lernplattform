@@ -128,6 +128,13 @@ export function renderDashboard() {
                     "Kursverläufe Kerze für Kerze abspielen, Linien einzeichnen, SMA/RSI beobachten und an Entscheidungspunkten deine Einschätzung testen.",
                 ]),
             ]),
+            el("a", { class: "card module-card", href: "#/news-simulator" }, [
+                el("div", { class: "icon" }, ["📰"]),
+                el("h3", {}, ["Event-Trading-Simulator"]),
+                el("p", { class: "muted" }, [
+                    "Simulierte Eilmeldungen, 30 Sekunden Reaktionszeit: Kaufen, Verkaufen oder Halten – und verstehen, warum der Markt so reagiert.",
+                ]),
+            ]),
         ]),
     ]);
 }
