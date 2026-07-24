@@ -264,6 +264,14 @@ main#app {
 .module-card:active::after { opacity: 0.08; }
 .module-card .icon { font-size: 1.6rem; }
 .module-card h3 { margin-top: 0.5rem; }
+.module-cta {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--md-primary);
+}
+.module-cta.done { color: var(--md-on-surface-variant); }
 
 /* ==========================================================================
    Linear Progress Indicator
@@ -284,6 +292,15 @@ main#app {
 .overall-progress .label { font-weight: 500; }
 .overall-progress .progress-bar { height: 8px; }
 .overall-progress .btn { margin-top: 0.9rem; font-size: 0.8rem; padding: 0.4rem 0.85rem; }
+.primary-label { font-size: 1.05rem; }
+.primary-progress { height: 10px; margin-bottom: 1.1rem; }
+.gamification-panel {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--md-outline-variant);
+}
+.gamification-panel .level-subtitle,
+.gamification-panel .muted { font-size: 0.75rem; }
 .level-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
 .level-chip {
   font-size: 0.8rem;
@@ -703,6 +720,14 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 .news-outcome { border: 1px solid var(--md-outline-variant); }
 
 .review-row { margin-top: 0.9rem; }
+.review-empty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.review-empty p { margin: 0; }
 
 /* ==========================================================================
    Toasts (Level-up / Erfolge)
@@ -764,4 +789,64 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
     transform: translateY(100vh) rotate(calc(var(--rotate) + 240deg));
     opacity: 0;
   }
+}
+
+/* ==========================================================================
+   Gefahrenzone (destruktive Aktionen, bewusst abgesetzt von den Kernmetriken)
+   ========================================================================== */
+.danger-zone {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--md-outline-variant);
+  text-align: right;
+}
+.btn-ghost-danger {
+  background: none;
+  border: none;
+  color: var(--md-on-surface-variant);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.3rem 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.btn-ghost-danger:hover { color: var(--md-error); }
+
+/* ==========================================================================
+   Bestätigungs-Dialog (getippte Bestätigung für unumkehrbare Aktionen)
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+.modal-dialog {
+  background: var(--md-surface-container-lowest);
+  border-radius: var(--md-shape-lg);
+  padding: 1.5rem;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--md-elevation-3);
+}
+.modal-dialog h3 { margin-top: 0; }
+.modal-hint { margin-bottom: 0.4rem; }
+.modal-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--md-shape-xs);
+  background: var(--md-surface);
+  color: var(--md-on-surface);
+  font: inherit;
+  margin-bottom: 1rem;
+}
+.modal-input:focus {
+  outline: none;
+  border-color: var(--md-primary);
 }

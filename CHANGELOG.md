@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.60.0] - 2026-07-24
+UX-Audit umgesetzt (Dashboard):
+- Reset-Button entschärft: aus dem Hauptfluss entfernt (jetzt dezenter Link am Seitenende, per Trennlinie abgesetzt), Bestätigung erfordert jetzt das Eintippen von „ZURÜCKSETZEN" statt eines einfachen OK/Abbrechen-Dialogs
+- Modul-Karten zeigen jetzt einen expliziten Call-to-Action („Jetzt starten", „Fortsetzen", „Abgeschlossen ✓ Wiederholen") statt nur passiver Fortschrittszahlen
+- Dashboard-Hierarchie neu geordnet: Gesamtfortschritt ist jetzt die primäre, zuerst sichtbare Metrik; Level/Streak/Tagesziel/Wiederholung/Erfolge sind visuell als zusammengehöriger Gamification-Block gruppiert
+- Leerer Zustand der Wiederholungs-Karte verlinkt jetzt direkt auf das nächste offene Quiz statt nur einen Hinweistext zu zeigen
+- Footer-Disclaimer: fehlende Satzzeichen und Großschreibung korrigiert
+
 ## [1.59.0] - 2026-07-24
 - Neue interaktive Profi-Checkliste (#/checkliste): 13 Punkte zu Setup, Risiko/Positionsgröße und Journal, die vor jedem Trade abgehakt werden – mit Live-Fortschritt und Zurücksetzen; vom Dashboard unter „Übungswerkzeuge" verlinkt
 

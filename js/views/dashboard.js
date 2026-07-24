@@ -7,6 +7,7 @@ import { formatCurrency, formatPercent } from "../util.js";
 import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus, isStreakAtRisk } from "../gamification.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
 import { dueCardCount, resetLeitner } from "../spacedrepetition.js";
+import { confirmDestructiveAction } from "../modal.js";
 export function renderDashboard() {
     const progress = loadProgress();
     const portfolio = loadPortfolio();
@@ -36,11 +37,24 @@ export function renderDashboard() {
         ]),
     ]);
     const dueCount = dueCardCount();
+    let nextLesson = null;
+    for (const mod of MODULES) {
+        const lesson = mod.lessons.find((l) => !progress.lessons[l.id]?.completed);
+        if (lesson) {
+            nextLesson = { moduleId: mod.id, lessonId: lesson.id };
+            break;
+        }
+    }
     const reviewRow = dueCount > 0
         ? el("a", { class: "achievements-row review-row", href: "#/wiederholung" }, [
             el("span", {}, [`🔁 ${dueCount} Frage${dueCount === 1 ? "" : "n"} zur Wiederholung fällig →`]),
         ])
-        : el("p", { class: "muted review-row" }, ["🔁 Keine Wiederholungen fällig – beantworte weitere Quizzes, damit hier Karteikarten entstehen."]);
+        : el("div", { class: "review-row review-empty" }, [
+            el("p", { class: "muted" }, ["🔁 Keine Wiederholungen fällig – beantworte weitere Quizzes, damit hier Karteikarten entstehen."]),
+            nextLesson
+                ? el("a", { class: "btn secondary btn-inline", href: `#/quiz/${nextLesson.moduleId}/${nextLesson.lessonId}` }, ["Nächstes Quiz starten →"])
+                : null,
+        ]);
     const unlockedIds = new Set(loadUnlockedAchievements());
     const achievementIcons = ACHIEVEMENTS.map((a) => el("span", { class: `achievement-icon${unlockedIds.has(a.id) ? " unlocked" : ""}`, title: unlockedIds.has(a.id) ? `${a.title}: ${a.description}` : "Noch nicht freigeschaltet" }, [a.icon]));
     const totalLessons = totalLessonCount();
@@ -49,12 +63,14 @@ export function renderDashboard() {
     const moduleCards = MODULES.map((mod) => {
         const done = mod.lessons.filter((l) => progress.lessons[l.id]?.completed).length;
         const pct = mod.lessons.length ? Math.round((done / mod.lessons.length) * 100) : 0;
+        const ctaLabel = done === 0 ? "Jetzt starten →" : done < mod.lessons.length ? "Fortsetzen →" : "Abgeschlossen ✓ Wiederholen";
         return el("a", { class: "module-card", href: `#/modul/${mod.id}` }, [
             el("div", { class: "icon" }, [mod.icon]),
             el("h3", {}, [mod.title]),
             el("p", { class: "muted" }, [mod.description]),
             el("div", { class: "progress-bar" }, [el("span", { style: `width:${pct}%` }, [])]),
             el("p", { class: "muted" }, [`${done} / ${mod.lessons.length} Lektionen abgeschlossen`]),
+            el("span", { class: `module-cta${done === mod.lessons.length ? " done" : ""}` }, [ctaLabel]),
         ]);
     });
     const recordsCard = gamification.longestStreak > 0 || gamification.bestDayXp > 0
@@ -69,16 +85,22 @@ export function renderDashboard() {
             ]),
         ])
         : null;
-    const resetProgressBtn = el("button", { class: "btn secondary" }, ["Lernfortschritt zurücksetzen"]);
+    const resetProgressBtn = el("button", { class: "btn-ghost-danger" }, ["Lernfortschritt zurücksetzen"]);
     resetProgressBtn.addEventListener("click", () => {
-        if (confirm("Gesamten Lernfortschritt zurücksetzen? Alle als gelesen markierten Lektionen und Quiz-Ergebnisse gehen verloren.")) {
-            resetProgress();
-            resetAchievements();
-            resetLeitner();
-            const appRoot = document.getElementById("app");
-            if (appRoot)
-                mount(appRoot, renderDashboard());
-        }
+        confirmDestructiveAction({
+            title: "Lernfortschritt zurücksetzen?",
+            message: "Alle als gelesen markierten Lektionen, Quiz-Ergebnisse, Erfolge und Wiederholungs-Karteikarten gehen unwiderruflich verloren.",
+            confirmWord: "ZURÜCKSETZEN",
+            confirmLabel: "Endgültig zurücksetzen",
+            onConfirm: () => {
+                resetProgress();
+                resetAchievements();
+                resetLeitner();
+                const appRoot = document.getElementById("app");
+                if (appRoot)
+                    mount(appRoot, renderDashboard());
+            },
+        });
     });
     return el("div", {}, [
         el("h1", {}, ["Willkommen in der Börsenschule"]),
@@ -86,26 +108,27 @@ export function renderDashboard() {
             "Lerne die Grundlagen des Aktien-Investments, Fundamentalanalyse und technische Analyse — und probiere dein Wissen risikofrei im Portfolio-Simulator aus.",
         ]),
         el("div", { class: "card overall-progress" }, [
-            el("div", { class: "level-row" }, [
-                el("span", { class: "level-chip" }, [`Level ${levelInfo.level} · ${levelInfo.title}`]),
-                gamification.streak > 0
-                    ? el("span", { class: "streak-chip" }, [`🔥 ${gamification.streak} Tag${gamification.streak === 1 ? "" : "e"} Streak`])
-                    : null,
-                el("span", { class: "muted" }, [`${gamification.xp} XP gesamt`]),
-            ]),
-            el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
-            el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
-            weekRow,
+            el("div", { class: "label primary-label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
+            el("div", { class: "progress-bar primary-progress" }, [el("span", { style: `width:${overallPct}%` }, [])]),
             streakWarning,
-            goalRow,
-            reviewRow,
-            el("a", { class: "achievements-row", href: "#/erfolge" }, [
-                el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),
-                el("div", { class: "achievement-icons" }, achievementIcons),
+            el("div", { class: "gamification-panel" }, [
+                el("div", { class: "level-row" }, [
+                    el("span", { class: "level-chip" }, [`Level ${levelInfo.level} · ${levelInfo.title}`]),
+                    gamification.streak > 0
+                        ? el("span", { class: "streak-chip" }, [`🔥 ${gamification.streak} Tag${gamification.streak === 1 ? "" : "e"} Streak`])
+                        : null,
+                    el("span", { class: "muted" }, [`${gamification.xp} XP gesamt`]),
+                ]),
+                el("div", { class: "progress-bar level-progress" }, [el("span", { style: `width:${levelInfo.pct}%` }, [])]),
+                el("p", { class: "muted level-subtitle" }, [levelSubtitle]),
+                weekRow,
+                goalRow,
+                reviewRow,
+                el("a", { class: "achievements-row", href: "#/erfolge" }, [
+                    el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),
+                    el("div", { class: "achievement-icons" }, achievementIcons),
+                ]),
             ]),
-            el("div", { class: "label" }, [`Dein Lernfortschritt: ${completedLessons} von ${totalLessons} Lektionen (${overallPct} %)`]),
-            el("div", { class: "progress-bar" }, [el("span", { style: `width:${overallPct}%` }, [])]),
-            completedLessons > 0 ? resetProgressBtn : null,
         ]),
         recordsCard ? el("h2", {}, ["Deine Rekorde"]) : null,
         recordsCard,
@@ -152,5 +175,6 @@ export function renderDashboard() {
                 ]),
             ]),
         ]),
+        completedLessons > 0 ? el("div", { class: "danger-zone" }, [resetProgressBtn]) : null,
     ]);
 }
