@@ -101,22 +101,31 @@ export function renderDashboard() {
         recordsCard ? el("h2", {}, ["Deine Rekorde"]) : null,
         recordsCard,
         el("div", { class: "grid" }, moduleCards),
-        el("h2", {}, ["Portfolio-Simulator"]),
-        el("a", { class: "card module-card", href: "#/portfolio" }, [
-            el("div", { class: "icon" }, ["💼"]),
-            el("h3", {}, ["Dein virtuelles Depot"]),
-            el("div", { class: "stat-row" }, [
-                el("div", { class: "stat" }, [
-                    el("div", { class: "label" }, ["Depotwert"]),
-                    el("div", { class: "value" }, [formatCurrency(value)]),
+        el("h2", {}, ["Übungswerkzeuge"]),
+        el("div", { class: "grid" }, [
+            el("a", { class: "card module-card", href: "#/portfolio" }, [
+                el("div", { class: "icon" }, ["💼"]),
+                el("h3", {}, ["Dein virtuelles Depot"]),
+                el("div", { class: "stat-row" }, [
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, ["Depotwert"]),
+                        el("div", { class: "value" }, [formatCurrency(value)]),
+                    ]),
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, ["Gesamtrendite"]),
+                        el("div", { class: `value ${totalReturn >= 0 ? "pos" : "neg"}` }, [formatPercent(totalReturn)]),
+                    ]),
+                    el("div", { class: "stat" }, [
+                        el("div", { class: "label" }, ["Handelstag"]),
+                        el("div", { class: "value" }, [String(portfolio.day)]),
+                    ]),
                 ]),
-                el("div", { class: "stat" }, [
-                    el("div", { class: "label" }, ["Gesamtrendite"]),
-                    el("div", { class: `value ${totalReturn >= 0 ? "pos" : "neg"}` }, [formatPercent(totalReturn)]),
-                ]),
-                el("div", { class: "stat" }, [
-                    el("div", { class: "label" }, ["Handelstag"]),
-                    el("div", { class: "value" }, [String(portfolio.day)]),
+            ]),
+            el("a", { class: "card module-card", href: "#/chart-analyse" }, [
+                el("div", { class: "icon" }, ["📊"]),
+                el("h3", {}, ["Chart-Analyzer"]),
+                el("p", { class: "muted" }, [
+                    "Kursverläufe Kerze für Kerze abspielen, Linien einzeichnen, SMA/RSI beobachten und an Entscheidungspunkten deine Einschätzung testen.",
                 ]),
             ]),
         ]),

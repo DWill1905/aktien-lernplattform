@@ -27,10 +27,22 @@ export function renderModule(moduleId: string): HTMLElement {
     ]);
   });
 
+  const analyzerCallout =
+    mod.id === "technische-analyse"
+      ? el("a", { class: "card module-card analyzer-callout", href: "#/chart-analyse" }, [
+          el("div", { class: "icon" }, ["📊"]),
+          el("h3", {}, ["Im Chart-Analyzer üben"]),
+          el("p", { class: "muted" }, [
+            "Kursverläufe Kerze für Kerze abspielen, Linien einzeichnen, SMA/RSI beobachten und deine Einschätzung testen.",
+          ]),
+        ])
+      : null;
+
   return el("div", {}, [
     el("div", { class: "breadcrumb" }, [el("a", { href: "#/" }, ["Übersicht"]), " / ", mod.title]),
     el("h1", {}, [`${mod.icon} ${mod.title}`]),
     el("p", { class: "muted" }, [mod.description]),
+    analyzerCallout,
     el("ul", { class: "lesson-list" }, items),
   ]);
 }

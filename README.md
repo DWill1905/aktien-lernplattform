@@ -24,6 +24,9 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   seeded Random-Walk-Kursen, Kaufen/Verkaufen mit realistischer Ordergebühr (0,25 %, mind. 1 €),
   Limit-/Stop-Orders, Positionsgrößen-Rechner, Positionsübersicht, Aufteilung nach Branchen,
   Zeit-Vorspulen, Charts
+- **Chart-Analyzer** – historischer Kursverlauf wird Kerze für Kerze abgespielt; Unterstützungs-/
+  Widerstandslinien einzeichnen, SMA(20) und RSI(14) einblenden, an Entscheidungspunkten Kauf/
+  Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten
 - **Glossar** – durchsuchbare Sammlung von ~40 Fachbegriffen
 
 Jede Lektion enthält ein Quiz mit direktem Feedback. Fortschritt und Portfolio werden lokal

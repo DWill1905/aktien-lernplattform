@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.51.0] - 2026-07-24
+- Neuer Chart-Analyzer (#/chart-analyse): historische Kursverläufe werden Kerze für Kerze abgespielt, mit einzeichenbaren Unterstützungs-/Widerstandslinien, SMA(20)- und RSI(14)-Indikator; an regelmäßigen Entscheidungspunkten schätzt man Kauf/Verkauf/Halten ein und erhält direktes Feedback samt Trefferquote. Verlinkt vom Dashboard und aus dem Modul „Technische Analyse".
+
 ## [1.50.0] - 2026-07-23
 - Gamification: Level-Kurve neu balanciert (Level 20 jetzt bei vollständigem, perfektem Durchlauf aller Lektionen/Quizzes inkl. Boni erreichbar statt erst bei ~4x so viel XP); README um Gamification-Abschnitt und korrigierte Modul-/Lektionszahlen ergänzt
 
