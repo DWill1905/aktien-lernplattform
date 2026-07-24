@@ -14,6 +14,7 @@ import {
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 import { burstConfetti } from "../confetti.js";
+import { cardId, recordCardResult } from "../spacedrepetition.js";
 
 export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
   const mod = moduleById(moduleId);
@@ -100,6 +101,7 @@ export function renderQuiz(moduleId: string, lessonId: string): HTMLElement {
       const correctIndex = q.options.findIndex((o) => o.correct);
       const chosenIndex = selected[qi];
       if (chosenIndex === correctIndex) score++;
+      recordCardResult(cardId(mod.id, lesson.id, qi), chosenIndex === correctIndex);
       optionRefs[qi].forEach((node, oi) => {
         node.style.borderColor = "";
         node.setAttribute("aria-disabled", "true");

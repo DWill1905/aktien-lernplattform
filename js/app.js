@@ -9,6 +9,7 @@ import { renderGlossary } from "./views/glossary.js";
 import { renderAchievements } from "./views/achievements.js";
 import { renderAnalyzer } from "./views/analyzer.js";
 import { renderNewsSimulator } from "./views/newssim.js";
+import { renderDailyReview } from "./views/dailyreview.js";
 import { loadGamification, levelForXp } from "./gamification.js";
 const app = document.getElementById("app");
 route("/", () => mount(app, renderDashboard()));
@@ -18,6 +19,7 @@ route("/quiz/:moduleId/:lessonId", (params) => mount(app, renderQuiz(params.modu
 route("/portfolio", () => mount(app, renderPortfolio()));
 route("/chart-analyse", () => mount(app, renderAnalyzer()));
 route("/news-simulator", () => mount(app, renderNewsSimulator()));
+route("/wiederholung", () => mount(app, renderDailyReview()));
 route("/glossar", () => mount(app, renderGlossary()));
 route("/erfolge", () => mount(app, renderAchievements()));
 notFound(() => mount(app, renderDashboard()));

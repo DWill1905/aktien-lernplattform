@@ -5,6 +5,7 @@ import { awardXp, XP_QUIZ_CORRECT, XP_QUIZ_PERFECT_BONUS, levelForXp, loadGamifi
 import { evaluateAchievements } from "../achievements.js";
 import { showToast } from "../toast.js";
 import { burstConfetti } from "../confetti.js";
+import { cardId, recordCardResult } from "../spacedrepetition.js";
 export function renderQuiz(moduleId, lessonId) {
     const mod = moduleById(moduleId);
     const lesson = lessonById(moduleId, lessonId);
@@ -76,6 +77,7 @@ export function renderQuiz(moduleId, lessonId) {
             const chosenIndex = selected[qi];
             if (chosenIndex === correctIndex)
                 score++;
+            recordCardResult(cardId(mod.id, lesson.id, qi), chosenIndex === correctIndex);
             optionRefs[qi].forEach((node, oi) => {
                 node.style.borderColor = "";
                 node.setAttribute("aria-disabled", "true");

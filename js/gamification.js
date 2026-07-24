@@ -22,6 +22,7 @@ export const XP_PERFECT_STREAK_BONUS = 25;
 export const PERFECT_STREAK_MILESTONE = 3;
 export const XP_DAILY_GOAL_BONUS = 15;
 export const DAILY_GOAL = 3;
+export const XP_REVIEW_CORRECT = 3;
 function todayStr() {
     return new Date().toISOString().slice(0, 10);
 }

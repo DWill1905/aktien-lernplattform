@@ -675,6 +675,8 @@ canvas.analyzer-rsi { height: 90px; margin-top: 0.5rem; }
 .news-card h2 { margin-top: 0; }
 .news-outcome { border: 1px solid var(--md-outline-variant); }
 
+.review-row { margin-top: 0.9rem; }
+
 /* ==========================================================================
    Toasts (Level-up / Erfolge)
    ========================================================================== */

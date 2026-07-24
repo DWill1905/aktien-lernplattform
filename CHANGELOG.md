@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.55.0] - 2026-07-24
+- Neue Spaced-Repetition-Quiz-Engine: jede beantwortete Quizfrage wird in ein Leitner-Karteikastensystem einsortiert (richtig → längeres Wiederholungsintervall, falsch → zurück auf Stufe 1). Neue Seite „Tägliche Wiederholung" (#/wiederholung) präsentiert bis zu 3 fällige Fragen; Dashboard zeigt die Anzahl fälliger Wiederholungen an.
+
 ## [1.54.0] - 2026-07-24
 - Neuer Event-Trading-Simulator (#/news-simulator): simulierte Eilmeldungen zu den bestehenden Aktien, 30 Sekunden Reaktionszeit für Kaufen/Verkaufen/Halten, danach Auswertung mit Erklärung der Kursreaktion und laufender Trefferquote. Verlinkt vom Dashboard und aus der Hauptnavigation.
 

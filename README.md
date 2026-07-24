@@ -30,6 +30,8 @@ Portfolio-Simulator mit fiktiven, lokal generierten Aktienkursen sowie ein Gamif
   Verkauf/Halten einschätzen und direktes Feedback samt Trefferquote erhalten
 - **Event-Trading-Simulator** – simulierte Eilmeldungen zu den bestehenden Aktien, 30 Sekunden
   Reaktionszeit für Kaufen/Verkaufen/Halten, danach Auswertung mit Erklärung der Kursreaktion
+- **Tägliche Wiederholung** – Leitner-Karteikastensystem für Quizfragen (richtig → längeres
+  Intervall, falsch → zurück auf Stufe 1), bis zu 3 fällige Fragen pro Tag
 - **Glossar** – durchsuchbare Sammlung von ~40 Fachbegriffen
 
 Jede Lektion enthält ein Quiz mit direktem Feedback. Fortschritt und Portfolio werden lokal

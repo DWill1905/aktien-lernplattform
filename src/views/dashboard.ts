@@ -6,6 +6,7 @@ import { portfolioValue } from "../portfolio.js";
 import { formatCurrency, formatPercent } from "../util.js";
 import { loadGamification, levelProgress, weekActivity, weekdayLabel, dailyGoalStatus, isStreakAtRisk } from "../gamification.js";
 import { ACHIEVEMENTS, loadUnlockedAchievements, resetAchievements } from "../achievements.js";
+import { dueCardCount } from "../spacedrepetition.js";
 
 export function renderDashboard(): HTMLElement {
   const progress = loadProgress();
@@ -43,6 +44,14 @@ export function renderDashboard(): HTMLElement {
       el("span", { style: `width:${Math.min(100, Math.round((goal.count / goal.goal) * 100))}%` }, []),
     ]),
   ]);
+
+  const dueCount = dueCardCount();
+  const reviewRow =
+    dueCount > 0
+      ? el("a", { class: "achievements-row review-row", href: "#/wiederholung" }, [
+          el("span", {}, [`🔁 ${dueCount} Frage${dueCount === 1 ? "" : "n"} zur Wiederholung fällig →`]),
+        ])
+      : el("p", { class: "muted review-row" }, ["🔁 Keine Wiederholungen fällig – beantworte weitere Quizzes, damit hier Karteikarten entstehen."]);
 
   const unlockedIds = new Set(loadUnlockedAchievements());
   const achievementIcons = ACHIEVEMENTS.map((a) =>
@@ -110,6 +119,7 @@ export function renderDashboard(): HTMLElement {
       weekRow,
       streakWarning,
       goalRow,
+      reviewRow,
       el("a", { class: "achievements-row", href: "#/erfolge" }, [
         el("span", { class: "muted" }, [`Erfolge: ${unlockedIds.size} / ${ACHIEVEMENTS.length} →`]),
         el("div", { class: "achievement-icons" }, achievementIcons),
